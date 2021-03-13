@@ -1,0 +1,74 @@
+.background {
+    width: 100vw;
+    height: 100vh;
+    background-color: #e8e9ec;
+    position: absolute;
+}
+
+#rect1 {
+    $width: 70px;
+    $stroke: 3px;
+    $rotate: -70deg;
+    $top: 80vh;
+    $left: 3vw;
+
+    border: solid $stroke #c4c4c4;
+    width: $width;
+    height: $width;
+    transform: rotate($rotate);
+
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+#rect2 {
+    $width: 200px;
+    $stroke: 3px;
+    $rotate: 45deg;
+    $top: 10vh;
+    $left: 20vw;
+
+    border: solid $stroke #c4c4c4;
+    width: $width;
+    height: $width;
+    transform: rotate($rotate);
+
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+#rect3 {
+    $width: 150px;
+    $stroke: 3px;
+    $rotate: -100deg;
+    $top: 0vh;
+    $left: 70vw;
+
+    border: solid $stroke #c4c4c4;
+    width: $width;
+    height: $width;
+    transform: rotate($rotate);
+
+    position: absolute;
+    top: $top;
+    left: $left;
+}
+
+#rect4 {
+    $width: 250px;
+    $stroke: 3px;
+    $rotate: -130deg;
+    $top: 50vh;
+    $left: 60vw;
+
+    border: solid $stroke #c4c4c4;
+    width: $width;
+    height: $width;
+    transform: rotate($rotate);
+
+    position: absolute;
+    top: $top;
+    left: $left;
+}
