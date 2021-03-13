@@ -6,6 +6,7 @@ import CurriculumsApi from "../../../../api/curiculumsApi";
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
+  console.log(id);
   const [DetailCourse, setDetaiCourse] = useState({});
 
   useEffect(async () => {

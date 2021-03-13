@@ -9,7 +9,7 @@ const Header = (props) => {
 
   return (
     <SC.Container>
-      <SC.Logo onClick={() => {}}>
+      <SC.Logo >
         <SC.Img src={logo} />
         <SC.Lin to="/" />
       </SC.Logo>
