@@ -4,8 +4,9 @@ import * as SC from "./style";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isLoginOn } from "../../../../app/authSlide/loginSlide";
+import { getAuthLogin, isLoginOn } from "../../../../app/authSlide/loginSlide";
 import AuthApi from "../../../../api/authApi";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 FormLogIn.propTypes = {};
 
@@ -19,24 +20,25 @@ function FormLogIn(props) {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
 
-  const fetchLogin = useCallback(async() => {
-    axios({
-      method: "POST",
-      url: `${domain}:${port}/api/auth/login`,
-      headers: {
-        "content-type": "application/json",
-      },
-      data: {
-        username: username,
-        password: password,
-      },
-    })
-    // const auth = { username: username, password: password };
-    // await dispatch(AuthApi.Login(auth))
+  const fetchLogin = useCallback(async () => {
+    // axios({
+    //   method: "POST",
+    //   url: `${domain}:${port}/api/auth/login`,
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   data: {
+    //     username: username,
+    //     password: password,
+    //   },
+    // })
+    const auth = { username: username, password: password };
+    await dispatch(getAuthLogin(auth))
       .then((res) => {
-        console.log("response: ", res);
-        if (res.data.user.id) {
-          localStorage.setItem("idUser", res.data.user.id);
+        const result =unwrapResult(res)
+        if (result.user.id) {
+          console.log("response: ",result);
+          localStorage.setItem("idUser", result.user.id);
           setIsLogin(true);
           dispatch(isLoginOn());
         } else {
@@ -50,8 +52,8 @@ function FormLogIn(props) {
   });
 
   const onLogin = (_) => {
-    console.log("username: ", username);
-    console.log("password: ", password);
+    // console.log("username: ", username);
+    // console.log("password: ", password);
 
     fetchLogin();
   };

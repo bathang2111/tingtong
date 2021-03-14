@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   height: 120px;
+  background: #FFFFFF;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -105,7 +106,7 @@ export const CalenDar = styled.button`
   background: none;
 `;
 
-export const Avatar = styled.div`
+export const Avatar = styled(Link)`
   border-radius: 50%;
   background: #000;
   width: 68px;

@@ -7,6 +7,7 @@ import CourseDetailPage from "../features/listCourses/components/courseDetailPag
 import SignUp from "../features/signUp";
 import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
+import UserProfile from "../features/userProfile";
 
 export const Routes = [
   {
@@ -50,6 +51,12 @@ export const Routes = [
     path: "/courses/:id",
     exact: false,
     main: ({ match }) => <CourseDetailPage match={match} />,
+  },
+  {
+    name: "UserProfile",
+    path: "/userprofile",
+    exact: false,
+    main: () => <UserProfile/>,
   },
   {
     name: "Jitsi",

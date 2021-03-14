@@ -25,7 +25,7 @@ const Header = (props) => {
             <SC.CalenDar>
               <SC.Img src={CalendarIcon} />
             </SC.CalenDar>
-            <SC.Avatar />
+            <SC.Avatar to="/userprofile" />
           </SC.Group>
         </>
       ) : (

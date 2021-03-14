@@ -7,9 +7,11 @@ import Tutor from "./compunents/tutor";
 import FilterTutors from "./compunents/filterTutors/FilterTutors";
 import Header from "../../components/header/header";
 import Profile from "../homePage/components/profileModal/profileModal";
+import { Redirect } from "react-router";
 
 const ListTutors = (props) => {
   // const [ListTutors, setListTutors] = useState([]);
+  const isLogin = useSelector((state) => state.login.checkLogin);
   const ListTutors = useSelector((state) => state.tutors);
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const ListTutors = (props) => {
   };
   return (
     <>
+       {isLogin?"":<Redirect to="/"/>}
       {props.match ? (
         <>
           <Header />

@@ -1,24 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import Loader from "./components/loader/Loader";
-import Jitsi from "react-jitsi";
+import React, { useState } from "react";
+import LocalStream from "./components/localStream/localStream";
+import * as SC from "./style";
 
-CallVideo.propTypes = {};
-
-function CallVideo(props) {
-  const [displayName, setDisplayName] = useState("");
-  const [roomName, setRoomName] = useState("");
-  const [password, setPassword] = useState("");
-  const [onCall, setOnCall] = useState(false);
-  const videoRef = useRef();
-
-
+export const CallVideo = () => {
   return (
-    <div>
-      <h1>Call Video</h1>
-      <Jitsi/>
-    </div>
+    <SC.Container>
+      <LocalStream />
+    </SC.Container>
   );
-}
+};
 
 export default CallVideo;

@@ -17,11 +17,11 @@ const Listcourses = createSlice({
     [getCourses.rejected]: (state, action) => {},
     [getCourses.fulfilled]: (state, action) => {
       state = action.payload;
-      return state;     
+      return state;
     },
   },
 });
 
-const {reducer,actions}=Listcourses;
-export const {}=actions;
+const { reducer, actions } = Listcourses;
+export const {} = actions;
 export default reducer;
