@@ -1,18 +1,24 @@
 import { useDispatch } from "react-redux";
-import { ToggleProfileModal ,TutorIdDetail } from "../../../homePage/homePageSlice";
+import {
+  ToggleProfileModal,
+  TutorIdDetail,
+} from "../../../homePage/homePageSlice";
 import * as SC from "./style";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
 
-  const toggleProfileModal=()=>{
+  const toggleProfileModal = () => {
     dispatch(ToggleProfileModal());
     dispatch(TutorIdDetail(props.info.id));
-  }
+  };
   return (
     <SC.Container>
       <SC.InfoGroup>
-        <SC.Avatar src={props.info.avatar} />
+        <SC.Avatar background={props.info.avatar}>
+          {/* <SC.Ava src={props.info.avatar}/> */}
+        </SC.Avatar>
+
         <SC.Info>
           <SC.GroupName>
             <SC.Name>{props.info.name}</SC.Name>
@@ -36,8 +42,10 @@ const Tutor = (props) => {
         <span>{props.info.introduction}</span>
       </SC.Introduce>
       <SC.ButtonGroup>
-        <SC.ProfileButton onClick={toggleProfileModal}>Profile</SC.ProfileButton>
-        <SC.CallButton to="/jitsi">Call</SC.CallButton>
+        <SC.ProfileButton onClick={toggleProfileModal}>
+          Profile
+        </SC.ProfileButton>
+        <SC.CallButton to="/jitsi">Gọi</SC.CallButton>
       </SC.ButtonGroup>
     </SC.Container>
   );

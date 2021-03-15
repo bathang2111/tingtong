@@ -3,6 +3,7 @@ import * as SC from "./style";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
+import Footer from "../../../../components/footer";
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
@@ -41,6 +42,7 @@ const CourseDetailPage = (props) => {
           <SC.SubTitle>Syllabus</SC.SubTitle>
           <SC.Description></SC.Description>
         </SC.RightGroup>
+        <Footer/>
       </SC.Container>
     </>
   );

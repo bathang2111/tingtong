@@ -36,9 +36,12 @@ function FormLogIn(props) {
     await dispatch(getAuthLogin(auth))
       .then((res) => {
         const result =unwrapResult(res)
+        console.log(result);
         if (result.user.id) {
           console.log("response: ",result);
           localStorage.setItem("idUser", result.user.id);
+          localStorage.setItem("token", result.accessToken);
+
           setIsLogin(true);
           dispatch(isLoginOn());
         } else {

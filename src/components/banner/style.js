@@ -2,7 +2,7 @@ import styled from "styled-components";
 import worldmap from "./image/worldMap.png";
 
 export const Container = styled.div`
-  height: 447px;
+  height: 400px;
   width: 100%;
   position: relative;
 `;
@@ -15,15 +15,6 @@ export const BackgroundDeco = styled.div`
   right: 0;
 `;
 
-export const Deco1=styled.div`
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 390px;
-    background: rgba(24, 35, 54, 0.7);
-    display: flex;
-    align-items: center;
-`;
 
 export const Deco2=styled.div`
     position: absolute;

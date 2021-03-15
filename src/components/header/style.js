@@ -3,19 +3,28 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 120px;
-  background: #FFFFFF;
+  height: 70px;
+  background: #ffffff;
   display: flex;
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
-  padding: 0 40px;
+  padding: 0 24px;
+  border-bottom: ;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  height: 3px;
+  background: #e8e9ec;
 `;
 
 export const Logo = styled.div`
   position: relative;
   display: flex;
-  height: 100px;
+  max-width: 183px;
+  height: 100%;
+  box-sizing: border-box;
 `;
 
 export const Lin = styled(Link)`
@@ -24,19 +33,21 @@ export const Lin = styled(Link)`
   height: 100%;
 `;
 
-export const Img = styled.img``;
+export const Img = styled.img`
+  padding: 10px 20px;
+`;
 
 export const BtnLogIn = styled(Link)`
   text-align: center;
   text-decoration: none;
-  width: 100px;
-  height: 60px;
-  line-height: 60px;
+  width: 60px;
+  height: 40px;
+  line-height: 40px;
   background: none;
   border: none;
   border-radius: 15px;
   outline: none;
-  font-size: 22px;
+  font-size: 14px;
   margin-left: auto;
   margin-right: 10px;
   &:hover {
@@ -44,71 +55,70 @@ export const BtnLogIn = styled(Link)`
   }
 `;
 
-export const BtnSignUp = styled.button`
-  width: 168px;
-  height: 64px;
-  box-sizing: border-box;
-  padding: 6px 10px;
-  border-radius: 15px;
-  border: none;
-  outline: none;
-  font-size: 22px;
-  background: #c6c953;
-  color: #ffffff;
-`;
-
 export const TutorLink = styled(Link)`
-  font-size: 20px;
+  font-size: 14px;
   color: #4c4c4c;
-  margin-left: 50px;
+  padding: 6px 8px;
   text-decoration: none;
   text-transform: uppercase;
 `;
 
-export const CoursesLink = styled(TutorLink)`
-  margin-left: 30px;
-`;
+export const CoursesLink = styled(TutorLink)``;
 
 export const Group = styled.div`
   box-sizing: border-box;
-  width: 450px;
-  height: 68px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   margin-left: auto;
-  margin-right: ;
 `;
 
 export const BtnSubcribe = styled.button`
-  height: 55px;
-  width: 160px;
+  height: 44px;
+  width: 100px;
   box-sizing: border-box;
-  border-radius: 15px;
+  border-radius: 10px;
   border: none;
   outline: none;
   font-size: 14px;
   background: #2f8c92;
   color: #ffffff;
-  letter-spacing: 1px;
+  margin-right: 50px;
+`;
+
+export const BtnSignUp = styled(BtnSubcribe)`
+  background: #c6c953;
+  margin-right: 10px;
 `;
 
 export const Message = styled.button`
   outline: none;
   border: none;
   background: none;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  box-sizing-border-box;
+  margin-right:5px;
 `;
 
-export const CalenDar = styled.button`
-  outline: none;
-  border: none;
-  background: none;
+export const CalenDar = styled(Message)``;
+
+export const Icon = styled.img`
+  width: 27px;
+  height: 24px;
 `;
 
-export const Avatar = styled(Link)`
-  border-radius: 50%;
+export const btnAvatar = styled(Link)`
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  padding: 12px;
+`;
+
+export const Avatar = styled.img`
   background: #000;
-  width: 68px;
-  height: 68px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 `;

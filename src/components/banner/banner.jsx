@@ -8,15 +8,9 @@ const Banner = (props) => {
   return (
     <SC.Container>
       <SC.BackgroundDeco />
-      {onLogin ? (
-        <SC.Deco1>
-          <SC.Message>Wellcome to Tingtong</SC.Message>
-        </SC.Deco1>
-      ) : (
-        <SC.Deco2>
-          <SC.Message>Wellcome to Tingtong</SC.Message>
-        </SC.Deco2>
-      )}
+      <SC.Deco2>
+        <SC.Message>Chào mừng đến với Tingtong</SC.Message>
+      </SC.Deco2>
     </SC.Container>
   );
 };

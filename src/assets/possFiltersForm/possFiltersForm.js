@@ -18,7 +18,7 @@ const PossFiltersForm = (props) => {
         SearchTerm: value,
       };
       props.onSubmit(formValue);
-    }, 400);
+    }, 500);
   };
 
   return (

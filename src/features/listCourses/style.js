@@ -7,11 +7,12 @@ export const Container = styled.div`
 `;
 
 export const TypeOfCourse = styled.div`
-  margin-top: 70px;
-  font-size: 40px;
+  margin-top: 40px;
+  font-size: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #3E3E3E;
+  margin-bottom: 8px;
 `;
 
 export const ListCourses = styled.div`

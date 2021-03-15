@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Footer from "../../components/footer";
 import Header from "../../components/header/header";
 import Course from "./components/course/course";
 import { getCourses } from "./coursesSlide";
 import * as SC from "./style.js";
 
 const ListCourses = (props) => {
-  const listCurriculums = useSelector((state) => state.courses);
+  const listCurriculums = useSelector((state) => state.courses.curriculums);
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -54,6 +55,7 @@ const ListCourses = (props) => {
         <SC.TypeOfCourse>english exam</SC.TypeOfCourse>
         <SC.ListCourses>{showListCourses()}</SC.ListCourses>
       </SC.Container> */}
+      <Footer/>
     </>
   );
 };

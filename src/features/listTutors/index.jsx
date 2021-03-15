@@ -7,12 +7,14 @@ import Tutor from "./compunents/tutor";
 import FilterTutors from "./compunents/filterTutors/FilterTutors";
 import Header from "../../components/header/header";
 import Profile from "../homePage/components/profileModal/profileModal";
-import { Redirect } from "react-router";
+import Footer from "../../components/footer";
 
 const ListTutors = (props) => {
   // const [ListTutors, setListTutors] = useState([]);
-  const isLogin = useSelector((state) => state.login.checkLogin);
-  const ListTutors = useSelector((state) => state.tutors);
+  const ListTutors = useSelector((state) => state.tutors.listTutors);
+  const SearchTutors = useSelector(
+    (state) => state.tutors.listTutorsWhenSearch
+  );
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -24,6 +26,13 @@ const ListTutors = (props) => {
   }, []);
 
   const ShowListTutors = () => {
+    if (SearchTutors.length > 0) {
+      const result = SearchTutors.map((tutor) => {
+        return <Tutor key={tutor.id} info={tutor} />;
+      });
+      return result;
+    }
+
     if (ListTutors.length > 0) {
       const result = ListTutors.map((tutor) => {
         return <Tutor key={tutor.id} info={tutor} />;
@@ -35,20 +44,13 @@ const ListTutors = (props) => {
   };
   return (
     <>
-       {isLogin?"":<Redirect to="/"/>}
-      {props.match ? (
-        <>
-          <Header />
-          <SC.Line />
-        </>
-      ) : (
-        ""
-      )}
+      {props.match ? <Header /> : ""}
       <FilterTutors />
       <SC.Container>
-        <Profile/>
-        <SC.OnlineTutors>available tutors</SC.OnlineTutors>
+        <Profile />
+        <SC.OnlineTutors>Gia Sư Đang Online</SC.OnlineTutors>
         <SC.GridTutors>{ShowListTutors()}</SC.GridTutors>
+        <Footer/>
       </SC.Container>
     </>
   );

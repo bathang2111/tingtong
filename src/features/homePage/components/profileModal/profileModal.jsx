@@ -41,7 +41,7 @@ const Profile = (props) => {
         </SC.Pane>
       </SC.GroupInfo>
 
-      <SC.CallVideoButton>Call Now</SC.CallVideoButton>
+      <SC.CallVideoButton>Gọi</SC.CallVideoButton>
       <SC.Line/>
       <SC.VideoIntro src={Tutor.introVideo} />
 

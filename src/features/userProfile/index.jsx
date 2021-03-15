@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
+import Footer from "../../components/footer";
 import Header from "../../components/header/header";
 import * as SC from "./style";
 
@@ -24,6 +25,7 @@ const UserProfile = (props) => {
             <button onClick={logout}>logout</button>
           </SC.Info>
         </SC.Pane>
+        <Footer/>
       </SC.Container>
     </>
   );

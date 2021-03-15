@@ -12,6 +12,9 @@ export const SearchForm = styled.form`
   display: flex;
   flex-direction: row;
   align-items: center;
+  &:hover{
+    border: 1px solid #000;
+  }
 `;
 
 export const SubmitButton = styled.i`

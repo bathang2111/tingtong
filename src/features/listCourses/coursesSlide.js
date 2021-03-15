@@ -8,15 +8,30 @@ export const getCourses = createAsyncThunk(
   }
 );
 
+export const getCoursesByKeyWord = createAsyncThunk(
+  "courses/getCoursesByKeyWord",
+  async (params, thunkAPI) => {
+    const courses = await CurriculumsApi.getCoursesByKeyWord(params);
+    return courses;
+  }
+);
+
 const Listcourses = createSlice({
   name: "listcourses",
-  initialState: [],
+  initialState: { curriculums: [], listCoursesWhenSearch: [] },
   reducers: {},
   extraReducers: {
     [getCourses.pending]: (state) => {},
     [getCourses.rejected]: (state, action) => {},
     [getCourses.fulfilled]: (state, action) => {
-      state = action.payload;
+      state.curriculums = action.payload;
+      return state;
+    },
+
+    [getCoursesByKeyWord.pending]: (state) => {},
+    [getCoursesByKeyWord.rejected]: (state, action) => {},
+    [getCoursesByKeyWord.fulfilled]: (state, action) => {
+      state.listCoursesWhenSearch = action.payload;
       return state;
     },
   },

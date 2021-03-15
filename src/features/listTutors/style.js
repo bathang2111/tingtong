@@ -5,7 +5,7 @@ export const Container = styled.div`
   background: #E8E9EC;
   display: flex;
   flex-direction: column;
-  padding: 0 50px;
+  padding: 0 80px;
 `;
 
 export const Line=styled.div`
@@ -14,8 +14,8 @@ export const Line=styled.div`
   background: #E8E9EC;
 `;
 
-export const OnlineTutors = styled.h1`
-  margin: 10px;
+export const OnlineTutors = styled.h3`
+  margin: 20px 10px;
   padding: 0;
   font-size: 20px;
   color: #88888c;

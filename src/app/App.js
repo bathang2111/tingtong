@@ -1,7 +1,9 @@
 import { Routes } from "../constants/routes";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isLogin = useSelector((state) => state.login.checkLogin);
   const listPage = () => {
     if (Routes) {
       const result = Routes.map((route) => {
@@ -19,7 +21,12 @@ function App() {
     return;
   };
 
-  return <>{listPage()}</>;
+  return (
+    <>
+      {isLogin ? "" : <Redirect to="/" />}
+      {listPage()}
+    </>
+  );
 }
 
 export default App;

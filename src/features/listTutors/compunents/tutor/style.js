@@ -14,7 +14,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   padding: 10px;
   position: relative;
-  margin: 0 0 30px;
+  margin: 0 0 10px;
   &:hover {
     background: rgba(255, 255, 255, 0.7);
   }
@@ -27,11 +27,19 @@ export const InfoGroup = styled.div`
   flex-direction: row;
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled.div`
   width: 95px;
   height: 85px;
   border-radius: 10px;
   margin: 0px;
+  background: url(${props=>props.background});
+  background-size: cover;
+  background-position: center center;
+`;
+
+export const Ava = styled.img`
+  max-width:95px;
+  max-height: 85px;
 `;
 
 export const Info = styled.div`

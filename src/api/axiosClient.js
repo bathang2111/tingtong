@@ -7,8 +7,10 @@ const axiosClien = axios.create({
   }
 });
 
-axiosClien.interceptors.request.use(async (congig) => {
-  return congig;
+axiosClien.interceptors.request.use(async (config) => {
+  const token=localStorage.getItem('token');
+  config.headers.Authorization=`Bearer ${token}`;
+  return config;
 });
 
 axiosClien.interceptors.response.use(
