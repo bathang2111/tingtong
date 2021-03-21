@@ -1,9 +1,21 @@
 import { Routes } from "../constants/routes";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
+import { OpenLobby } from "../features/jitsi/jitsiSlide";
+import ReceiveCallLobby from "../features/jitsi/components/receiveCallLobby";
+import RequestCallLobby from "../features/jitsi/components/requestCallLobby"
+import FeedBack from "../features/feedBack/feedBack";
+
+export const socket = io("localhost:5000", {
+  transports: ["websocket", "polling", "flashsocket"],
+});
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
+  const dispatch = useDispatch();
+
   const listPage = () => {
     if (Routes) {
       const result = Routes.map((route) => {
@@ -24,6 +36,9 @@ function App() {
   return (
     <>
       {isLogin ? "" : <Redirect to="/" />}
+      <FeedBack/>
+      <ReceiveCallLobby />
+      <RequestCallLobby/>
       {listPage()}
     </>
   );

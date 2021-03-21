@@ -1,11 +1,9 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import * as SC from "./style";
-import axios from "axios";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthLogin, isLoginOn } from "../../../../app/authSlide/loginSlide";
-import AuthApi from "../../../../api/authApi";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 FormLogIn.propTypes = {};
@@ -21,17 +19,7 @@ function FormLogIn(props) {
   const dispatch = useDispatch();
 
   const fetchLogin = useCallback(async () => {
-    // axios({
-    //   method: "POST",
-    //   url: `${domain}:${port}/api/auth/login`,
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   data: {
-    //     username: username,
-    //     password: password,
-    //   },
-    // })
+ 
     const auth = { username: username, password: password };
     await dispatch(getAuthLogin(auth))
       .then((res) => {

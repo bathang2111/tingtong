@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./app/App";
 import { Globalstyled } from "./app/GlobalStyle";
 import store from "./app/store";
+import {} from "react-i18next";
 
 ReactDOM.render(
   <Provider store={store}>

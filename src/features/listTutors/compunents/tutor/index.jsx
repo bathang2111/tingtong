@@ -3,10 +3,15 @@ import {
   ToggleProfileModal,
   TutorIdDetail,
 } from "../../../homePage/homePageSlice";
+import { OpenRequestLobby } from "../../../jitsi/jitsiSlide";
 import * as SC from "./style";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
+
+  const handleclick = () => {
+    dispatch(OpenRequestLobby());
+  };
 
   const toggleProfileModal = () => {
     dispatch(ToggleProfileModal());
@@ -45,7 +50,7 @@ const Tutor = (props) => {
         <SC.ProfileButton onClick={toggleProfileModal}>
           Profile
         </SC.ProfileButton>
-        <SC.CallButton to="/jitsi">Gọi</SC.CallButton>
+        <SC.CallButton onClick={handleclick}>Gọi</SC.CallButton>
       </SC.ButtonGroup>
     </SC.Container>
   );

@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../components/footer";
 import Header from "../../components/header/header";
 import Course from "./components/course/course";
+import SearchCourse from "./components/searchCourse";
 import { getCourses } from "./coursesSlide";
 import * as SC from "./style.js";
 
 const ListCourses = (props) => {
   const listCurriculums = useSelector((state) => state.courses.curriculums);
+  const SearchCourses = useSelector(
+    (state) => state.courses.listCoursesWhenSearch
+  );
   const dispatch = useDispatch();
 
   useEffect(async () => {
@@ -22,8 +26,18 @@ const ListCourses = (props) => {
     }
   }, []);
 
-
   const showListCourses = () => {
+    if (SearchCourses.length > 0) {
+      const result = SearchCourses.map((course) => {
+        return <Course key={course.id} course={course} match={props.match} />;
+      });
+      return (
+        <SC.Container style={{ marginTop: "20px" }}>
+          <SC.ListCourses>{result}</SC.ListCourses>
+        </SC.Container>
+      );
+    }
+
     if (listCurriculums.length > 0) {
       const result = listCurriculums.map((curr) => {
         const listCourses = curr.courses.map((course) => {
@@ -32,6 +46,7 @@ const ListCourses = (props) => {
         return (
           <SC.Container>
             <SC.TypeOfCourse>{curr.title}</SC.TypeOfCourse>
+            <SC.Description>{curr.description}</SC.Description>
             <SC.ListCourses>{listCourses}</SC.ListCourses>
           </SC.Container>
         );
@@ -44,6 +59,7 @@ const ListCourses = (props) => {
   return (
     <>
       <Header />
+      <SearchCourse />
       {showListCourses()}
       {/* <SC.Container>
         <SC.TypeOfCourse>beginner</SC.TypeOfCourse>
@@ -55,7 +71,7 @@ const ListCourses = (props) => {
         <SC.TypeOfCourse>english exam</SC.TypeOfCourse>
         <SC.ListCourses>{showListCourses()}</SC.ListCourses>
       </SC.Container> */}
-      <Footer/>
+      <Footer />
     </>
   );
 };

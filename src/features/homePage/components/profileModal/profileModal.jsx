@@ -12,7 +12,6 @@ const Profile = (props) => {
 
   useEffect(async()=>{
     const response=await TutorsApi.getTutorDetail(idTutorDetail);
-    console.log(response);
     setTutor(response);
   },[idTutorDetail]);
 

@@ -117,7 +117,6 @@ export const btnAvatar = styled(Link)`
 `;
 
 export const Avatar = styled.img`
-  background: #000;
   border-radius: 50%;
   width: 40px;
   height: 40px;

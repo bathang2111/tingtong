@@ -4,6 +4,7 @@ import logo from "../../assets/images/logo.svg";
 import MessageIcon from "../../assets/images/messageIcon.png";
 import CalendarIcon from "../../assets/images/calendarIcon.png";
 import { useSelector } from "react-redux";
+import AvatarImg from "../../assets/images/avatar4.png";
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
 
@@ -27,7 +28,7 @@ const Header = (props) => {
                 <SC.Icon src={CalendarIcon} />
               </SC.CalenDar>
               <SC.btnAvatar to="/userprofile">
-                <SC.Avatar />
+                <SC.Avatar src={AvatarImg} />
               </SC.btnAvatar>
             </SC.Group>
           </>

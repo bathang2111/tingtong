@@ -15,7 +15,7 @@ export const Logo = styled.div`
   margin: 10px 0 10px;
 `;
 
-export const FormLogin = styled.form`
+export const FormSignUp = styled.form`
   width: 430px;
   height: 80vh;
 

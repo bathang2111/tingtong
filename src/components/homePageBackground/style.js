@@ -42,7 +42,7 @@ export const Div1 = styled.div`
   width: 100%;
   height: 100%;
   background: #fdbbb8;
-  animation: ${background2} 20s linear infinite;
+  animation: ${background2} 30s ease-in-out infinite;
   clip-path: circle(70% at right -20%);
   z-index: 0;
   transition: 0s;
@@ -53,7 +53,7 @@ export const Div2 = styled.div`
   width: 100%;
   height: 100%;
   background: #ff614f;
-  animation: ${background1} 20s linear infinite;
+  animation: ${background1} 30s ease-in-out infinite;
   clip-path: circle(70% at right -30%);
   z-index: 1;
   transition: 0s;
@@ -80,7 +80,7 @@ export const Logo = styled.div`
   height: 400px;
   border-radius: 50%;
   background: #FFC712;
-  animation: ${logo} 20s linear infinite;
+  animation: ${logo} 30s ease-in-out infinite;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
   top: 10%;
   right: 20%;

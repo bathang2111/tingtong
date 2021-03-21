@@ -7,7 +7,7 @@ export const getAuthLogin = createAsyncThunk("auth/Login", async (params, thunAP
 });
 
 const Login = createSlice({
-  name: "loginStatus",
+  name: "login",
   initialState: {
     auth: {},
     checkLogin: localStorage.getItem("idUser") ? true : false,

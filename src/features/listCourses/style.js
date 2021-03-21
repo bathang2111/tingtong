@@ -11,11 +11,20 @@ export const TypeOfCourse = styled.div`
   font-size: 24px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #3E3E3E;
+  color: #3e3e3e;
   margin-bottom: 8px;
+  padding: 0 10px;
+`;
+
+export const Description = styled.div`
+  width: 75%;
+  color: #333333;
+  font-size: 16px;
+  padding: 10px;
+  line-height: 25px;
 `;
 
 export const ListCourses = styled.div`
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 `;

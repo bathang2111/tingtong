@@ -8,6 +8,7 @@ import FilterTutors from "./compunents/filterTutors/FilterTutors";
 import Header from "../../components/header/header";
 import Profile from "../homePage/components/profileModal/profileModal";
 import Footer from "../../components/footer";
+import { io } from "socket.io-client";
 
 const ListTutors = (props) => {
   // const [ListTutors, setListTutors] = useState([]);
@@ -16,13 +17,10 @@ const ListTutors = (props) => {
     (state) => state.tutors.listTutorsWhenSearch
   );
   const dispatch = useDispatch();
+  const socket =io('');
 
   useEffect(async () => {
     await dispatch(getTutors());
-    // const action = getTutors();
-    // const result = await dispatch(action);
-    // console.log(unwrapResult(result));
-    // setListTutors(unwrapResult(result));
   }, []);
 
   const ShowListTutors = () => {
@@ -50,7 +48,7 @@ const ListTutors = (props) => {
         <Profile />
         <SC.OnlineTutors>Gia Sư Đang Online</SC.OnlineTutors>
         <SC.GridTutors>{ShowListTutors()}</SC.GridTutors>
-        <Footer/>
+        {props.match ? <Footer /> : ""}
       </SC.Container>
     </>
   );

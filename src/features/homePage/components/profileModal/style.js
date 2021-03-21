@@ -14,7 +14,7 @@ export const Contaner = styled(Modal)`
   left: 50%;
   right: auto;
   bottom: auto;
-  marginright: -50%;
+  margin-right: -50%;
   transform: translate(-50%, -50%);
   background: #ffffff;
   outline: none;

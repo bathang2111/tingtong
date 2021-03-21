@@ -42,8 +42,8 @@ const CourseDetailPage = (props) => {
           <SC.SubTitle>Syllabus</SC.SubTitle>
           <SC.Description></SC.Description>
         </SC.RightGroup>
-        <Footer/>
       </SC.Container>
+      <Footer />
     </>
   );
 };
