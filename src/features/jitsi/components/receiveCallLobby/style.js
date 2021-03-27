@@ -25,7 +25,7 @@ export const Container = styled(Modal)`
   bottom: auto;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  background: #777666;
+  background: rgba(0,0,0,0.5);
   outline: none;
   display: flex;
   flex-direction: column;

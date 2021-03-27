@@ -42,51 +42,6 @@ export const Avatar = styled.img`
   background: #fff;
 `;
 
-// const animation = keyframes`
-//   0%{
-//     width: 90px;
-//     height: 90px;
-//   }
-//   15%{
-//     width: 100px;
-//     height: 100px;
-//   }
-//   30%{
-//     width: 110px;
-//     height: 110px;
-//   }
-//   45%{
-//     width: 120px;
-//     height: 120px;
-//   }
-//   60%{
-//     1idth: 130px;
-//     height: 130px;
-//   }
-//   75%{
-//     width: 140px;
-//     height: 140px;
-//   }
-//   90%{
-//     width: 150px;
-//     height: 150px;
-//   }
-//   100%{
-//     width: 160px;
-//     height: 160px;
-//   }
-
-// `;
-
-// export const Animation = styled.div`
-//   animation: ${animation} 1s linear infinite;
-//   transform: 'translateY()',
-//   position: absolute;
-//   background: none;
-//   border: 2px solid rgba(255, 255, 255, 0.7);
-//   border-radius: 0 0 50% 50%;
-// `;
-
 export const Name = styled.h3`
   max-width: 180px;
   font-size: 20px;

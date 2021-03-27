@@ -5,7 +5,8 @@ import * as SC from "./style";
 
 const FilterTutors = (props) => {
   const listTutors = useSelector((state) => state.tutors);
-  const dispatch=useDispatch();
+  const { language } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const onHandleSubmit = async (value) => {
     // const res = await CurriculumsApi.getCoursesByKeyWord(value);
@@ -15,18 +16,18 @@ const FilterTutors = (props) => {
 
   return (
     <SC.Container>
-      <SC.Title>Tìm Kiếm Gia Sư</SC.Title>
+      <SC.Title>{language.searchTutor}</SC.Title>
       <SC.ButtonGroup>
-        <SC.Button>Lession Level</SC.Button>
-        <SC.Button>Tutor Accent</SC.Button>
-        <SC.Button>Tutor Personality</SC.Button>
-        <SC.Button>Avallability</SC.Button>
+        <SC.Button>{language.btnLessonlevel}</SC.Button>
+        <SC.Button>{language.btnTutorAccent}</SC.Button>
+        <SC.Button>{language.btnTutorPersonality}</SC.Button>
+        <SC.Button>{language.btnAvallability}</SC.Button>
       </SC.ButtonGroup>
       {/* form tim kiem */}
       <SC.SearchTutorsGroup>
         <PossFiltersForm
           onSubmit={onHandleSubmit}
-          placeholder="Name, Love, Hobby..."
+          placeholder={language.plHolderTutor}
         />
       </SC.SearchTutorsGroup>
     </SC.Container>

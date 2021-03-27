@@ -10,7 +10,13 @@ export const Container = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 0 24px;
-  border-bottom: ;
+  position: fixed;
+  z-index:3;
+`;
+
+export const SubContainer =styled.div`
+  width: 100%;
+  height: 70px; 
 `;
 
 export const Line = styled.div`

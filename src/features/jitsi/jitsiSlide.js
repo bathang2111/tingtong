@@ -6,6 +6,7 @@ const JitSi = createSlice({
     LobbyRequestCallStatus: false,
     LobbyReceiveCallStatus: false,
     CallerStatus: false,
+    InfoTutor: {},
   },
   reducers: {
     OpenRequestLobby: (state) => {
@@ -24,10 +25,18 @@ const JitSi = createSlice({
       state.LobbyReceiveCallStatus = false;
       return state;
     },
-    SetCallerStatus: (state) => {
+    CallerStatusTrue: (state) => {
       state.CallerStatus = true;
       return state;
     },
+    CallerStatusFalse: (state) => {
+      state.CallerStatus = false;
+      return state;
+    },
+    SetTutorsReceive: (state, action) => {
+      state.InfoTutor = action.payload;
+      return state;
+    }
   },
 });
 
@@ -37,6 +46,8 @@ export const {
   CloseRequestLobby,
   OpenReceiveLobby,
   CloseReceiveLobby,
-  SetCallerStatus,
+  CallerStatusTrue,
+  CallerStatusFalse,
+  SetTutorsReceive,
 } = actions;
 export default reducer;

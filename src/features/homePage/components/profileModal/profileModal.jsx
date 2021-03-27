@@ -21,6 +21,7 @@ const Profile = (props) => {
       onRequestClose={() => dispatch(ToggleProfileModal())}
       style={{
         overlay: {
+          zIndex:"10",
           background: "rgba(0,0,0,0.3)",
         },
       }}

@@ -3,10 +3,18 @@ import * as SC from "./style";
 import logo from "../../assets/images/logo.svg";
 import MessageIcon from "../../assets/images/messageIcon.png";
 import CalendarIcon from "../../assets/images/calendarIcon.png";
-import { useSelector } from "react-redux";
-import AvatarImg from "../../assets/images/avatar4.png";
+import { useDispatch, useSelector } from "react-redux";
+import { ToggleListChat } from "../../features/messenger/messageSlide";
+import { ToggleCalender } from "../calender/calenderSlide";
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
+  const { language } = useSelector((state) => state);
+  const { image } = useSelector((state) => state.userprofile);
+  const dispatch=useDispatch();
+
+  const toggleMessage=()=>{
+    dispatch(ToggleListChat())
+  }
 
   return (
     <>
@@ -17,18 +25,18 @@ const Header = (props) => {
         </SC.Logo>
         {isLogin ? (
           <>
-            <SC.TutorLink to="/student/tutors">Gia Sư</SC.TutorLink>
-            <SC.CoursesLink to="/courses">khóa học</SC.CoursesLink>
+            <SC.TutorLink to="/student/tutors">{language.tutors}</SC.TutorLink>
+            <SC.CoursesLink to="/courses">{language.courses}</SC.CoursesLink>
             <SC.Group>
-              <SC.BtnSubcribe>SUBCRIBE</SC.BtnSubcribe>
-              <SC.Message>
+              <SC.BtnSubcribe>{language.subcribe}</SC.BtnSubcribe>
+              <SC.Message onClick={toggleMessage}>
                 <SC.Icon src={MessageIcon} />
               </SC.Message>
-              <SC.CalenDar>
+              <SC.CalenDar onClick={()=>dispatch(ToggleCalender())} >
                 <SC.Icon src={CalendarIcon} />
               </SC.CalenDar>
               <SC.btnAvatar to="/userprofile">
-                <SC.Avatar src={AvatarImg} />
+                <SC.Avatar src={image} />
               </SC.btnAvatar>
             </SC.Group>
           </>
@@ -39,7 +47,8 @@ const Header = (props) => {
           </>
         )}
       </SC.Container>
-      <SC.Line/>
+      <SC.SubContainer/>
+      <SC.Line />
     </>
   );
 };

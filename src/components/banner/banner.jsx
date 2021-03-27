@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import * as SC from "./style";
 
 const Banner = (props) => {
-  const onLogin = useSelector((state) => state.login.checkLogin);
+  const Language = useSelector((state) => state.language);
 
   return (
     <SC.Container>
       <SC.BackgroundDeco />
       <SC.Deco2>
-        <SC.Message>Chào mừng đến với Tingtong</SC.Message>
+        <SC.Message>{Language.welcome}</SC.Message>
       </SC.Deco2>
     </SC.Container>
   );

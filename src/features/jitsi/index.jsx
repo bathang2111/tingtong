@@ -4,6 +4,7 @@ import * as SC from "./style";
 import { socket } from "../../app/App";
 import { Redirect } from "react-router";
 import { OpenFeedBackLobby } from "../feedBack/feedBackSlide";
+import { CallerStatusFalse } from "./jitsiSlide";
 
 export const CallVideo = () => {
   const [leave, setLeave] = useState(false);
@@ -37,9 +38,11 @@ export const CallVideo = () => {
 
       api.addEventListener("videoConferenceLeft", () => {
         if(CallerStatus){
-          console.log("aaaaaaaaaaaaaaaaaaa");
           dispatch(OpenFeedBackLobby())
+          dispatch(CallerStatusFalse())
+          console.log("trongggggggggggggg");
         }
+        console.log("mgoaiiiiiiiiiiiiii");
         setLeave(true);
       });
     } catch (error) {
@@ -56,6 +59,7 @@ export const CallVideo = () => {
     <>
       {leave ? <Redirect to="/student" /> : ""}
       <SC.Container>
+        <SC.Loader>Connecting...</SC.Loader>
         <SC.JitSiContainer id="jitsi-container" />
       </SC.Container>
     </>

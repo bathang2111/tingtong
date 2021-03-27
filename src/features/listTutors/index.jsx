@@ -13,6 +13,7 @@ import { io } from "socket.io-client";
 const ListTutors = (props) => {
   // const [ListTutors, setListTutors] = useState([]);
   const ListTutors = useSelector((state) => state.tutors.listTutors);
+  const {language}=useSelector(state=>state)
   const SearchTutors = useSelector(
     (state) => state.tutors.listTutorsWhenSearch
   );
@@ -46,7 +47,7 @@ const ListTutors = (props) => {
       <FilterTutors />
       <SC.Container>
         <Profile />
-        <SC.OnlineTutors>Gia Sư Đang Online</SC.OnlineTutors>
+        <SC.OnlineTutors>{language.onlineTutors}</SC.OnlineTutors>
         <SC.GridTutors>{ShowListTutors()}</SC.GridTutors>
         {props.match ? <Footer /> : ""}
       </SC.Container>

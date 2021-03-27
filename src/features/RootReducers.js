@@ -6,6 +6,10 @@ import login from "../app/authSlide/loginSlide";
 import signup from "../app/authSlide/signUpSlide";
 import jitsi from "./jitsi/jitsiSlide";
 import feedback from "./feedBack/feedBackSlide";
+import language from "../lang/translateSlide";
+import userprofile from "./userProfile/userProfileSlide";
+import message from "./messenger/messageSlide"
+import calender from "../components/calender/calenderSlide";
 
 const RootReducers = combineReducers({
   tutors,
@@ -15,6 +19,10 @@ const RootReducers = combineReducers({
   homepage,
   jitsi,
   feedback,
+  language,
+  userprofile,
+  message,
+  calender,
 });
 
 export default RootReducers;

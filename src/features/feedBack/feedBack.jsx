@@ -6,6 +6,7 @@ import { CloseFeedBackLobby } from "./feedBackSlide";
 
 const FeedBack = (props) => {
   const { feedBackStatus } = useSelector((state) => state.feedback);
+  const { InfoTutor } = useSelector((state) => state.jitsi);
   const dispatch = useDispatch();
   const styleStar = {
     background: `${StarIcon}`,
@@ -38,8 +39,8 @@ const FeedBack = (props) => {
       }}
       isOpen={feedBackStatus}
     >
-      <SC.Avatar />
-      <SC.Name>Thang dep trai</SC.Name>
+      <SC.Avatar src={InfoTutor.avatar} />
+      <SC.Name>{InfoTutor.name}</SC.Name>
       <SC.FeedBackGroup>{showStar()}</SC.FeedBackGroup>
       <SC.Form onSubmit={onHandleSubmit}>
         <SC.Note placeholder="FeedBack..." />
@@ -47,6 +48,6 @@ const FeedBack = (props) => {
       </SC.Form>
     </SC.Container>
   );
-};
+}; 
 
 export default FeedBack;

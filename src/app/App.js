@@ -7,6 +7,9 @@ import { OpenLobby } from "../features/jitsi/jitsiSlide";
 import ReceiveCallLobby from "../features/jitsi/components/receiveCallLobby";
 import RequestCallLobby from "../features/jitsi/components/requestCallLobby"
 import FeedBack from "../features/feedBack/feedBack";
+import Message from "../features/messenger";
+import ChatWindow from "../features/messenger/components/chatWindow";
+import Calender from "../components/calender";
 
 export const socket = io("localhost:5000", {
   transports: ["websocket", "polling", "flashsocket"],
@@ -37,6 +40,9 @@ function App() {
     <>
       {isLogin ? "" : <Redirect to="/" />}
       <FeedBack/>
+      <ChatWindow/>
+      <Message/>
+      <Calender/>
       <ReceiveCallLobby />
       <RequestCallLobby/>
       {listPage()}

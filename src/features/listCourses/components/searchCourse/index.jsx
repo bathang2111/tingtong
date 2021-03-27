@@ -5,6 +5,7 @@ import * as SC from "./style";
 
 const SearchCourse = (props) => {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state);
 
   const onHandleSubmit = async (value) => {
     if (value.SearchTerm == "") {
@@ -16,7 +17,7 @@ const SearchCourse = (props) => {
 
   return (
     <SC.Container>
-      <SC.Title>Tìm Kiếm Khóa Học</SC.Title>
+      <SC.Title>{language.searchCourses}</SC.Title>
       <SC.SubTitleGroup>
         <SC.BookImage />
         <SC.SubTitle>
@@ -28,7 +29,7 @@ const SearchCourse = (props) => {
       <SC.SeachCoursesGroup>
         <PossFiltersForm
           onSubmit={onHandleSubmit}
-          placeholder="Name...,Curiculums..."
+          placeholder={language.plHolderCourse}
         />
       </SC.SeachCoursesGroup>
     </SC.Container>

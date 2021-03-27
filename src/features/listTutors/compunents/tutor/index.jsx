@@ -1,15 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ToggleProfileModal,
   TutorIdDetail,
 } from "../../../homePage/homePageSlice";
-import { OpenRequestLobby } from "../../../jitsi/jitsiSlide";
+import { OpenRequestLobby, SetTutorsReceive } from "../../../jitsi/jitsiSlide";
 import * as SC from "./style";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
+  const { language } = useSelector((state) => state);
 
   const handleclick = () => {
+    dispatch(SetTutorsReceive(props.info));
     dispatch(OpenRequestLobby());
   };
 
@@ -50,7 +52,7 @@ const Tutor = (props) => {
         <SC.ProfileButton onClick={toggleProfileModal}>
           Profile
         </SC.ProfileButton>
-        <SC.CallButton onClick={handleclick}>Gọi</SC.CallButton>
+        <SC.CallButton onClick={handleclick}>{language.call}</SC.CallButton>
       </SC.ButtonGroup>
     </SC.Container>
   );

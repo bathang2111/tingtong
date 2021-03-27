@@ -17,7 +17,7 @@ to {
 
 export const Container = styled(Modal)`
   position: absolute;
-  width: 30%;
+  width: 450px;
   overflow: auto;
   top: 50%;
   left: 50%;
@@ -36,7 +36,7 @@ export const Container = styled(Modal)`
   }
 `;
 
-export const Avatar = styled.div`
+export const Avatar = styled.img`
   width: 70px;
   height: 70px;
   background: rgba(0, 0, 0, 0.5);
@@ -53,7 +53,7 @@ export const Name = styled.h6`
 
 export const FeedBackGroup = styled.div`
   height: 40px;
-  width: 240px;
+  width: 260px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
