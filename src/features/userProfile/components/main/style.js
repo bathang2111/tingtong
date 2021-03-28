@@ -3,6 +3,7 @@ import backgroundd from "../../../../assets/images/userProfileBackground.jfif"
 
 export const Container = styled.div`
   box-sizing:border-box;
+  // background: #3fb3bb;
   background: #ffc929; 
   background-size:cover;
   width: calc(100% - 540px);
@@ -21,6 +22,7 @@ export const SetTing = styled.div`
     display: flex;
     flex-direction:column;
     align-items:center;
+    position: relative;
 `;
 
 export const Title = styled.h5`
@@ -61,6 +63,27 @@ export const BtnChange = styled.button`
   border-radius:5px;
   :focus{
     outline: none;
+  }
+`;
+
+export const LogOut = styled.button`
+  height: 30px;
+  width: 75px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  // background: #2f8c92;
+  // background: #ffc929; 
+  background: none;
+  color: #000;
+  position: absolute;
+  bottom:20px;
+  right:20px;
+  &:hover{
+    background: #2f8c92;
+    color:#fff;
   }
 `;
 

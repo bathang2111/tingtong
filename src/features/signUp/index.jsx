@@ -15,6 +15,7 @@ function SignUp(props) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhone] = useState("");
+  const [conFirm, setConfirm] = useState("");
   const dispatch = useDispatch();
 
   const fetchSignUp = useCallback(async () => {
@@ -37,8 +38,10 @@ function SignUp(props) {
   });
 
   const onSignUp = (_) => {
-    // console.log("username: ", username);
-    // console.log("password: ", password);
+   if(password!==conFirm){
+      alert("Confirm password is incorrect!!!")
+      return;
+   }
 
     fetchSignUp();
   };
@@ -46,8 +49,8 @@ function SignUp(props) {
     setPassword(e.target.value);
   };
 
-  const onUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const onConfirmChange = (e) => {
+    setConfirm(e.target.value);
   };
 
   const onNameChange = (e) => {
@@ -82,7 +85,7 @@ function SignUp(props) {
             onChange={onPasswordChange}
             placeholder="PassWord..."
           />
-          <SC.Input type="passWord" placeholder="Confirm PassWord..." />
+          <SC.Input type="passWord" onChange={onConfirmChange} placeholder="Confirm PassWord..." />
           <SC.Input
             type="number"
             onChange={onPhoneChange}

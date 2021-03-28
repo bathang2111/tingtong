@@ -23,7 +23,7 @@ const Tutor = (props) => {
     <SC.Container>
       <SC.InfoGroup>
         <SC.Avatar background={props.info.avatar}>
-          {/* <SC.Ava src={props.info.avatar}/> */}
+          <SC.IsOnline/>
         </SC.Avatar>
 
         <SC.Info>

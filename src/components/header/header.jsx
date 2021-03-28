@@ -43,7 +43,7 @@ const Header = (props) => {
         ) : (
           <>
             <SC.BtnLogIn to="/login">Log In</SC.BtnLogIn>
-            <SC.BtnSignUp>Sign Up</SC.BtnSignUp>
+            <SC.BtnSignUp to="/signup" >Sign Up</SC.BtnSignUp>
           </>
         )}
       </SC.Container>

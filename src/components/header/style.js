@@ -14,7 +14,7 @@ export const Container = styled.div`
   z-index:3;
 `;
 
-export const SubContainer =styled.div`
+export const SubContainer = styled.div`
   width: 100%;
   height: 70px; 
 `;
@@ -92,9 +92,21 @@ export const BtnSubcribe = styled.button`
   margin-right: 50px;
 `;
 
-export const BtnSignUp = styled(BtnSubcribe)`
+export const BtnSignUp = styled(Link)`
+  height: 44px;
+  width: 100px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  // background: #2f8c92;
+  color: #ffffff;
   background: #c6c953;
   margin-right: 10px;
+  text-decoration:none;
+  line-height:44px;
+  text-align:center;
 `;
 
 export const Message = styled.button`

@@ -26,6 +26,7 @@ const MainProfile = (props) => {
     } else {
       dispatch(ChangeLanguageEnglish());
     }
+    localStorage.setItem("lang", e.target.value);
   };
 
   const onBeforeFileLoad = (elem) => {
@@ -78,11 +79,15 @@ const MainProfile = (props) => {
           <SC.Title>{language.setTing}</SC.Title>
           <SC.Pain>
             {language.languaGe}:
-            <SC.Language onChange={onHandleChange}>
+            <SC.Language
+              value={localStorage.getItem("lang")}
+              onChange={onHandleChange}
+            >
               <SC.Desciption>VietNam</SC.Desciption>
               <SC.Desciption>English</SC.Desciption>
             </SC.Language>
           </SC.Pain>
+          <SC.LogOut onClick={logout}>Log Out</SC.LogOut>
         </SC.SetTing>
       )}
     </SC.Container>

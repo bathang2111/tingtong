@@ -9,20 +9,33 @@ import Header from "../../components/header/header";
 import Profile from "../homePage/components/profileModal/profileModal";
 import Footer from "../../components/footer";
 import { io } from "socket.io-client";
-
+const socket = io("http://1.53.228.32:5003/tutor", {
+  query: {
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMzc1MjA5MDUxNzUwOTEzNSIsInVzZXJuYW1lIjoiZG9uYWxkdHJpZXUxIiwiaWF0IjoxNjE2NTU3MDIyLCJleHAiOjE2NDczMTU0MjJ9.YqolBxdNXk2HrZM5A_foyDcnWRBo6P7GmkwRUNzQBKc",
+  },
+});
 const ListTutors = (props) => {
   // const [ListTutors, setListTutors] = useState([]);
   const ListTutors = useSelector((state) => state.tutors.listTutors);
-  const {language}=useSelector(state=>state)
+  const { language } = useSelector((state) => state);
   const SearchTutors = useSelector(
     (state) => state.tutors.listTutorsWhenSearch
   );
   const dispatch = useDispatch();
-  const socket =io('');
+  // const socket =io('');
 
   useEffect(async () => {
     await dispatch(getTutors());
   }, []);
+
+  useEffect( () => {
+    console.log("bbb");
+    socket.on("active",data=>{
+      console.log(data);
+    })
+
+  });
 
   const ShowListTutors = () => {
     if (SearchTutors.length > 0) {

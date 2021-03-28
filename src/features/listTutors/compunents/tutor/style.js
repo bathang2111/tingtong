@@ -28,13 +28,25 @@ export const InfoGroup = styled.div`
 `;
 
 export const Avatar = styled.div`
+  position:relative;
   width: 95px;
   height: 85px;
   border-radius: 10px;
   margin: 0px;
-  background: url(${props=>props.background});
+  background: url(${props => props.background});
   background-size: cover;
   background-position: center center;
+`;
+
+export const IsOnline = styled.div`
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  background: rgb(6, 202, 6);
+  bottom: -5px;
+  right: -5px;
+  border:4px solid #fff;
+  border-radius:50%;
 `;
 
 export const Ava = styled.img`
