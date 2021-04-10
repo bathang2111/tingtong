@@ -14,7 +14,7 @@ export const CallVideo = () => {
 
   const startConference = () => {
     try {
-      const domain = "stream.tingtong.xyz";
+      const domain = "meet.jit.si";
       const options = {
         roomName: "nguyenba thang",
         displayName: "",
@@ -57,7 +57,7 @@ export const CallVideo = () => {
 
   return (
     <>
-      {leave ? <Redirect to="/student" /> : ""}
+      {leave ? <Redirect to="/" /> : ""}
       <SC.Container>
         <SC.Loader>Connecting...</SC.Loader>
         <SC.JitSiContainer id="jitsi-container" />

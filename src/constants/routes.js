@@ -4,6 +4,7 @@ import LogIn from "../features/logIn";
 import ListCourses from "../features/listCourses/index";
 import CallVideo from "../features/jitsi";
 import CourseDetailPage from "../features/listCourses/components/courseDetailPage";
+import LessonDetailPage from "../features/listCourses/components/lessonDetailPage";
 import SignUp from "../features/signUp";
 import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
@@ -11,20 +12,20 @@ import UserProfile from "../features/userProfile";
 
 export const Routes = [
   {
-    name: "HomePage",
-    path: "/",
+    name: "WellCome",
+    path: "/wellcome",
     exact: true,
     main: () => <HomePage />,
   },
   {
     name: "HomePageStudent",
-    path: "/student",
+    path: "/",
     exact: true,
     main: () => <HomePageStudent />,
   },
   {
     name: "ListTutors",
-    path: "/student/tutors",
+    path: "/tutors",
     exact: false,
     main: ({ match }) => <ListTutors match={match} />,
   },
@@ -49,8 +50,14 @@ export const Routes = [
   {
     name: "CourseDetailPage",
     path: "/courses/:id",
-    exact: false,
+    exact: true,
     main: ({ match }) => <CourseDetailPage match={match} />,
+  },
+  {
+    name: "LessonDetail",
+    path: "/courses/:id/:idLesson",
+    exact: true,
+    main: ({ match }) => <LessonDetailPage match={match} />,
   },
   {
     name: "UserProfile",

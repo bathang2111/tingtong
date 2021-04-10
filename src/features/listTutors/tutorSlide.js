@@ -19,12 +19,38 @@ export const getTutorsByKeyWord = createAsyncThunk(
 
 const ListTutors = createSlice({
   name: "listTutors",
-  initialState: {listTutors:[],listTutorsWhenSearch:[]},
-  reducers: {},
+  initialState: {
+    listTutors: [],
+    listTutorsWhenSearch: [],
+    loading: false,
+    error: false,
+  },
+  reducers: {
+    checkTutorOnline: (state, action) => {
+      state.listTutors.map((a) => {
+        if (a.id == action.payload) {
+          a.isOnline = true;
+          return;
+        }
+      });
+      state.listTutors.sort((a, b) => {
+        return b.isOnline - a.isOnline;
+      });
+    },
+  },
   extraReducers: {
-    [getTutors.pending]: (state) => {},
-    [getTutors.rejected]: (state, action) => {},
+    [getTutors.pending]: (state) => {
+      state.loading = true;
+      return state;
+    },
+    [getTutors.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+      return state;
+    },
     [getTutors.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.error = false;
       state.listTutors = action.payload;
       return state;
     },
@@ -38,6 +64,6 @@ const ListTutors = createSlice({
   },
 });
 
-const {reducer,actions}=ListTutors;
-export const {}=actions;
+const { reducer, actions } = ListTutors;
+export const { checkTutorOnline } = actions;
 export default reducer;

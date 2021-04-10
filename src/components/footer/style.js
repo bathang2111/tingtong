@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 200px;
+  height: 150px;
   display: flex;
   flex-direction: row;
   background: #eeeeee;
   padding: 10px 100px 0;
-  margin-top: 100px;
-  border-top:2px solid rgba(0,0,0,0.3);
+  // margin-top: 100px;
+  // border-top:2px solid rgba(0,0,0,0.3);
+  padding: 30px;
 `;
 
 export const Pain = styled.div`

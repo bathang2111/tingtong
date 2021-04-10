@@ -4,7 +4,7 @@ const axiosClien = axios.create({
   baseURL:BASE_URL,
   headers: {
     "Content-Type": "application/json",
-  }
+  },
 });
 
 axiosClien.interceptors.request.use(async (config) => {
@@ -18,7 +18,7 @@ axiosClien.interceptors.response.use(
     if (response && response.data) {
       return response.data;
     }
-    return response;
+    return response.data;
   },
   (error) => {
     throw error;

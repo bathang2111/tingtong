@@ -6,7 +6,7 @@ import { CloseReceiveLobby, OpenReceiveLobby } from "../../jitsiSlide";
 import { Redirect } from "react-router";
 import { useEffect, useState } from "react";
 import ReceiveTheCallRING from "../../../../assets/audio/ReceiveTheCall.mp3";
-import { socket } from "../../../../app/App.js";
+// import { socketTest } from "../../../../app/App.js";
 const ReceiveCallLobby = (props) => {
   const [onCall, setOnCall] = useState(false);
   const dispatch = useDispatch();
@@ -14,23 +14,23 @@ const ReceiveCallLobby = (props) => {
 
   useEffect(() => {
     setOnCall(false);
-    socket.on("CreateTheCalll", (data) => {
-      if (data) {
-        dispatch(OpenReceiveLobby());
-      } else {
-        dispatch(CloseReceiveLobby());
-      }
-    });
+    // socketTest.on("CreateTheCalll", (data) => {
+    //   if (data) {
+    //     dispatch(OpenReceiveLobby());
+    //   } else {
+    //     dispatch(CloseReceiveLobby());
+    //   }
+    // });
   });
 
   const LobbyClose = () => {
     dispatch(CloseReceiveLobby());
-    socket.emit("CancleTheCall", false);
+    // socketTest.emit("CancleTheCall", false);
   };
 
   const CallVideo = () => {
     setOnCall(true);
-    socket.emit("AccessTheCall", true);
+    // socketTest.emit("AccessTheCall", true);
     dispatch(CloseReceiveLobby());
   };
 

@@ -1,23 +1,60 @@
 import { Routes } from "../constants/routes";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
-import { useEffect } from "react";
-import { OpenLobby } from "../features/jitsi/jitsiSlide";
+import io from "socket.io-client";
 import ReceiveCallLobby from "../features/jitsi/components/receiveCallLobby";
-import RequestCallLobby from "../features/jitsi/components/requestCallLobby"
-import FeedBack from "../features/feedBack/feedBack";
-import Message from "../features/messenger";
-import ChatWindow from "../features/messenger/components/chatWindow";
+import RequestCallLobby from "../features/jitsi/components/requestCallLobby";
+import FeedBack from "../features/feedBack";
 import Calender from "../components/calender";
+import ChatWindow from "../features/messenger/chatWindow";
+import ListChat from "../features/messenger/listChat";
+import SmallScreenMenu from "../components/header/components/smallScreenMenu";
+import ListChatTing from "../features/messenger/chatWindow/components/listChating";
+import MessageApi from "../api/messageApi";
+import { useEffect } from "react";
+import { unwrapResult } from "@reduxjs/toolkit";
 
-export const socket = io("localhost:5000", {
+export const socketTutor = io("http://1.53.228.32:5003/tutor", {
   transports: ["websocket", "polling", "flashsocket"],
+  query: {
+    token: localStorage.getItem("token"),
+  },
 });
+
+export const socketChat = io("http://1.53.228.32:5003/chat", {
+  query: localStorage.getItem("token"),
+});
+
+// export const socketTest = io("localhost:5000", {
+//   transports: ["websocket", "polling", "flashsocket"],
+// });
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
-  const dispatch = useDispatch();
+
+  // useEffect(async () => {
+  //   const body = {
+  //     roomName: "thang",
+  //     roomType: 1,
+  //     memberRoom: [
+  //       {
+  //         userID: localStorage.getItem("idUser"),
+  //       },
+  //       {
+  //         userID: "116247190568965126",
+  //       },
+  //     ],
+  //   };
+
+  //   const room = await MessageApi.CreateRoom(body);
+  //   socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
+  //   socketChat.emit("msgToServer", {
+  //     event: "msgToServer",
+  //     room: room.data.id,
+  //     mes_content: "di choi a e oi",
+  //     mes_type: 1,
+  //   });
+  // });
 
   const listPage = () => {
     if (Routes) {
@@ -38,13 +75,15 @@ function App() {
 
   return (
     <>
-      {isLogin ? "" : <Redirect to="/" />}
-      <FeedBack/>
-      <ChatWindow/>
-      <Message/>
-      <Calender/>
+      {isLogin ? "" : <Redirect to="/wellcome" />}
+      <FeedBack />
+      <ChatWindow />
+      <ListChatTing />
+      <ListChat />
+      <Calender />
+      <SmallScreenMenu />
       <ReceiveCallLobby />
-      <RequestCallLobby/>
+      <RequestCallLobby />
       {listPage()}
     </>
   );

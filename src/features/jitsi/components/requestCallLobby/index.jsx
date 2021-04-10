@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
 import IconCancle from "../../../../assets/images/CancelCall.png";
 import { CloseRequestLobby, CallerStatusTrue } from "../../jitsiSlide";
-import { socket } from "../../../../app/App";
+// import { socketTest } from "../../../../app/App";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import { Redirect } from "react-router";
@@ -16,27 +16,27 @@ const RequestCallLobby = (props) => {
   useEffect(() => {
     if (LobbyRequestCallStatus) {
       // tạo cuộc gọi thoai
-      socket.emit("CreateTheCall", true);
+      // socketTest.emit("CreateTheCall", true);
       // bật trạng thái người gọi true
       dispatch(CallerStatusTrue());
     }
     //người nhận từ chối cuộc gọi
-    socket.on("CancleTheCalll", (data) => {
-      dispatch(CloseRequestLobby());
-    });
+    // socketTest.on("CancleTheCalll", (data) => {
+    //   dispatch(CloseRequestLobby());
+    // });
   });
 
   useEffect(() => {
     setOncall(false);
     // lắng nghe sự kiện chấp nhận cuộc gọi
-    socket.on("AccessTheCalll", (data) => {
-      dispatch(CloseRequestLobby());
-      setOncall(true);
-    });
+    // socketTest.on("AccessTheCalll", (data) => {
+    //   dispatch(CloseRequestLobby());
+    //   setOncall(true);
+    // });
   });
 
   const onHandleClick = () => {
-    socket.emit("CreateTheCall", false);
+    // socketTest.emit("CreateTheCall", false);
     dispatch(CloseRequestLobby());
   };
   return (
@@ -47,6 +47,7 @@ const RequestCallLobby = (props) => {
         style={{
           overlay: {
             background: "none",
+            zIndex:10
           },
         }}
       >

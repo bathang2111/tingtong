@@ -15,7 +15,7 @@ function HomePage(props) {
   const isLogin = useSelector((state) => state.login.checkLogin);
   return (
     <SC.Container>
-      {isLogin ? <Redirect to="/student" /> : ""}
+      {isLogin ? <Redirect to="/"/> : ""}
       <Header />
       <Backgroundd />
       <SC.GroupTitle>

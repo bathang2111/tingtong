@@ -87,7 +87,7 @@ const MainProfile = (props) => {
               <SC.Desciption>English</SC.Desciption>
             </SC.Language>
           </SC.Pain>
-          <SC.LogOut onClick={logout}>Log Out</SC.LogOut>
+          <SC.LogOut onClick={logout}>{language.logOut}</SC.LogOut>
         </SC.SetTing>
       )}
     </SC.Container>

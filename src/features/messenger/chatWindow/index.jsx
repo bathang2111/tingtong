@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import MessageHeader from "./components/header";
 import { useRef } from "react";
 import "./style.scss";
+import InputChat from "./components/inputChat";
+import ChatView from "./components/chatView";
 
 const ChatWindow = (props) => {
   const dispatch = useDispatch();
@@ -10,9 +12,7 @@ const ChatWindow = (props) => {
   const ContainerRef = useRef(null);
 
   const toggleChat = (value) => {
-    // if(value){
     ContainerRef.current.classList.toggle("transform");
-    // }
   };
 
   return (
@@ -20,6 +20,8 @@ const ChatWindow = (props) => {
       {isOpenChatWindow ? (
         <SC.Container className="container" ref={ContainerRef}>
           <MessageHeader toggleChat={(value) => toggleChat(value)} />
+          <ChatView />
+          <InputChat />
         </SC.Container>
       ) : null}
     </>

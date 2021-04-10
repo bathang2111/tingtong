@@ -27,6 +27,8 @@ export default {
     saveAvatar:"Save",
     cancelChangeAvatar:"Cancel",
     alertChange:"Avatar will changed???",
+    logOut:"LogOut",
+    userProfile:"Profile",
 
   },
   vn: {
@@ -56,6 +58,7 @@ export default {
     saveAvatar:"Lưu",
     cancelChangeAvatar:"Hủy",
     alertChange:"Bạn chắc chắn muốn thay đổi???",
-
+    logOut:"Đăng Xuất",
+    userProfile:"Cá Nhân"
   },
 };

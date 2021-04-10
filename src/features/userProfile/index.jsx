@@ -10,7 +10,7 @@ const UserProfile = (props) => {
 
   return (
     <>
-      {isLogin ? "" : <Redirect to="/" />}
+      {isLogin ? "" : <Redirect to="/wellcome" />}
       
       <SC.Container>
         <Header />

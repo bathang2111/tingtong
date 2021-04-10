@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import MenuHeader from "../../assets/images/MenuHeader.png";
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 70px;
   background: #ffffff;
   display: flex;
@@ -11,12 +12,15 @@ export const Container = styled.div`
   box-sizing: border-box;
   padding: 0 24px;
   position: fixed;
-  z-index:3;
+  z-index: 3;
+  // @media (max-width: 768px) {
+  //   background: #ff0;
+  // }
 `;
 
 export const SubContainer = styled.div`
   width: 100%;
-  height: 70px; 
+  height: 70px;
 `;
 
 export const Line = styled.div`
@@ -41,6 +45,16 @@ export const Lin = styled(Link)`
 
 export const Img = styled.img`
   padding: 10px 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const ImgSmall = styled.img`
+  padding: :0;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 export const BtnLogIn = styled(Link)`
@@ -67,6 +81,9 @@ export const TutorLink = styled(Link)`
   padding: 6px 8px;
   text-decoration: none;
   text-transform: uppercase;
+  @media (max-width: 665px) {
+    display: none;
+  }
 `;
 
 export const CoursesLink = styled(TutorLink)``;
@@ -90,6 +107,9 @@ export const BtnSubcribe = styled.button`
   background: #2f8c92;
   color: #ffffff;
   margin-right: 50px;
+  @media (max-width: 665px) {
+    display: none;
+  }
 `;
 
 export const BtnSignUp = styled(Link)`
@@ -104,9 +124,9 @@ export const BtnSignUp = styled(Link)`
   color: #ffffff;
   background: #c6c953;
   margin-right: 10px;
-  text-decoration:none;
-  line-height:44px;
-  text-align:center;
+  text-decoration: none;
+  line-height: 44px;
+  text-align: center;
 `;
 
 export const Message = styled.button`
@@ -132,6 +152,27 @@ export const btnAvatar = styled(Link)`
   height: 64px;
   box-sizing: border-box;
   padding: 12px;
+  @media (max-width: 665px) {
+    display: none;
+  }
+`;
+
+export const Menu = styled.button`
+  // margin-right: 5px;
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  // padding: 12px;
+  background: url(${MenuHeader});
+  background-size: cover;
+  background-position: center;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  @media (min-width: 665px) {
+    display: none;
+  }
 `;
 
 export const Avatar = styled.img`

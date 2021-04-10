@@ -1,17 +1,26 @@
 import * as SC from "./style";
 import ChatItem from "./components/chatItem";
 import { useDispatch, useSelector } from "react-redux";
-import { ToggleListChat } from "./messageSlide";
+import { GetRoomHistories, ToggleListChat } from "../messageSlide";
+import { useEffect } from "react/cjs/react.development";
 
-const Message = (props) => {
-  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const ListChat = (props) => {
+  const { roomHistories } = useSelector((state) => state.message);
   const { isOpen } = useSelector((state) => state.message);
+  const { isOpenChatWindow } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
+  useEffect(async () => {
+    await dispatch(GetRoomHistories());
+  }, [isOpenChatWindow]);
+
   const showChatList = () => {
-    const result = a.map((item) => {
-      console.log(item);
-      return <ChatItem />;
+    if (Object.keys(roomHistories).length == 0) {
+      return;
+    }
+    const result = roomHistories.list.map((item) => {
+      // console.log(item);
+      return <ChatItem info={item} />;
     });
     return result;
   };
@@ -33,4 +42,4 @@ const Message = (props) => {
   );
 };
 
-export default Message;
+export default ListChat;

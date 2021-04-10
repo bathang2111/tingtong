@@ -1,4 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import controlapp from "../components/controlSlide";
 import tutors from "./listTutors/tutorSlide";
 import courses from "./listCourses/coursesSlide";
 import homepage from "./homePage/homePageSlice";
@@ -12,6 +13,7 @@ import message from "./messenger/messageSlide"
 import calender from "../components/calender/calenderSlide";
 
 const RootReducers = combineReducers({
+  controlapp,
   tutors,
   courses,
   login,

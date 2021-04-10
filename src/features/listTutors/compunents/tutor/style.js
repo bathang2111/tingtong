@@ -4,11 +4,15 @@ import LoveIcon from "../../../../assets/images/Love.png";
 import StarIcon from "../../../../assets/images/star.png";
 import HaffStarIcon from "../../../../assets/images/HaffStar.png";
 
+export const Pain = styled.div`
+  widows: 410px;
+  padding: 0 5px;
+`;
 export const Container = styled.div`
   font-family: serif;
   transition: all 0.2s;
   width: 390px;
-  height: 300px;
+  height: 270px;
   background: #ffffff;
   border-radius: 10px;
   box-sizing: border-box;
@@ -28,12 +32,12 @@ export const InfoGroup = styled.div`
 `;
 
 export const Avatar = styled.div`
-  position:relative;
+  position: relative;
   width: 95px;
   height: 85px;
   border-radius: 10px;
   margin: 0px;
-  background: url(${props => props.background});
+  background: url(${(props) => props.background});
   background-size: cover;
   background-position: center center;
 `;
@@ -45,12 +49,12 @@ export const IsOnline = styled.div`
   background: rgb(6, 202, 6);
   bottom: -5px;
   right: -5px;
-  border:4px solid #fff;
-  border-radius:50%;
+  border: 4px solid #fff;
+  border-radius: 50%;
 `;
 
 export const Ava = styled.img`
-  max-width:95px;
+  max-width: 95px;
   max-height: 85px;
 `;
 

@@ -1,19 +1,42 @@
 import Header from "../../../../components/header/header";
 import * as SC from "./style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
 import Footer from "../../../../components/footer";
+import { setCourseDetail } from "../../coursesSlide";
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
-  console.log(id);
-  const [DetailCourse, setDetaiCourse] = useState({});
+  const url = props.match.url;
+  const { courseDetail } = useSelector((state) => state.courses);
+  const [lesson, setLessons] = useState({ listLessons: [], length: 0 });
+  const dispatch = useDispatch();
 
   useEffect(async () => {
+    console.log("da choi");
     const response = await CurriculumsApi.getCourseDetail(id);
-    setDetaiCourse(response);
-  }, []);
+    dispatch(setCourseDetail(response));
+    setLessons({
+      listLessons: response.lessons,
+      length: response.lessons.length,
+    });
+  }, [courseDetail]);
+
+  const showLesson = () => {
+    const result = lesson.listLessons.map((les, index) => {
+      const endPoint = les.id;
+      return (
+        <SC.Linkk to={`${url}/${endPoint}`}>
+          <SC.Description>
+            {index + 1} : {les.title}
+          </SC.Description>
+          <SC.Pain />
+        </SC.Linkk>
+      );
+    });
+    return result;
+  };
 
   return (
     <>
@@ -21,26 +44,27 @@ const CourseDetailPage = (props) => {
       <SC.Container>
         <SC.LeftGroup>
           <SC.Avatar>
-            <SC.Image src={DetailCourse.avatar} />
-            <SC.Title>{DetailCourse.name}</SC.Title>
+            <SC.Image src={courseDetail.avatar} />
+            <SC.Title>{courseDetail.name}</SC.Title>
           </SC.Avatar>
           <SC.OtherCourse>Other Courses</SC.OtherCourse>
         </SC.LeftGroup>
         <SC.RightGroup>
           <SC.OverView>OverView</SC.OverView>
-          <SC.Description>{DetailCourse.overview}</SC.Description>
+          <SC.Description>{courseDetail.overview}</SC.Description>
           <SC.SubTitle>Why take this course?</SC.SubTitle>
           <SC.Description></SC.Description>
           <SC.SubTitle>What will you be abe to do?</SC.SubTitle>
           <SC.Description></SC.Description>
           <SC.SubTitle>Experience Level</SC.SubTitle>
-          <SC.Description>Level {DetailCourse.level}</SC.Description>
+          <SC.Description>Level {courseDetail.level}</SC.Description>
           <SC.SubTitle>Course Length</SC.SubTitle>
-          <SC.Description></SC.Description>
+          <SC.Description>{lesson.length} lessons</SC.Description>
           <SC.SubTitle>Pre-requisites</SC.SubTitle>
-          <SC.Description>{DetailCourse.prerequisites}</SC.Description>
+          <SC.Description>{courseDetail.prerequisites}</SC.Description>
           <SC.SubTitle>Syllabus</SC.SubTitle>
-          <SC.Description></SC.Description>
+          <SC.Pain />
+          {showLesson()}
         </SC.RightGroup>
       </SC.Container>
       <Footer />

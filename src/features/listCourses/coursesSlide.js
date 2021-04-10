@@ -18,12 +18,32 @@ export const getCoursesByKeyWord = createAsyncThunk(
 
 const Listcourses = createSlice({
   name: "listcourses",
-  initialState: { curriculums: [], listCoursesWhenSearch: [] },
-  reducers: {},
+  initialState: {
+    curriculums: [],
+    listCoursesWhenSearch: [],
+    courseDetail: {},
+    loading: false,
+    error: false,
+  },
+  reducers: {
+    setCourseDetail: (state, action) => {
+      state.courseDetail = action.payload;
+      return state;
+    },
+  },
   extraReducers: {
-    [getCourses.pending]: (state) => {},
-    [getCourses.rejected]: (state, action) => {},
+    [getCourses.pending]: (state) => {
+      state.loading = true;
+      return state;
+    },
+    [getCourses.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = true;
+      return state;
+    },
     [getCourses.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.error = false;
       state.curriculums = action.payload;
       return state;
     },
@@ -38,5 +58,5 @@ const Listcourses = createSlice({
 });
 
 const { reducer, actions } = Listcourses;
-export const {} = actions;
+export const { setCourseDetail } = actions;
 export default reducer;

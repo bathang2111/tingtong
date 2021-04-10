@@ -19,17 +19,14 @@ function FormLogIn(props) {
   const dispatch = useDispatch();
 
   const fetchLogin = useCallback(async () => {
- 
     const auth = { username: username, password: password };
     await dispatch(getAuthLogin(auth))
       .then((res) => {
-        const result =unwrapResult(res)
+        const result = unwrapResult(res);
         console.log(result);
         if (result.user.id) {
-          console.log("response: ",result);
           localStorage.setItem("idUser", result.user.id);
           localStorage.setItem("token", result.accessToken);
-
           setIsLogin(true);
           dispatch(isLoginOn());
         } else {
@@ -60,7 +57,7 @@ function FormLogIn(props) {
   return (
     <>
       <SC.InputBlock>
-        {isLogin ? <Redirect to="/student" /> : null}
+        {isLogin ? <Redirect to="/" /> : null}
         {isLoginFailed ? <SC.TxtFailed>Login failed</SC.TxtFailed> : ""}
         <SC.Input
           type="text"

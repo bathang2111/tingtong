@@ -5,18 +5,22 @@ import Header from "../../components/header/header";
 import Course from "./components/course/course";
 import SearchCourse from "./components/searchCourse";
 import { getCourses } from "./coursesSlide";
+import Error from "../../components/error";
 import * as SC from "./style.js";
+import Loader from "./components/loader";
 
 const ListCourses = (props) => {
-  const listCurriculums = useSelector((state) => state.courses.curriculums);
+  const Curriculums = useSelector((state) => state.courses);
   const SearchCourses = useSelector(
     (state) => state.courses.listCoursesWhenSearch
   );
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    if (Curriculums.curriculums.length > 0) return;
     try {
       await dispatch(getCourses());
+      console.log("ham dang chay");
       // const action = getCourses();
       // const result = await dispatch(action);
       // console.log(unwrapResult(result));
@@ -38,8 +42,12 @@ const ListCourses = (props) => {
       );
     }
 
-    if (listCurriculums.length > 0) {
-      const result = listCurriculums.map((curr) => {
+    if (Curriculums.loading) {
+      return <Loader />;
+    } else if (Curriculums.error) {
+      return <Error />;
+    } else {
+      const result = Curriculums.curriculums.map((curr) => {
         const listCourses = curr.courses.map((course) => {
           return <Course key={course.id} course={course} match={props.match} />;
         });
@@ -53,7 +61,6 @@ const ListCourses = (props) => {
       });
       return result;
     }
-    return <h3>Data Is Loading...</h3>;
   };
 
   return (

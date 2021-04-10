@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   //   font-family: "Merriweather Sans";
@@ -52,21 +53,35 @@ export const RightGroup = styled.div`
   flex-direction: column;
 `;
 
-export const OverView = styled.h6`
+export const OverView = styled.span`
   padding: 0;
   font-size: 20px;
   margin: 0;
   color: ;#333232;
+  margin-bottom:15px;
 `;
 
-export const SubTitle = styled.h6`
-  font-size: 16px;
+export const SubTitle = styled.span`
+  font-size: 18px;
   padding: 0;
   margin: 30px 0 0;
-  color: #363636;
+  color: ;#000000;
+`;
+
+export const Linkk = styled(Link)`
+  text-decoration: none;
+  &:hover{
+    background: #F5F5F5;
+  }
 `;
 
 export const Description = styled.span`
-  font-size: 20px;
+  font-size: 16px;
   color: #716d6d;
+  margin-top: 10px;
+`;
+
+export const Pain = styled.div`
+  widows: 10px;
+  height: 25px;
 `;

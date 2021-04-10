@@ -1,7 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import Modal from "react-modal";
-import FeedBackIcon from "../../assets/images/feedback.png";
-import StarIcon from "../../assets/images/star.png";
 
 const animation = keyframes`
 from {
@@ -53,26 +51,16 @@ export const Name = styled.h6`
 
 export const FeedBackGroup = styled.div`
   height: 40px;
-  width: 260px;
+  // width: 260px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 6px 0 10px; ;
 `;
 
-export const Star = styled.div`
-  width: 44px;
-  height: 40px;
-  background: url(${FeedBackIcon});
-  background-size: cover;
-  &:hover {
-    transform: scale(1.3);
-  }
-`;
-
 export const Form = styled.form`
   width: 240px;
-  margin: 0;
+  margin: 10px 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
