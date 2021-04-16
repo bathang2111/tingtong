@@ -1,7 +1,7 @@
 version: "3"
 services:
     tingtong_web_student:
-        image: test
+        image: registry.gitlab.com/online-learning-hcmus/client/tingtong
         container_name: tingtong_web_student
         restart: always
         ports:
