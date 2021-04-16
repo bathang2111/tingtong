@@ -19,3 +19,7 @@ export const Container = styled.div`
     z-index: 10;
   }
 `;
+
+export const IsChatTing=styled.div`
+  background: #ff0;
+`;

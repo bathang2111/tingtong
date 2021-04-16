@@ -8,9 +8,6 @@ import { unwrapResult } from "@reduxjs/toolkit";
 
 FormLogIn.propTypes = {};
 
-const domain = "http://115.78.232.219";
-const port = 5000;
-
 function FormLogIn(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

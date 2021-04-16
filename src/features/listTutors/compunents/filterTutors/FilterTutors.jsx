@@ -17,12 +17,12 @@ const FilterTutors = (props) => {
   return (
     <SC.Container>
       <SC.Title>{language.searchTutor}</SC.Title>
-      <SC.ButtonGroup>
+      {/* <SC.ButtonGroup>
         <SC.Button>{language.btnLessonlevel}</SC.Button>
         <SC.Button>{language.btnTutorAccent}</SC.Button>
         <SC.Button>{language.btnTutorPersonality}</SC.Button>
         <SC.Button>{language.btnAvallability}</SC.Button>
-      </SC.ButtonGroup>
+      </SC.ButtonGroup> */}
       {/* form tim kiem */}
       <SC.SearchTutorsGroup>
         <PossFiltersForm

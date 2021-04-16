@@ -13,9 +13,9 @@ export const Container = styled.div`
   padding: 0 24px;
   position: fixed;
   z-index: 3;
-  // @media (max-width: 768px) {
-  //   background: #ff0;
-  // }
+  @media (max-width: 768px) {
+    padding: 0 15px 0 0;
+  }
 `;
 
 export const SubContainer = styled.div`
@@ -52,6 +52,8 @@ export const Img = styled.img`
 
 export const ImgSmall = styled.img`
   padding: :0;
+  width: 90px;
+  height: auto;
   @media (min-width: 768px) {
     display: none;
   }

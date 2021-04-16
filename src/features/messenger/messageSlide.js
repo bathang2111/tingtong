@@ -31,8 +31,9 @@ const Message = createSlice({
   initialState: {
     isOpen: false, // toggle chat list
     isOpenChatWindow: false, //chat box
+    isChatTing: false,
     listChatTing: [], //danh sach cac doan chat dang join room
-    chatContent: { roomId: "", content: {} },
+    chatContent: { roomId: "", name: "", avarar: "", content: {} },
     roomHistories: {}, //list chat
   },
   reducers: {
@@ -67,7 +68,9 @@ const Message = createSlice({
     },
     //set roomid now
     setRoomId: (state, action) => {
-      state.chatContent.roomId = action.payload;
+      state.chatContent.roomId = action.payload.id;
+      state.chatContent.name = action.payload.name;
+      state.chatContent.avarar = action.payload.avarar || "";
       return state;
     },
     //change main chat content:

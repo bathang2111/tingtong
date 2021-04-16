@@ -14,15 +14,17 @@ import MessageApi from "../api/messageApi";
 import { useEffect } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 
-export const socketTutor = io("http://1.53.228.32:5003/tutor", {
-  transports: ["websocket", "polling", "flashsocket"],
+export const socketChat = io("http://103.130.218.64:5003/chat", {
   query: {
     token: localStorage.getItem("token"),
   },
 });
 
-export const socketChat = io("http://1.53.228.32:5003/chat", {
-  query: localStorage.getItem("token"),
+export const socketTutor = io("http://103.130.218.64:5003/tutor", {
+  // transports: ["websocket", "polling", "flashsocket"],
+  query: {
+    token: localStorage.getItem("token"),
+  },
 });
 
 // export const socketTest = io("localhost:5000", {
@@ -34,14 +36,14 @@ function App() {
 
   // useEffect(async () => {
   //   const body = {
-  //     roomName: "thang",
+  //     roomName: "aaaaaaaaa",
   //     roomType: 1,
   //     memberRoom: [
   //       {
-  //         userID: localStorage.getItem("idUser"),
+  //         userID: "117616253337605123",
   //       },
   //       {
-  //         userID: "116247190568965126",
+  //         userID: "117609877995525122",
   //       },
   //     ],
   //   };

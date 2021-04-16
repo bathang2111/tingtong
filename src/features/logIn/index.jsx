@@ -18,10 +18,11 @@ function LogIn(props) {
       {checkLogin ? <Redirect to="/" /> : ""}
       <Background></Background>
       <SC.Container>
-        <SC.Logo>
-          <img src={logo} />
+        <SC.Logo src={logo}>
+          {/* <img src={logo} /> */}
         </SC.Logo>
         <SC.FormLogin>
+          <SC.SmallLogo src={logo} />
           <FormLogIn></FormLogIn>
           <FormLogInAnotherAccount></FormLogInAnotherAccount>
           <FooterLogIn></FooterLogIn>

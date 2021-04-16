@@ -8,6 +8,7 @@ import { PushMessageContent, setNotification } from "../../../messageSlide";
 
 const ChatView = (props) => {
   const { chatContent } = useSelector((state) => state.message);
+  const { isChatTing } = useSelector((state) => state.message);
   const viewRef = useRef(null);
 
   useEffect(() => {

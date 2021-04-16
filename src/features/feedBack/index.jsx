@@ -12,15 +12,20 @@ const FeedBack = (props) => {
   const dispatch = useDispatch();
 
   const ChangeStar = (value) => {
+    console.log(value);
     setStar(value);
   };
 
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     dispatch(CloseFeedBackLobby());
-    console.log("aaa");
-    const res = await FeedBackApi.postFeedBack("91776606011397128");
-    console.log(res);
+    const body = { rating: star, feedback: "" };
+    try {
+      const res = await FeedBackApi.postFeedBack("91776606011397128", body);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

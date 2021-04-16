@@ -38,8 +38,8 @@ const MessageHeader = (props) => {
 
   return (
     <SC.Container className="header" ref={HeaderRef}>
-      <SC.Avatar src={image} />
-      <SC.Name>Thang</SC.Name>
+      <SC.Avatar src={chatContent.avatar || image} />
+      <SC.Name>{chatContent.name}</SC.Name>
       <SC.Pain>
         <SC.ArrowBtn
           className="arrow"

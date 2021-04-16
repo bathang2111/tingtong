@@ -3,6 +3,7 @@ import ChatItem from "./components/chatItem";
 import { useDispatch, useSelector } from "react-redux";
 import { GetRoomHistories, ToggleListChat } from "../messageSlide";
 import { useEffect } from "react/cjs/react.development";
+import { socketChat } from "../../../app/App";
 
 const ListChat = (props) => {
   const { roomHistories } = useSelector((state) => state.message);
@@ -11,8 +12,9 @@ const ListChat = (props) => {
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    if (!isOpen) return;
     await dispatch(GetRoomHistories());
-  }, [isOpenChatWindow]);
+  }, [isOpen]);
 
   const showChatList = () => {
     if (Object.keys(roomHistories).length == 0) {
@@ -33,6 +35,7 @@ const ListChat = (props) => {
         overlay: {
           background: "none",
           zIndex: 10,
+
         },
       }}
     >

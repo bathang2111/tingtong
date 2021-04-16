@@ -3,13 +3,24 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   height: 120px;
-  padding-left: 50px;
+  padding: 50px;
   position: relative;
+  display: flex;
+  align-items: center;
+  @media (max-width: 665px) {
+    flex-direction: column;
+    padding: 5px;
+    height: 80px;
+  }
 `;
 
 export const Title = styled.h2`
   color: #545455;
-  // padding: 0;
+  padding: 0;
+  margin: 0;
+  @media (max-width: 665px) {
+    font-size: 16px;
+  }
 `;
 
 export const ButtonGroup = styled.div`
@@ -32,13 +43,21 @@ export const Button = styled.button`
 `;
 
 export const SearchTutorsGroup = styled.div`
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  // position: absolute;
+  // bottom: 20px;
+  // right: 20px;
+  margin-left: auto;
   outline: none;
   width: 300px;
   height: 47px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media (max-width: 665px) {
+    flex-direction: column;
+    padding: 5px;
+    width: 200px;
+    height: 40px;
+    margin-left: 0;
+  }
 `;

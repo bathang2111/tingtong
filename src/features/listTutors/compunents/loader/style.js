@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const animation =keyframes`
+const animation = keyframes`
     from {
         background: rgba(0,0,0,0.4);
     }
@@ -19,5 +19,5 @@ export const Item = styled.div`
   box-sizing: border-box;
   padding: 10px;
   position: relative;
-  margin: 0 0 10px;
+  margin: 0 5px 10px;
 `;

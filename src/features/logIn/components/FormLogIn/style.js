@@ -3,8 +3,10 @@ import styled from "styled-components";
 export const InputBlock = styled.div`
   display: flex;
   flex-direction: column;
-
   margin-top: 30px;
+  // 2media(max-width:450px) {
+    margin-top: 0;
+  // }
 `;
 
 export const Input = styled.input`

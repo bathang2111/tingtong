@@ -41,9 +41,13 @@ const MainProfile = (props) => {
   };
 
   const saveImage = () => {
+   if( window.confirm(`${language.alertChange}`)){
     dispatch(SaveAvatar(imageAfterChange));
     dispatch(ChangeAvatar());
-    alert(`${language.alertChange}`);
+   }else{
+     return
+   }
+    
   };
 
   const cancleChange = () => {

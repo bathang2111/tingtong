@@ -2,7 +2,12 @@ import * as SC from "./style";
 import SendIcon from "../../../../../assets/images/SendIcon.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PushMessageContent, setNotification } from "../../../messageSlide";
+import {
+  CloseIsChatTing,
+  OpenIsChatTing,
+  PushMessageContent,
+  setNotification,
+} from "../../../messageSlide";
 import { socketChat } from "../../../../../app/App";
 import { useEffect } from "react";
 
@@ -17,28 +22,6 @@ const InputChat = (props) => {
     console.log("play");
     socketChat.on("msgToClient", (data) => {
       setMessage(data);
-      // console.log(chatContent);
-      // if (chatContent.roomId == "") return;
-      // if (data.senderId == localStorage.getItem("idUser")) return;
-      // if (data.roomId == chatContent.roomId) {
-      //   console.log("trung r");
-      //   const chatt = { senderId: data.senderId, mesContent: data.mesContent };
-      //   dispatch(PushMessageContent(chatt));
-      //   return;
-      // } else {
-      //   console.log("k trung  ");
-      //   listChatTing.forEach((item) => {
-      //     if (item.roomId == data.roomId) {
-      //       const chatt = {
-      //         senderId: data.senderId,
-      //         mesContent: data.mesContent,
-      //       };
-      //       const payload = { id: item.roomId, content: chatt };
-      //       dispatch(setNotification(payload));
-      //       return;
-      //     }
-      //   });
-      // }
     });
   }, []);
 

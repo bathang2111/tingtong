@@ -79,7 +79,7 @@ export const Logo = styled.div`
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  background: #FFC712;
+  background: #ffc712;
   animation: ${logo} 30s ease-in-out infinite;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
   top: 10%;
@@ -88,6 +88,18 @@ export const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 450px) {
+    width: 250px;
+    height: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const rotate = keyframes`

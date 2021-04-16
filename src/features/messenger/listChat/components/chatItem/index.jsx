@@ -17,21 +17,31 @@ const ChatItem = (props) => {
   const dispatch = useDispatch();
 
   const toggleChatWindow = async () => {
-    if (isOpenChatWindow && chatContent.roomId == props.info.roomId) {
+    if (isOpenChatWindow && chatContent.roomId == props.info.room_id) {
       dispatch(ToggleListChat());
       return;
     }
     dispatch(OpenChatWindow());
     dispatch(ToggleListChat());
-    const content = await dispatch(GetContentByRoomId(props.info.roomId)); // get all mesages in conversation
-    dispatch(setRoomId(props.info.roomId));
-    socketChat.emit("joinRoom", { event: "joinRoom", room: props.info.roomId }); // emit event join rôm
+    const content = await dispatch(GetContentByRoomId(props.info.room_id)); // get all mesages in conversation
+    const userChatTing = {
+      id: props.info.room_id,
+      name: props.info.username,
+      avatar: props.info.avatar,
+    };
+    dispatch(setRoomId(userChatTing));
+    socketChat.emit("joinRoom", {
+      event: "joinRoom",
+      room: props.info.room_id,
+    }); // emit event join rôm
 
     //Save to list chatTing
     dispatch(
       PushChatTing({
-        roomId: props.info.roomId,
+        roomId: props.info.room_id,
         chatContent: unwrapResult(content),
+        avatar: props.info.avatar,
+        name: props.info.username,
         notification: 0,
       })
     );
@@ -41,12 +51,12 @@ const ChatItem = (props) => {
     <SC.Container onClick={toggleChatWindow}>
       <SC.Avatar src={image} />
       <SC.Pain>
-        <SC.Name>{props.info.messages.senderId}</SC.Name>
+        <SC.Name>{props.info.username}</SC.Name>
         <SC.LastMessage>
-          {props.info.messages.senderId == localStorage.getItem("idUser")
+          {props.info.receiver_id == localStorage.getItem("idUser")
             ? "Bạn: "
-            : "Other: "}
-          {props.info.messages.mesContent}
+            : props.info.username + ": "}
+          {props.info.mes_content}
         </SC.LastMessage>
       </SC.Pain>
     </SC.Container>

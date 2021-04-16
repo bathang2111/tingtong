@@ -7,10 +7,18 @@ export const Container = styled.div`
   border-radius: 10px;
   padding: 10px 20px;
   position: relative;
+  @media (max-width: 665px) {
+    margin: 0px;
+    width: 100%;
+    border-radius: 0;
+  }
 `;
 
 export const Title = styled.h2`
   color: #000000;
+  @media (max-width: 665px) {
+    font-size: 16px;
+  }
 `;
 
 export const SeachCoursesGroup = styled.div`
@@ -22,6 +30,12 @@ export const SeachCoursesGroup = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media (max-width: 665px) {
+    flex-direction: column;
+    // padding: 5px;
+    width: 200px;
+    margin-left: 0;
+  }
 `;
 
 export const SubTitleGroup = styled.div`
@@ -30,6 +44,9 @@ export const SubTitleGroup = styled.div`
   top: 35px;
   display: flex;
   flex-direction: row;
+  @media (max-width: 955px) {
+    display: none;
+  }
 `;
 
 export const BookImage = styled.div`

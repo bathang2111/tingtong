@@ -4,6 +4,10 @@ export const Container = styled.div`
   margin: 0 100px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 665px) {
+    margin: 0;
+    padding: 10px;
+  }
 `;
 
 export const TypeOfCourse = styled.div`
@@ -27,4 +31,8 @@ export const Description = styled.div`
 export const ListCourses = styled.div`
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 568px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;

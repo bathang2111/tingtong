@@ -23,6 +23,7 @@ export const OnlineTutors = styled.h3`
   @media (max-width: 665px) {
     font-size: 16px;
     margin: 10px 0;
+    padding: 0 0 0 10px;
   }
 `;
 
@@ -36,6 +37,7 @@ export const GridTutors = styled.div`
   max-width: 1200px;
   display: flex;
   flex-wrap: wrap;
+  width: 1200px;
   // background: #ff0;
   @media (max-width: 1189px) {
     // max-width:800px;
