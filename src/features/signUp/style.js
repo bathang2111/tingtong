@@ -59,6 +59,7 @@ export const Input = styled.input`
   border: 2px solid #dfe1e6;
   background: #fafbfc;
   color: #7b7e84;
+  border-radius: 20px;
   font-size: 15px;
   margin-top: 20px;
   ::placeholder {
@@ -76,6 +77,7 @@ export const SignUpButton = styled.button`
   background: #5aac44;
   color: #ffffff;
   font-size: 15px;
+  border-radius: 20px;
   border: none;
   :focus {
     outline: none;

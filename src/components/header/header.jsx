@@ -24,7 +24,7 @@ const Header = (props) => {
         <SC.Logo>
           <SC.Img src={logo} />
           <SC.ImgSmall src={LogoSmall} />
-          <SC.Lin to="/" />
+          {isLogin?<SC.Lin to="/" />:<SC.Lin to="/wellcome"/>}
         </SC.Logo>
         {isLogin ? (
           <>

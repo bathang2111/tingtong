@@ -95,7 +95,7 @@ function SignUp(props) {
           </SC.SignUpButton>
           {err ? (
             <SC.SignUpFalse>
-              Email or username name already exists
+              Email or username already exists
             </SC.SignUpFalse>
           ) : (
             ""

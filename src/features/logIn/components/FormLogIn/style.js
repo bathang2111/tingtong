@@ -4,8 +4,8 @@ export const InputBlock = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  // 2media(max-width:450px) {
-    margin-top: 0;
+  // @media (max-width: 450px) {
+  //   margin-top: -20px;
   // }
 `;
 
@@ -23,18 +23,21 @@ export const Input = styled.input`
   outline-color: #4f81ee;
 `;
 
-export const Button = styled.input`
+export const Button = styled.button`
   width: 265px;
   height: 35px;
   border: 0px;
   background-color: #5aac44;
-
   color: white;
   font-weight: bold;
   outline-color: black;
+  border-radius:20px;
   &.hover {
     background-color: #6ecc53;
     cursor: pointer;
+  };
+  &:focus{
+    outline: none;
   }
 `;
 
