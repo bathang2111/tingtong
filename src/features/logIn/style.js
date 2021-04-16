@@ -45,5 +45,6 @@ export const FormLogin = styled.div`
   @media (max-width: 450px) {
     width: 100vw;
     height: 100vh;
+    padding: 50px 0;
   } ;
 `;

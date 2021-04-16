@@ -16,6 +16,9 @@ export const Container = styled.div`
   @media (max-width: 768px) {
     padding: 0 15px 0 0;
   }
+  @media (max-width: 450px) {
+    padding: 0;
+  }
 `;
 
 export const SubContainer = styled.div`
@@ -35,6 +38,9 @@ export const Logo = styled.div`
   max-width: 183px;
   height: 100%;
   box-sizing: border-box;
+  @media (max-width: 450px) {
+    height: auto;
+  }
 `;
 
 export const Lin = styled(Link)`
@@ -56,6 +62,10 @@ export const ImgSmall = styled.img`
   height: auto;
   @media (min-width: 768px) {
     display: none;
+  };
+  @media (max-width: 450px) {
+    width: 70px;
+    height: auto;
   }
 `;
 
@@ -129,6 +139,12 @@ export const BtnSignUp = styled(Link)`
   text-decoration: none;
   line-height: 44px;
   text-align: center;
+  @media (max-width: 450px) {
+    width: 60px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 4px;
+  }
 `;
 
 export const Message = styled.button`
@@ -164,6 +180,7 @@ export const Menu = styled.button`
   width: 28px;
   height: 28px;
   box-sizing: border-box;
+  margin-right: 15px;
   // padding: 12px;
   background: url(${MenuHeader});
   background-size: cover;

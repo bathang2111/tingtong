@@ -26,9 +26,15 @@ export const GroupIcon = styled.div`
   justify-content: space-around;
 `;
 
+export const Parent=styled.div`
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+`;
+
 export const Image = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   filter: grayscale(100%);
   opacity: 0.5;
 `;

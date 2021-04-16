@@ -67,7 +67,7 @@ function FormLogIn(props) {
           onChange={onPasswordChange}
         />
       </SC.InputBlock>
-      <SC.Button type="button" value="Log In" onClick={onLogin}></SC.Button>
+      <SC.Button type="button" onClick={onLogin}>Log In</SC.Button>
     </>
   );
 }
