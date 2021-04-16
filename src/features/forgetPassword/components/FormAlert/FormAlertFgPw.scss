@@ -1,0 +1,34 @@
+.backgroundCardAlFgPw {
+    background-color: white;
+    width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerAlFgPw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#msgAlFgPw {
+    width: 250px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+#btnHomePageFgPw {
+    width: 250px;
+    height: 35px;
+    border: 0px;
+    background-color: #5aac44;
+
+    color: white;
+    font-weight: bold;
+    outline-color: black;
+
+    margin-bottom: 15px;
+}

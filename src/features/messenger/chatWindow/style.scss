@@ -1,0 +1,20 @@
+.container {
+  transition: all 0.3s;
+  &.transform {
+    transform: translateY(402px);
+  }
+}
+
+.header {
+  transition: all 0.3s;
+  &.changeBackground {
+    background: #ffc929;
+  };
+}
+
+.arrow {
+  &.rotate {
+    transition: all 0.3s;
+    transform: rotate(90deg);
+  }
+}
