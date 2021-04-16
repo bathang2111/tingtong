@@ -1,0 +1,49 @@
+variables:
+    CI_JOB_USER: tingtong
+    CI_JOB_TOKEN: yuyz3-Uzq9xjKiQFiwZF
+    CI_REGISTRY_IMAGE: registry.gitlab.com/online-learning-hcmus/client/tingtong
+    SERVER: 115.78.232.219
+
+stages:
+    - build
+    - deploy
+
+build-staging:
+    image: docker:stable
+    stage: build
+    only:
+        - dev
+    services:
+        - docker:dind
+    script:
+        - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY_IMAGE
+        - docker build -t $CI_REGISTRY_IMAGE .
+        - docker push $CI_REGISTRY_IMAGE
+
+deploy-staging:
+    image: docker:stable
+    stage: deploy
+    only:
+        - dev
+    services:
+        - docker:dind
+    before_script:
+        - apk --update add openssh-client
+        - eval $(ssh-agent -s)
+        - cat keys/id_rsa | tr -d '\r' | ssh-add - > /dev/null
+        - ssh-add -l
+        - mkdir -p ~/.ssh
+        - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+        - apk add socat
+    script:
+        - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY_IMAGE
+        - docker pull $CI_REGISTRY_IMAGE
+        - docker save $CI_REGISTRY_IMAGE > image_web_student.tar
+        - scp image.tar ubuntu@$SERVER:~/tingtong/
+
+        - scp docker-compose/docker-compose.yml ubuntu@$SERVER:~/tingtong/docker-compose/docker-compose_web_student.yml
+
+        - ssh -tt ubuntu@$SERVER "cd tingtong &&
+          docker load  < image_web_student.tar &&
+          docker rm -f tingtong_web_student &&
+          docker-compose -f docker-compose/docker-compose_web_student.yml up -d"

@@ -1,0 +1,13 @@
+version: "3"
+services:
+    tingtong_web_student:
+        image: test
+        container_name: tingtong_web_student
+        restart: always
+        ports:
+            - "5300:3000"
+
+networks:
+    default:
+        external:
+            name: tingtong_network
