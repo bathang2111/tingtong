@@ -39,7 +39,7 @@ deploy-staging:
         - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY_IMAGE
         - docker pull $CI_REGISTRY_IMAGE
         - docker save $CI_REGISTRY_IMAGE > image_web_student.tar
-        - scp image.tar ubuntu@$SERVER:~/tingtong/
+        - scp image_web_student.tar ubuntu@$SERVER:~/tingtong/
 
         - scp docker-compose/docker-compose.yml ubuntu@$SERVER:~/tingtong/docker-compose/docker-compose_web_student.yml
 
