@@ -14,7 +14,7 @@ export const CallVideo = () => {
 
   const startConference = () => {
     try {
-      const domain = "meet.jit.si";
+      const domain = "stream. tingtong. xyz";
       const options = {
         roomName: "nguyenba thang",
         displayName: "",

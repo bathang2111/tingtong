@@ -20,6 +20,12 @@ export const socketChat = io("http://103.130.218.64:5003/chat", {
   },
 });
 
+export const socketVideoCall = io("http://103.130.218.64:5003/video-call", {
+  query: {
+    token: localStorage.getItem("token"),
+  },
+});
+
 export const socketTutor = io("http://103.130.218.64:5003/tutor", {
   // transports: ["websocket", "polling", "flashsocket"],
   query: {
@@ -34,29 +40,29 @@ export const socketTutor = io("http://103.130.218.64:5003/tutor", {
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
 
-  // useEffect(async () => {
-  //   const body = {
-  //     roomName: "aaaaaaaaa",
-  //     roomType: 1,
-  //     memberRoom: [
-  //       {
-  //         userID: "117616253337605123",
-  //       },
-  //       {
-  //         userID: "117609877995525122",
-  //       },
-  //     ],
-  //   };
+  useEffect(async () => {
+    const body = {
+      roomName: "aaaaaaaaa",
+      roomType: 1,
+      memberRoom: [
+        {
+          userID: "117616253337605123",
+        },
+        {
+          userID: "112123308933125150",
+        },
+      ],
+    };
 
-  //   const room = await MessageApi.CreateRoom(body);
-  //   socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
-  //   socketChat.emit("msgToServer", {
-  //     event: "msgToServer",
-  //     room: room.data.id,
-  //     mes_content: "di choi a e oi",
-  //     mes_type: 1,
-  //   });
-  // });
+    const room = await MessageApi.CreateRoom(body);
+    socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
+    socketChat.emit("msgToServer", {
+      event: "msgToServer",
+      room: room.data.id,
+      mes_content: "di choi a e oi",
+      mes_type: 1,
+    });
+  });
 
   const listPage = () => {
     if (Routes) {

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
 import Footer from "../../../../components/footer";
 import { setCourseDetail } from "../../coursesSlide";
+import Course from "../course/course";
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
@@ -38,6 +39,14 @@ const CourseDetailPage = (props) => {
     return result;
   };
 
+  const showRelativeCourse = () => {
+    const a = [1, 2, 3, 4, 5];
+    const re = a.map((item) => {
+      return <Course match={{url:null}} course={{id:null}} />;
+    });
+    return re;
+  };
+
   return (
     <>
       <Header />
@@ -48,6 +57,7 @@ const CourseDetailPage = (props) => {
             <SC.Title>{courseDetail.name}</SC.Title>
           </SC.Avatar>
           <SC.OtherCourse>Other Courses</SC.OtherCourse>
+          <SC.RelativeCourses>{showRelativeCourse()}</SC.RelativeCourses>
         </SC.LeftGroup>
         <SC.RightGroup>
           <SC.OverView>OverView</SC.OverView>

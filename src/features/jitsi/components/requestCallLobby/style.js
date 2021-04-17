@@ -8,9 +8,9 @@ export const Container = styled(Modal)`
   height: 100vh;
   overflow: auto;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.7);
+  background: black;
   align-items: center;
-  border-radius: 10px;
+  // border-radius: 10px;
   display: flex;
   justify-content: center;
   ::-webkit-scrollbar {
@@ -20,8 +20,8 @@ export const Container = styled(Modal)`
 
 export const LocalVideo = styled(Webcam)`
   z-index: 0;
-  width: 100vw;
-  height: 100vh;
+  // width: 100v;
+  height: 100%;
 `;
 
 export const Group = styled.div`
@@ -33,6 +33,7 @@ export const Group = styled.div`
   height: 100%;
   z-index: 1;
   height: 500px;
+  // background: #ff0;
 `;
 
 export const Avatar = styled.img`
@@ -52,18 +53,19 @@ export const Name = styled.h3`
 
 export const GrouButton = styled.div`
   width: 65%;
-  height: 60px;
+  height: 50px;
   display: flex;
   border-radius: 40px;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  // background: rgba(0, 0, 0, 0.5);
   margin-top: auto;
+  margin-bottom: -50px;
 `;
 
 export const CancleButton = styled.button`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   background: #ec3f31;
@@ -77,6 +79,6 @@ export const CancleButton = styled.button`
 `;
 
 export const Icon = styled.img`
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
 `;
