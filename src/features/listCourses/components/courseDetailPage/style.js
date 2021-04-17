@@ -39,11 +39,21 @@ export const Title = styled.h1`
   color: #363636;
 `;
 
-export const OtherCourse = styled.h6`
+export const OtherCourse = styled.span`
   margin: 65px 0 10px;
   font-size: 20px;
   color: #363636;
   padding: 0;
+`;
+
+export const RelativeCourses = styled.div`
+  width: 100%;
+  height: 273px;
+  background: #ff0;
+  overflow-y:scroll;
+  padding: 10px; 
+  display: flex;
+  flex-direction:row;
 `;
 
 export const RightGroup = styled.div`
@@ -70,8 +80,8 @@ export const SubTitle = styled.span`
 
 export const Linkk = styled(Link)`
   text-decoration: none;
-  &:hover{
-    background: #F5F5F5;
+  &:hover {
+    background: #f5f5f5;
   }
 `;
 

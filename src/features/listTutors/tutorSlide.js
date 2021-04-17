@@ -52,6 +52,9 @@ const ListTutors = createSlice({
       state.loading = false;
       state.error = false;
       state.listTutors = action.payload;
+      state.listTutors.sort((a, b) => {
+        return b.isOnline - a.isOnline;
+      });
       return state;
     },
 

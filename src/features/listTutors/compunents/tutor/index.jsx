@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { socketVideoCall } from "../../../../app/App";
 import {
   ToggleProfileModal,
   TutorIdDetail,
@@ -10,9 +11,16 @@ const Tutor = (props) => {
   const dispatch = useDispatch();
   const { language } = useSelector((state) => state);
 
-  const handleclick = () => {
+  const handleclick = async () => {
+    // click event call video
     dispatch(SetTutorsReceive(props.info));
     dispatch(OpenRequestLobby());
+    socketVideoCall.emit("caller", {
+      event: "caller",
+      room: "",
+      receiver: "",
+      action: 0,
+    });
   };
 
   const toggleProfileModal = () => {

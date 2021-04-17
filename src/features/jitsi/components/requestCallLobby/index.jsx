@@ -2,38 +2,52 @@ import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
 import IconCancle from "../../../../assets/images/CancelCall.png";
 import { CloseRequestLobby, CallerStatusTrue } from "../../jitsiSlide";
-// import { socketTest } from "../../../../app/App";
+import { socketVideoCall } from "../../../../app/App";
 import { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import { Redirect } from "react-router";
+import CallVideoApi from "../../../../api/callVideoApi";
 
 const RequestCallLobby = (props) => {
   const { LobbyRequestCallStatus } = useSelector((state) => state.jitsi);
   const { InfoTutor } = useSelector((state) => state.jitsi);
   const dispatch = useDispatch();
   const [onCall, setOncall] = useState(false);
+  const [dataSender, setData] = useState({
+    event: "caller",
+    room: "",
+    receiver: "",
+    action: 0,
+  });
 
-  useEffect(() => {
+  useEffect(async () => {
     if (LobbyRequestCallStatus) {
-      // tạo cuộc gọi thoai
-      // socketTest.emit("CreateTheCall", true);
-      // bật trạng thái người gọi true
+      //call api create room;
+      try {
+        const response = await CallVideoApi.RequestCallVideo(InfoTutor.id);
+        console.log(response.videoRoom);
+        setData({
+          event: "caller",
+          room: response.videoRoom.id,
+          receiver: InfoTutor,
+          action: 1,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      // setTimeout(() => {
+      //   alert("Người nhận không bat may");
+      //   dispatch(CloseRequestLobby());
+      // }, 10000);
       dispatch(CallerStatusTrue());
     }
-    //người nhận từ chối cuộc gọi
-    // socketTest.on("CancleTheCalll", (data) => {
-    //   dispatch(CloseRequestLobby());
-    // });
-  });
+  }, [LobbyRequestCallStatus]);
 
   useEffect(() => {
-    setOncall(false);
-    // lắng nghe sự kiện chấp nhận cuộc gọi
-    // socketTest.on("AccessTheCalll", (data) => {
-    //   dispatch(CloseRequestLobby());
-    //   setOncall(true);
-    // });
-  });
+    if (dataSender.room != "") {
+      socketVideoCall.emit("caller", dataSender);
+    }
+  }, [dataSender]);
 
   const onHandleClick = () => {
     // socketTest.emit("CreateTheCall", false);
@@ -47,7 +61,7 @@ const RequestCallLobby = (props) => {
         style={{
           overlay: {
             background: "none",
-            zIndex:10
+            zIndex: 10,
           },
         }}
       >
