@@ -65,7 +65,7 @@ export const ImgSmall = styled.img`
   };
   @media (max-width: 450px) {
     width: 70px;
-    height: auto;
+    height: 50px;
   }
 `;
 
