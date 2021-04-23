@@ -12,10 +12,10 @@ export const ContainerLeft = styled.div`
 export const ContainerRight = styled.div`
   width: 85%;
   display: flex;
-  flex-direction: row-reverse;  
+  flex-direction: row-reverse;
   box-sizing: border-box;
   padding-bottom: 5px;
-  margin-left:auto;
+  margin-left: auto;
 `;
 
 export const Avatar = styled.img`
@@ -32,7 +32,7 @@ export const ChatItemLeft = styled.div`
   padding: 10px;
   font-size: 15px;
   display: flex;
-  background: #D8DADF;
+  background: #d8dadf;
   color: #333333;
 `;
 
@@ -44,6 +44,6 @@ export const ChatItemRight = styled.div`
   padding: 10px;
   font-size: 15px;
   display: flex;
-  background: #ffc929;
+  background: #1771e6;
   color: #fff;
 `;

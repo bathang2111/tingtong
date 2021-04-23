@@ -33,8 +33,15 @@ const Message = createSlice({
     isOpenChatWindow: false, //chat box
     isChatTing: false,
     listChatTing: [], //danh sach cac doan chat dang join room
-    chatContent: { roomId: "", name: "", avarar: "", content: {} },
+    chatContent: {
+      roomId: "",
+      name: "",
+      receiver: "",
+      avatar: "",
+      content: {},
+    },
     roomHistories: {}, //list chat
+    notification: 0,
   },
   reducers: {
     ToggleListChat: (state) => {
@@ -51,6 +58,15 @@ const Message = createSlice({
     PushMessageContent: (state, action) => {
       state.chatContent.content.list.push(action.payload);
     },
+    setNotificationInList: (state, action) => {
+      state.notification += 1;
+      return state;
+    },
+    resetNotificatiom: (state, action) => {
+      state.notification = 0;
+      return state;
+    },
+
     //clear chatContent
     ClearChatContent: (state, action) => {
       state.listChatTing.forEach((item, index) => {
@@ -61,6 +77,9 @@ const Message = createSlice({
       if (state.listChatTing.length > 0) {
         state.chatContent.content = state.listChatTing[0].chatContent;
         state.chatContent.roomId = state.listChatTing[0].roomId;
+        state.chatContent.name = state.listChatTing[0].name;
+        state.chatContent.avatar = state.listChatTing[0].avatar;
+        state.chatContent.receiver = state.listChatTing[0].receiver;
       } else {
         state.chatContent.content = {};
         state.chatContent.roomId = "";
@@ -70,7 +89,8 @@ const Message = createSlice({
     setRoomId: (state, action) => {
       state.chatContent.roomId = action.payload.id;
       state.chatContent.name = action.payload.name;
-      state.chatContent.avarar = action.payload.avarar || "";
+      state.chatContent.avatar = action.payload.avatar;
+      state.chatContent.receiver = action.payload.receiver;
       return state;
     },
     //change main chat content:
@@ -85,6 +105,9 @@ const Message = createSlice({
       state.chatContent.content =
         state.listChatTing[action.payload].chatContent;
       state.chatContent.roomId = state.listChatTing[action.payload].roomId;
+      state.chatContent.name = state.listChatTing[action.payload].name;
+      state.chatContent.avatar = state.listChatTing[action.payload].avatar;
+      state.chatContent.receiver = state.listChatTing[action.payload].receiver;
       return state;
     },
     //them notification
@@ -142,11 +165,14 @@ export const {
   ToggleListChat,
   OpenChatWindow,
   CloseChatWindow,
+  UpdateListChat,
   PushChatTing,
   setRoomId,
   PushMessageContent,
   ClearChatContent,
   ChangeConversation,
   setNotification,
+  setNotificationInList,
+  resetNotificatiom,
 } = actions;
 export default reducer;

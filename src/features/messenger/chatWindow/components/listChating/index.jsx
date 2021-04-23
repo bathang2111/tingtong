@@ -30,11 +30,11 @@ const ListChatTing = (props) => {
           <SC.BtnAvatar
             style={
               item.roomId == chatContent.roomId
-                ? { border: "2px solid #FFC929" }
+                ? { border: "2px solid #1771E6" }
                 : { border: "none" }
             }
             onClick={() => onHandeClick(item, index)}
-          >
+          ><SC.Image src={item.avatar||null}/>
             {item.notification > 0 ? (
               <SC.Noti>{item.notification}</SC.Noti>
             ) : (

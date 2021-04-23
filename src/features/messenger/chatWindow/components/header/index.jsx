@@ -37,7 +37,7 @@ const MessageHeader = (props) => {
   };
 
   return (
-    <SC.Container className="header" ref={HeaderRef}>
+    <SC.Container className="header" onClick={onHandleclick} ref={HeaderRef}>
       <SC.Avatar src={chatContent.avatar || image} />
       <SC.Name>{chatContent.name}</SC.Name>
       <SC.Pain>

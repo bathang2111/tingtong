@@ -15,16 +15,16 @@ export const CallVideo = () => {
   const startConference = () => {
     try {
       const domain = "stream. tingtong. xyz";
-      const options = {
-        roomName: "nguyenba thang",
+      const options = { 
+        roomName: "videocall",
         displayName: "",
         parentNode: document.getElementById("jitsi-container"),
         interfaceConfigOverwrite: {
           DEFAULT_BACKGROUND: "#474747", //good
-          FILM_STRIP_MAX_HEIGHT: 288, //good
+          // FILM_STRIP_MAX_HEIGHT: 288, //good
           HIDE_INVITE_MORE_HEADER: true, //good
-          LOCAL_THUMBNAIL_RATIO: 16 / 9, //good
-          DEFAULT_LOCAL_DISPLAY_NAME: "thang dep trai",
+          // LOCAL_THUMBNAIL_RATIO: 16 / 9, //good
+          // DEFAULT_LOCAL_DISPLAY_NAME: "thang dep trai",
           filmStripOnly: false,
         },
         configOverwrite: {

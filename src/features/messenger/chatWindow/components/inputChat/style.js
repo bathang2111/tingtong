@@ -20,7 +20,7 @@ export const ChatInput = styled.input`
   border: 0.5px solid white;
   border-radius: 15px;
   outline: none;
-  padding-left: 10px;
+  padding: 0 10px;
   &:focus {
     outline: none;
   }
