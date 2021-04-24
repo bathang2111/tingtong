@@ -4,7 +4,7 @@ import IconCancle from "../../../../assets/images/CancelCall.png";
 import { CloseRequestLobby, CallerStatusTrue } from "../../jitsiSlide";
 import { socketVideoCall } from "../../../../app/App";
 import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import { Redirect } from "react-router";
 import CallVideoApi from "../../../../api/callVideoApi";
 

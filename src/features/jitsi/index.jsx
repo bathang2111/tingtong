@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
-import { socket } from "../../app/App";
 import { Redirect } from "react-router";
 import { OpenFeedBackLobby } from "../feedBack/feedBackSlide";
 import { CallerStatusFalse } from "./jitsiSlide";

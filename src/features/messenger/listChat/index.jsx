@@ -6,7 +6,7 @@ import {
   setNotificationInList,
   ToggleListChat,
 } from "../messageSlide";
-import { useEffect, useState } from "react/cjs/react.development";
+import { useEffect, useState } from "react";
 import { socketChat } from "../../../app/App";
 import SearchMessage from "./components/search";
 import RingMessage from "../../../assets/audio/ringChat.mp3";

@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import "../../style.scss";
 import { ClearChatContent, CloseChatWindow } from "../../../messageSlide";
 import { socketChat } from "../../../../../app/App";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 
 const MessageHeader = (props) => {
   const ArrowRef = useRef(null);
