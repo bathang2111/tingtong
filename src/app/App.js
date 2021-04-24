@@ -34,35 +34,8 @@ export const socketTutor = io("http://103.130.218.64:5003/tutor", {
   },
 });
 
-
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
-
-  // useEffect(async () => {
-  //   const body = {
-  //     roomName: "Tutor.name",
-  //     roomType: 1,
-  //     memberRoom: [
-  //       {
-  //         userID: "122258534170629158",
-  //       },
-  //       {
-  //         userID: "122907862761477160",
-  //       },
-  //     ],
-  //   };
-
-  //   const room = await MessageApi.CreateRoom(body);
-
-  //   socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
-  //   socketChat.emit("msgToServer", {  
-  //     event: "msgToServer",
-  //     room: room.data.id,
-  //     mes_content: "Hello mother fucker",
-  //     receiver:["122907862761477160"],
-  //     mes_type: 1,
-  //   });
-  // });
 
   const listPage = () => {
     if (Routes) {
