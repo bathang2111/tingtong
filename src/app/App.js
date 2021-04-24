@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 export const socketChat = io("http://103.130.218.64:5003/chat", {
+  // transports: ["websocket", "polling", "flashsocket"],
   query: {
     token: localStorage.getItem("token"),
   },
@@ -33,36 +34,35 @@ export const socketTutor = io("http://103.130.218.64:5003/tutor", {
   },
 });
 
-// export const socketTest = io("localhost:5000", {
-//   transports: ["websocket", "polling", "flashsocket"],
-// });
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
 
-  useEffect(async () => {
-    const body = {
-      roomName: "aaaaaaaaa",
-      roomType: 1,
-      memberRoom: [
-        {
-          userID: "117616253337605123",
-        },
-        {
-          userID: "112123308933125150",
-        },
-      ],
-    };
+  // useEffect(async () => {
+  //   const body = {
+  //     roomName: "Tutor.name",
+  //     roomType: 1,
+  //     memberRoom: [
+  //       {
+  //         userID: "122258534170629158",
+  //       },
+  //       {
+  //         userID: "122907862761477160",
+  //       },
+  //     ],
+  //   };
 
-    const room = await MessageApi.CreateRoom(body);
-    socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
-    socketChat.emit("msgToServer", {
-      event: "msgToServer",
-      room: room.data.id,
-      mes_content: "di choi a e oi",
-      mes_type: 1,
-    });
-  });
+  //   const room = await MessageApi.CreateRoom(body);
+
+  //   socketChat.emit("joinRoom", { event: "joinRoom", room: room.data.id }); // emit event join rôm
+  //   socketChat.emit("msgToServer", {  
+  //     event: "msgToServer",
+  //     room: room.data.id,
+  //     mes_content: "Hello mother fucker",
+  //     receiver:["122907862761477160"],
+  //     mes_type: 1,
+  //   });
+  // });
 
   const listPage = () => {
     if (Routes) {

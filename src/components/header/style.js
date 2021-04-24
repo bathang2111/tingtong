@@ -148,6 +148,7 @@ export const BtnSignUp = styled(Link)`
 `;
 
 export const Message = styled.button`
+  position: relative;
   outline: none;
   border: none;
   background: none;
@@ -156,6 +157,18 @@ export const Message = styled.button`
   padding: 12px;
   box-sizing-border-box;
   margin-right:5px;
+`;
+
+export const Noti = styled.span`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0 5px;
+  height: 19px;
+  line-height: 19px;
+  border-radius: 50%;
+  background: #f00;
+  color: #fff;
 `;
 
 export const CalenDar = styled(Message)``;

@@ -1,20 +1,43 @@
 import * as SC from "./style";
 import ChatItem from "./components/chatItem";
 import { useDispatch, useSelector } from "react-redux";
-import { GetRoomHistories, ToggleListChat } from "../messageSlide";
-import { useEffect } from "react/cjs/react.development";
+import {
+  GetRoomHistories,
+  setNotificationInList,
+  ToggleListChat,
+} from "../messageSlide";
+import { useEffect, useState } from "react/cjs/react.development";
 import { socketChat } from "../../../app/App";
+import SearchMessage from "./components/search";
+import RingMessage from "../../../assets/audio/ringChat.mp3";
 
 const ListChat = (props) => {
   const { roomHistories } = useSelector((state) => state.message);
   const { isOpen } = useSelector((state) => state.message);
-  const { isOpenChatWindow } = useSelector((state) => state.message);
+  const audio = new Audio(RingMessage);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    socketChat.on("msgToClient", async (data) => {
+      if (!isOpen) return;
+      await dispatch(GetRoomHistories());
+    });
+  }, []);
 
   useEffect(async () => {
     if (!isOpen) return;
     await dispatch(GetRoomHistories());
   }, [isOpen]);
+
+  // CẬP NHẬT ROOM HISTORIES
+  useEffect(() => {
+    socketChat.on("update-room-histories", async (data) => {
+      dispatch(setNotificationInList());
+      audio.currentTime = 0;
+      audio.play();
+      await dispatch(GetRoomHistories());
+    });
+  }, []);
 
   const showChatList = () => {
     if (Object.keys(roomHistories).length == 0) {
@@ -35,11 +58,11 @@ const ListChat = (props) => {
         overlay: {
           background: "none",
           zIndex: 10,
-
         },
       }}
     >
       <SC.Title>Message</SC.Title>
+      <SearchMessage />
       <SC.ListMessage>{showChatList()}</SC.ListMessage>
     </SC.Container>
   );

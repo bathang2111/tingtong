@@ -11,46 +11,52 @@ import CallVideoApi from "../../../../api/callVideoApi";
 const RequestCallLobby = (props) => {
   const { LobbyRequestCallStatus } = useSelector((state) => state.jitsi);
   const { InfoTutor } = useSelector((state) => state.jitsi);
+  const [roomCall, setRoom] = useState();
   const dispatch = useDispatch();
   const [onCall, setOncall] = useState(false);
-  const [dataSender, setData] = useState({
-    event: "caller",
-    room: "",
-    receiver: "",
-    action: 0,
-  });
 
-  useEffect(async () => {
-    if (LobbyRequestCallStatus) {
-      //call api create room;
-      try {
-        const response = await CallVideoApi.RequestCallVideo(InfoTutor.id);
-        console.log(response.videoRoom);
-        setData({
-          event: "caller",
-          room: response.videoRoom.id,
-          receiver: InfoTutor,
-          action: 1,
-        });
-      } catch (error) {
-        console.log(error);
+  //LẮNG NGHE SỰ KIỆN XM NGƯỜI NHẬN CUỘC GỌI CÓ DỒNG Ý HAY KHÔNG
+  useEffect(() => {
+    socketVideoCall.on("sendToCaller", (data) => {
+      if (data.action == 1) {
+        setOncall(true);
+        dispatch(CloseRequestLobby());
+      } else {
+        alert("nguoi nhan tu choi");
+        dispatch(CloseRequestLobby());
       }
-      // setTimeout(() => {
-      //   alert("Người nhận không bat may");
-      //   dispatch(CloseRequestLobby());
-      // }, 10000);
-      dispatch(CallerStatusTrue());
-    }
+    });
+  }, []);
+
+  //GỌI ĐẾN 1 GIÁO VIÊN
+  useEffect(async () => {
+    if (!LobbyRequestCallStatus) return;
+    const room = await CallVideoApi.RequestCallVideo({
+      userId: InfoTutor.userID,
+    });
+    setRoom(room);
+
+    dispatch(CallerStatusTrue());
   }, [LobbyRequestCallStatus]);
 
   useEffect(() => {
-    if (dataSender.room != "") {
-      socketVideoCall.emit("caller", dataSender);
-    }
-  }, [dataSender]);
+    if (!roomCall) return;
+    socketVideoCall.emit("caller", {
+      event: "caller",
+      room: roomCall.id,
+      receiver: InfoTutor.userID,
+      action: 1,
+    });
+  }, [roomCall]);
 
-  const onHandleClick = () => {
-    // socketTest.emit("CreateTheCall", false);
+  //HỦY YÊU CẦU CUỘC GỌI ĐI
+  const onCancleTheCall = () => {
+    socketVideoCall.emit("caller", {
+      event: "caller",
+      room: roomCall.id,
+      receiver: InfoTutor.userID,
+      action: 2,
+    });
     dispatch(CloseRequestLobby());
   };
   return (
@@ -70,7 +76,7 @@ const RequestCallLobby = (props) => {
           <SC.Avatar src={InfoTutor.avatar} />
           <SC.Name>{InfoTutor.name}</SC.Name>
           <SC.GrouButton>
-            <SC.CancleButton onClick={onHandleClick}>
+            <SC.CancleButton onClick={onCancleTheCall}>
               <SC.Icon src={IconCancle} />
             </SC.CancleButton>
           </SC.GrouButton>

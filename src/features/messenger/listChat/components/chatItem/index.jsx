@@ -16,6 +16,32 @@ const ChatItem = (props) => {
   const { chatContent } = useSelector((state) => state.message);
   const dispatch = useDispatch();
 
+  //check time
+  const timer = () => {
+    const now = new Date();
+    const lastMessage = new Date(props.info.updated_at);
+    let result = (now - lastMessage) / 60000;
+    if (result > 60 && result < 24 * 60) {
+      let time;
+      result = Math.floor(result / 60);
+      time = result + " Giờ";
+      return time;
+    } else if (result > 24 * 60) {
+      let time;
+      result = Math.floor(result / 60 / 24);
+      time = result + " Ngày";
+      return time;
+    } else if (result < 1) {
+      let time = "Bây giờ";
+      return time;
+    } else {
+      let time;
+      result = Math.floor(result);
+      time = result + " Phút";
+      return time;
+    }
+  };
+
   const toggleChatWindow = async () => {
     if (isOpenChatWindow && chatContent.roomId == props.info.room_id) {
       dispatch(ToggleListChat());
@@ -28,6 +54,7 @@ const ChatItem = (props) => {
       id: props.info.room_id,
       name: props.info.username,
       avatar: props.info.avatar,
+      receiver: props.info.receiver_id,
     };
     dispatch(setRoomId(userChatTing));
     socketChat.emit("joinRoom", {
@@ -42,6 +69,7 @@ const ChatItem = (props) => {
         chatContent: unwrapResult(content),
         avatar: props.info.avatar,
         name: props.info.username,
+        receiver: props.info.receiver_id,
         notification: 0,
       })
     );
@@ -49,16 +77,17 @@ const ChatItem = (props) => {
 
   return (
     <SC.Container onClick={toggleChatWindow}>
-      <SC.Avatar src={image} />
+      <SC.Avatar avatar={props.info.avatar || image} />
       <SC.Pain>
         <SC.Name>{props.info.username}</SC.Name>
         <SC.LastMessage>
-          {props.info.receiver_id == localStorage.getItem("idUser")
+          {props.info.sender_id == localStorage.getItem("idUser")
             ? "Bạn: "
             : props.info.username + ": "}
           {props.info.mes_content}
         </SC.LastMessage>
       </SC.Pain>
+      <SC.Timer>{timer()}</SC.Timer>
     </SC.Container>
   );
 };
