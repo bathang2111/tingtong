@@ -15,12 +15,6 @@ const Tutor = (props) => {
     // click event call video
     dispatch(SetTutorsReceive(props.info));
     dispatch(OpenRequestLobby());
-    socketVideoCall.emit("caller", {
-      event: "caller",
-      room: "",
-      receiver: "",
-      action: 0,
-    });
   };
 
   const toggleProfileModal = () => {

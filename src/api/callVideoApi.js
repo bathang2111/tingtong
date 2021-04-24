@@ -2,8 +2,8 @@ import axiosClien from "./axiosClient";
 
 const CallVideoApi = {
   RequestCallVideo: (params) => {
-    const url = `/tutors/${params}/call`;
-    return axiosClien.post(url);
+    const url = `/video-rooms`;
+    return axiosClien.post(url,params);
   },
 };  
 export default CallVideoApi;

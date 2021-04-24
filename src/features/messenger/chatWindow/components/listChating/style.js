@@ -39,10 +39,21 @@ export const BtnAvatar = styled.button`
   width: 48px;
   height: 48px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
+  padding: 0;
   &:focus {
     outline: none;
   }
+`;
+
+export const Image = styled.img`
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
 `;
 
 export const Noti = styled.span`

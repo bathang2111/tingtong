@@ -19,7 +19,6 @@ const InputChat = (props) => {
   const [message, setMessage] = useState({});
 
   useEffect(() => {
-    console.log("play");
     socketChat.on("msgToClient", (data) => {
       setMessage(data);
     });
@@ -70,6 +69,7 @@ const InputChat = (props) => {
       room: chatContent.roomId,
       mes_content: vale,
       mes_type: 1,
+      receiver: [chatContent.receiver],
     });
     setValue("");
   };
