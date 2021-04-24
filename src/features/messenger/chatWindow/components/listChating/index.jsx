@@ -1,13 +1,8 @@
 import * as SC from "./style";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react/cjs/react.development";
-import { socketChat } from "../../../../../app/App";
 import {
   ChangeConversation,
-  GetContentByRoomId,
-  PushChatTing,
 } from "../../../messageSlide";
-import { unwrapResult } from "@reduxjs/toolkit";
 
 const ListChatTing = (props) => {
   const { isOpenChatWindow } = useSelector((state) => state.message);
