@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { socketVideoCall } from "../../../../app/App";
 import {
   ToggleProfileModal,
   TutorIdDetail,

@@ -4,19 +4,20 @@ import CancelCall from "../../../../assets/images/CancelCall.png";
 import ReceiveCall from "../../../../assets/images/ReceiveCall.png";
 import { CloseReceiveLobby, OpenReceiveLobby } from "../../jitsiSlide";
 import { Redirect } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReceiveTheCallRING from "../../../../assets/audio/ReceiveTheCall.mp3";
-import { socketVideoCall } from "../../../../app/App.js";
+import { SocketContext } from "../../../../api/socketService";
 
 const ReceiveCallLobby = (props) => {
   const dispatch = useDispatch();
   const { LobbyReceiveCallStatus } = useSelector((state) => state.jitsi);
   const [onCall, setOnCall] = useState(false);
   const [roomInfo, setRoom] = useState();
+  const socket = useContext(SocketContext);
 
   //THÔNG BÁO KHI CÓ CUỘC GỌI ĐẾN
   useEffect(() => {
-    socketVideoCall.on("sendToReceiver", (data) => {
+    socket.socketVideoCall.on("sendToReceiver", (data) => {
       if (data.action == 1) {
         dispatch(OpenReceiveLobby());
         setRoom(data);
@@ -28,7 +29,7 @@ const ReceiveCallLobby = (props) => {
 
   //TỪ CHỐI CUỘC GỌI
   const onCancleTheCall = () => {
-    socketVideoCall.emit("receiver", {
+    socket.socketVideoCall.emit("receiver", {
       event: "receiver",
       room: roomInfo.room,
       caller: roomInfo.caller,
@@ -40,7 +41,7 @@ const ReceiveCallLobby = (props) => {
   //CHẤP NHẬN CUỘC GỌI
   const onAccept = () => {
     setOnCall(true);
-    socketVideoCall.emit("receiver", {
+    socket.socketVideoCall.emit("receiver", {
       event: "receiver",
       room: roomInfo.room,
       caller: roomInfo.caller,

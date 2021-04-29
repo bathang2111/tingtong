@@ -13,7 +13,6 @@ HomePageStudent.propTypes = {};
 function HomePageStudent(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("chay vao home");
     dispatch(getUserInfo());
   }, []);
   return (

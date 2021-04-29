@@ -1,9 +1,10 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MessageApi from "../../../../api/messageApi";
+import { SocketContext } from "../../../../api/socketService";
 import TutorsApi from "../../../../api/tutorsApi";
-import { socketChat } from "../../../../app/App";
+// import { socketChat } from "../../../../app/App";
 import {
   GetContentByRoomId,
   OpenChatWindow,
@@ -18,6 +19,7 @@ const Profile = (props) => {
   const idTutorDetail = useSelector((state) => state.homepage.idTutor);
   const [Tutor, setTutor] = useState({});
   const dispatch = useDispatch();
+  const socket = useContext(SocketContext);
 
   useEffect(async () => {
     const response = await TutorsApi.getTutorDetail(idTutorDetail);
@@ -55,7 +57,7 @@ const Profile = (props) => {
     let content = await dispatch(GetContentByRoomId(room.data.id)); // get all mesages in conversation
     let res = unwrapResult(content);
     ///////////////////////////////////////
-    socketChat.emit("joinRoom", {
+    socket.socketChat.emit("joinRoom", {
       event: "joinRoom",
       room: room.data.id,
     }); // emit event join rôm

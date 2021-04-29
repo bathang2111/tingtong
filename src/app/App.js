@@ -11,31 +11,24 @@ import ListChat from "../features/messenger/listChat";
 import SmallScreenMenu from "../components/header/components/smallScreenMenu";
 import ListChatTing from "../features/messenger/chatWindow/components/listChating";
 import MessageApi from "../api/messageApi";
-import { useEffect } from "react";
-import { unwrapResult } from "@reduxjs/toolkit";
-
-export const socketChat = io("http://103.130.218.64:5003/chat", {
-  // transports: ["websocket", "polling", "flashsocket"],
-  query: {
-    token: localStorage.getItem("token"),
-  },
-});
-
-export const socketVideoCall = io("http://103.130.218.64:5003/video-call", {
-  query: {
-    token: localStorage.getItem("token"),
-  },
-});
-
-export const socketTutor = io("http://103.130.218.64:5003/tutor", {
-  // transports: ["websocket", "polling", "flashsocket"],
-  query: {
-    token: localStorage.getItem("token"),
-  },
-});
+import { useEffect, useState } from "react";
+import {
+  SocketContext,
+  socketChat,
+  socketVideoCall,
+  socketTutor,
+} from "../api/socketService";
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
+  const token = localStorage.getItem("token");
+  const [tokenn, setToken] = useState();
+
+  useEffect(() => {
+    console.log(socketChat(token));
+    // console.log(token);
+    setToken(token);
+  }, [token]);
 
   const listPage = () => {
     if (Routes) {
@@ -55,18 +48,32 @@ function App() {
   };
 
   return (
-    <>
+    <SocketContext.Provider
+      value={
+        tokenn
+          ? {
+              socketChat: socketChat(tokenn),
+              socketVideoCall: socketVideoCall(token),
+              socketTutor: socketTutor(token),
+            }
+          : null
+      }
+    >
       {isLogin ? "" : <Redirect to="/wellcome" />}
-      <FeedBack />
-      <ChatWindow />
-      <ListChatTing />
-      <ListChat />
-      <Calender />
-      <SmallScreenMenu />
-      <ReceiveCallLobby />
-      <RequestCallLobby />
       {listPage()}
-    </>
+      {tokenn ? (
+        <>
+          <FeedBack />
+          <ChatWindow />
+          <ListChatTing />
+          <ListChat />
+          <Calender />
+          <SmallScreenMenu />
+          <ReceiveCallLobby />
+          <RequestCallLobby />
+        </>
+      ) : null}
+    </SocketContext.Provider>
   );
 }
 

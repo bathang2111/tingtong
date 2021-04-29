@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
 import IconCancle from "../../../../assets/images/CancelCall.png";
 import { CloseRequestLobby, CallerStatusTrue } from "../../jitsiSlide";
-import { socketVideoCall } from "../../../../app/App";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Redirect } from "react-router";
 import CallVideoApi from "../../../../api/callVideoApi";
+import { SocketContext } from "../../../../api/socketService";
 
 const RequestCallLobby = (props) => {
   const { LobbyRequestCallStatus } = useSelector((state) => state.jitsi);
@@ -14,15 +14,17 @@ const RequestCallLobby = (props) => {
   const [roomCall, setRoom] = useState();
   const dispatch = useDispatch();
   const [onCall, setOncall] = useState(false);
+  const socker = useContext(SocketContext);
+  const socket=socker.socketVideoCall
 
   //LẮNG NGHE SỰ KIỆN XM NGƯỜI NHẬN CUỘC GỌI CÓ DỒNG Ý HAY KHÔNG
   useEffect(() => {
-    socketVideoCall.on("sendToCaller", (data) => {
+    socket.on("sendToCaller", (data) => {
       if (data.action == 1) {
         setOncall(true);
         dispatch(CloseRequestLobby());
       } else {
-        alert("nguoi nhan tu choi");
+        setOncall(false);
         dispatch(CloseRequestLobby());
       }
     });
@@ -41,7 +43,7 @@ const RequestCallLobby = (props) => {
 
   useEffect(() => {
     if (!roomCall) return;
-    socketVideoCall.emit("caller", {
+    socket.emit("caller", {
       event: "caller",
       room: roomCall.id,
       receiver: InfoTutor.userID,
@@ -51,7 +53,7 @@ const RequestCallLobby = (props) => {
 
   //HỦY YÊU CẦU CUỘC GỌI ĐI
   const onCancleTheCall = () => {
-    socketVideoCall.emit("caller", {
+    socket.emit("caller", {
       event: "caller",
       room: roomCall.id,
       receiver: InfoTutor.userID,

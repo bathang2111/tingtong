@@ -7,14 +7,16 @@ import {
   setRoomId,
 } from "../../../messageSlide";
 import * as SC from "./style";
-import { socketChat } from "../../../../../app/App";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useContext } from "react";
+import { SocketContext } from "../../../../../api/socketService";
 
 const ChatItem = (props) => {
   const { image } = useSelector((state) => state.userprofile);
   const { isOpenChatWindow } = useSelector((state) => state.message);
   const { chatContent } = useSelector((state) => state.message);
   const dispatch = useDispatch();
+  const socket = useContext(SocketContext);
 
   //check time
   const timer = () => {
@@ -57,7 +59,7 @@ const ChatItem = (props) => {
       receiver: props.info.receiver_id,
     };
     dispatch(setRoomId(userChatTing));
-    socketChat.emit("joinRoom", {
+    socket.socketChat.emit("joinRoom", {
       event: "joinRoom",
       room: props.info.room_id,
     }); // emit event join rôm

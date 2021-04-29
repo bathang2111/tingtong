@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as SC from "./style";
 import logo from "../../assets/images/logo.svg";
 import LogoSmall from "../../assets/images/LogoSmall.png";
@@ -11,6 +11,7 @@ import {
 } from "../../features/messenger/messageSlide";
 import { ToggleCalender } from "../calender/calenderSlide";
 import { ToggleSmallScreen } from "../controlSlide";
+
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
   const { language } = useSelector((state) => state);

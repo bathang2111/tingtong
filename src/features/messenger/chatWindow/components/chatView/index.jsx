@@ -3,8 +3,6 @@ import ChatItem from "../chatItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { socketChat } from "../../../../../app/App";
-import { PushMessageContent, setNotification } from "../../../messageSlide";
 
 const ChatView = (props) => {
   const { chatContent } = useSelector((state) => state.message);

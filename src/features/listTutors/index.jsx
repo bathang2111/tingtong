@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
 import { getTutors } from "./tutorSlide";
@@ -7,10 +7,10 @@ import FilterTutors from "./compunents/filterTutors/FilterTutors";
 import Header from "../../components/header/header";
 import Profile from "../homePage/components/profileModal/profileModal";
 import Footer from "../../components/footer";
-import { socketTutor } from "../../app/App";
 import Loader from "./compunents/loader";
 import Error from "../../components/error";
 import { checkTutorOnline } from "./tutorSlide";
+import { SocketContext } from "../../api/socketService";
 
 const ListTutors = (props) => {
   const Tutors = useSelector((state) => state.tutors);
@@ -19,6 +19,7 @@ const ListTutors = (props) => {
     (state) => state.tutors.listTutorsWhenSearch
   );
   const dispatch = useDispatch();
+  const socket=useContext(SocketContext)
 
   useEffect(async () => {
     if (Tutors.listTutors.length > 0) return;
@@ -27,7 +28,8 @@ const ListTutors = (props) => {
 
   //listen event tutor online=========================================================================
   useEffect(() => {
-    socketTutor.on("active", (data) => {
+    if(!socket)return
+    socket.socketTutor.on("active", (data) => {
       console.log(data);
       dispatch(checkTutorOnline("93752215470085131"));
     });

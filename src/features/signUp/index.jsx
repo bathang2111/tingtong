@@ -74,21 +74,25 @@ function SignUp(props) {
             type="text"
             onChange={onEmailChange}
             placeholder="Gmail (Vd: Example@gmail.com)"
+            required
           />
           <SC.Input
             type="text"
             onChange={onUserNameChange}
             placeholder="UserName..."
+            required
           />
           <SC.Input
             type="password"
             onChange={onPasswordChange}
             placeholder="PassWord..."
+            required
           />
           <SC.Input
             type="passWord"
             onChange={onConfirmChange}
             placeholder="Confirm PassWord..."
+            required
           />
           <SC.SignUpButton type="button" onClick={onSignUp}>
             SignUp

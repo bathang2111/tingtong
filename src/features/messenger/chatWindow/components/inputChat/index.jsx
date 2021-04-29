@@ -1,6 +1,6 @@
 import * as SC from "./style";
 import SendIcon from "../../../../../assets/images/SendIcon.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CloseIsChatTing,
@@ -8,8 +8,8 @@ import {
   PushMessageContent,
   setNotification,
 } from "../../../messageSlide";
-import { socketChat } from "../../../../../app/App";
 import { useEffect } from "react";
+import { SocketContext } from "../../../../../api/socketService";
 
 const InputChat = (props) => {
   const dispatch = useDispatch();
@@ -17,9 +17,10 @@ const InputChat = (props) => {
   const { chatContent } = useSelector((state) => state.message);
   const { listChatTing } = useSelector((state) => state.message);
   const [message, setMessage] = useState({});
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
-    socketChat.on("msgToClient", (data) => {
+    socket.socketChat.on("msgToClient", (data) => {
       setMessage(data);
     });
   }, []);
@@ -64,7 +65,7 @@ const InputChat = (props) => {
     };
     dispatch(PushMessageContent(chatt));
     //send message
-    socketChat.emit("msgToServer", {
+    socket.socketChat.emit("msgToServer", {
       event: "msgToServer",
       room: chatContent.roomId,
       mes_content: vale,
