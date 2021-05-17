@@ -13,7 +13,8 @@ const LessonDetailPage = (props) => {
   let indexx;
 
   useEffect(async () => {
-    const response = await CurriculumsApi.getLessonDetail(idLesson);
+    const params = { idLesson, courseId: id };
+    const response = await CurriculumsApi.getLessonDetail(params);
     setLesson(response);
   }, [props.match.url]);
 
