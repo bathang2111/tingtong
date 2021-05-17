@@ -6,15 +6,15 @@ const CurriculumsApi = {
     return axiosClien.get(url);
   },
   getCourseDetail: (params) => {
-    const url = `courses/${params}`;
+    const url = `/courses/${params}`;
     return axiosClien.get(url);
   },
   getLessonDetail: (params) => {
-    const url = `lessons/${params}`;
+    const url = `/courses/${params.courseId}/lessons/${params.idLesson}`;
     return axiosClien.get(url);
   },
   getCoursesByKeyWord: (params) => {
-    const url = `courses?keyword=${params}`;
+    const url = `/courses/searches?q=${params}`;
     return axiosClien.get(url);
   },
 };

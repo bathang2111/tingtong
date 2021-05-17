@@ -92,7 +92,13 @@ const DisCount = (props) => {
         </SC.Form>
       </SC.Group>
       <SC.GroupBtn>
-        <SC.Close>Hủy</SC.Close>
+        <SC.Close
+          onClick={() => {
+            props.page(1);
+          }}
+        >
+          Quay lại
+        </SC.Close>
         <SC.Submit
           onClick={() => {
             props.page(3);
