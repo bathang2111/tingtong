@@ -3,7 +3,7 @@ import io from "socket.io-client";
 
 export const socketChat = (token) => {
   if (!token) return null;
-  const socker = io("http://103.130.218.64:5003/chat", {
+  const socker = io("http://34.126.81.165:5003/chat", {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,
@@ -14,7 +14,7 @@ export const socketChat = (token) => {
 
 export const socketVideoCall = (token) => {
   if (!token) return null;
-  const socker = io("http://103.130.218.64:5003/video-call", {
+  const socker = io("http://34.126.81.165:5003/video-call", {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,
@@ -25,7 +25,7 @@ export const socketVideoCall = (token) => {
 
 export const socketTutor = (token) => {
   if (!token) return null;
-  const socker = io("http://103.130.218.64:5003/tutor", {
+  const socker = io("http://34.126.81.165:5003/tutor", {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,

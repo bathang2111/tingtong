@@ -1,9 +1,7 @@
 import { Routes } from "../constants/routes";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import io from "socket.io-client";
 import ReceiveCallLobby from "../features/jitsi/components/receiveCallLobby";
-import RequestCallLobby from "../features/jitsi/components/requestCallLobby";
 import FeedBack from "../features/feedBack";
 import Calender from "../components/calender";
 import ChatWindow from "../features/messenger/chatWindow";
@@ -25,8 +23,7 @@ function App() {
   const [tokenn, setToken] = useState();
 
   useEffect(() => {
-    console.log(socketChat(token));
-    // console.log(token);
+    if (!token) return;
     setToken(token);
   }, [token]);
 
@@ -70,7 +67,7 @@ function App() {
           <Calender />
           <SmallScreenMenu />
           <ReceiveCallLobby />
-          <RequestCallLobby />
+          {/* <RequestCallLobby /> */}
         </>
       ) : null}
     </SocketContext.Provider>

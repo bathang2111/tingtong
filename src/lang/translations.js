@@ -1,7 +1,7 @@
 export default {
   en: {
     //banner
-    welcome: "Wellcome to tingtong",
+    welcome: "Wellcome to TingTong",
     //header
     tutors: "TUTORS",
     courses: "COURSES",
@@ -33,7 +33,7 @@ export default {
   },
   vn: {
     //banner
-    welcome: "Chào mừng đến với tingtong",
+    welcome: "Chào mừng đến với TingTong",
     //header
     tutors: "GIA SƯ",
     courses: "KHÓA HỌC",
@@ -51,7 +51,7 @@ export default {
     searchCourses: "Tìm Kiếm Khóa Học",
     plHolderCourse: "Tên, Giáo trình...",
     //UserProfile
-    setTing: "Cài Đặt",
+    setTing: "Cài Đặt cá nhân",
     languaGe:"Ngôn Ngữ",
     changeAvatar:"Thay đổi hình đại diện",
     upLoadImage:"Tải lên một ảnh",

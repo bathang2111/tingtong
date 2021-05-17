@@ -5,15 +5,17 @@ import Header from "../../components/header/header";
 import ListTutors from "../listTutors/index";
 import Profile from "./components/profileModal/profileModal";
 import Footer from "../../components/footer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../userProfile/userProfileSlide";
 
 HomePageStudent.propTypes = {};
 
 function HomePageStudent(props) {
+  const { userInfo } = useSelector((state) => state.userprofile);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserInfo());
+  useEffect(async () => {
+    if (userInfo && userInfo.fullName) return;
+    await dispatch(getUserInfo());
   }, []);
   return (
     <>

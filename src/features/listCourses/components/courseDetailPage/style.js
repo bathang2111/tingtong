@@ -46,14 +46,26 @@ export const OtherCourse = styled.span`
   padding: 0;
 `;
 
-export const RelativeCourses = styled.div`
+export const RelativeCoursesList = styled.div`
   width: 100%;
   height: 273px;
-  background: #ff0;
-  overflow-y:scroll;
-  padding: 10px; 
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 10px;
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
+`;
+
+export const RelativeCourse = styled(Link)`
+  width: 196px;
+  height: 256px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+`;
+export const RelaImage = styled.img`
+  width: 178px;
+  height: 137px;
 `;
 
 export const RightGroup = styled.div`
@@ -61,6 +73,16 @@ export const RightGroup = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+`;
+export const RelaTitle = styled.div`
+  padding: 12px;
+  font-size: 15px;
+  color: #333333;
+`;
+export const RelaDescription = styled.div`
+  padding: 0 12px;
+  font-size: 13px;
+  color: #333;
 `;
 
 export const OverView = styled.span`

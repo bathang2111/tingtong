@@ -20,7 +20,6 @@ const ListCourses = (props) => {
     if (Curriculums.curriculums.length > 0) return;
     try {
       await dispatch(getCourses());
-      console.log("ham dang chay");
       // const action = getCourses();
       // const result = await dispatch(action);
       // console.log(unwrapResult(result));

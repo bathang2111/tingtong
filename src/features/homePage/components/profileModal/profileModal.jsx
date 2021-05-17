@@ -91,9 +91,9 @@ const Profile = (props) => {
         <SC.Menu />
       </SC.IconGroup>
       <SC.GroupInfo>
-        <SC.Avatar />
+        <SC.Avatar src={Tutor.avatar} />
         <SC.Pane>
-          <SC.Name></SC.Name>
+          <SC.Name>{Tutor.name}</SC.Name>
           <SC.Engine />
           <SC.Nation></SC.Nation>
         </SC.Pane>

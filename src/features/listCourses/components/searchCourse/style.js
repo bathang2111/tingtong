@@ -3,7 +3,12 @@ import BookImg from "../../../../assets/images/curriculum-banner-book.png";
 
 export const Container = styled.div`
   margin: 20px 100px 0;
-  background: #ffc973;
+  background-image: linear-gradient(
+    to right,
+    #8474a1,
+    rgba(8, 151, 144, 0.75),
+    #aa6f82
+  );
   border-radius: 10px;
   padding: 10px 20px;
   position: relative;
@@ -15,7 +20,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: #000000;
+  color: #fff;
   @media (max-width: 665px) {
     font-size: 16px;
   }
@@ -60,6 +65,6 @@ export const SubTitle = styled.h6`
   padding: 0;
   margin: 0 10px;
   font-size: 16px;
-  color: #bf6a00;
+  color: #fff;
   width: 310px;
 `;

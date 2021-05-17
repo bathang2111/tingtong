@@ -10,7 +10,7 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
-  padding: 0 24px;
+  padding: 0 24px 0 0;
   position: fixed;
   z-index: 3;
   @media (max-width: 768px) {
@@ -50,7 +50,7 @@ export const Lin = styled(Link)`
 `;
 
 export const Img = styled.img`
-  padding: 10px 20px;
+  padding: 12px 24px;
   @media (max-width: 768px) {
     display: none;
   }
@@ -87,9 +87,17 @@ export const BtnLogIn = styled(Link)`
   }
 `;
 
+export const LinkGroup = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 50px;
+`;
+
 export const TutorLink = styled(Link)`
-  font-size: 14px;
-  color: #4c4c4c;
+  font-size: 17px;
+  color: #2f8c92;
   padding: 6px 8px;
   text-decoration: none;
   text-transform: uppercase;
@@ -108,8 +116,15 @@ export const Group = styled.div`
   margin-left: auto;
 `;
 
-export const BtnSubcribe = styled.button`
+export const PainBtn = styled.div`
+  margin-right: 50px;
+`;
+
+export const BtnSubcribe = styled(Link)`
   height: 44px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 44px;
   width: 100px;
   box-sizing: border-box;
   border-radius: 10px;
@@ -118,7 +133,7 @@ export const BtnSubcribe = styled.button`
   font-size: 14px;
   background: #2f8c92;
   color: #ffffff;
-  margin-right: 50px;
+
   @media (max-width: 665px) {
     display: none;
   }
@@ -134,7 +149,7 @@ export const BtnSignUp = styled(Link)`
   font-size: 14px;
   // background: #2f8c92;
   color: #ffffff;
-  background: #c6c953;
+  background: #7a677b;
   margin-right: 10px;
   text-decoration: none;
   line-height: 44px;

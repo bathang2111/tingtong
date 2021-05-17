@@ -3,6 +3,7 @@ import * as SC from "./style";
 
 const ChatItem = (props) => {
   const { image } = useSelector((state) => state.userprofile);
+  const { chatContent } = useSelector((state) => state.message);
   return (
     <>
       {props.content.senderId == localStorage.getItem("idUser") ? (
@@ -11,7 +12,7 @@ const ChatItem = (props) => {
         </SC.ContainerRight>
       ) : (
         <SC.ContainerLeft>
-          <SC.Avatar src={image} />
+          <SC.Avatar src={chatContent.avatar || image} />
           <SC.ChatItemLeft>{props.content.mesContent}</SC.ChatItemLeft>
         </SC.ContainerLeft>
       )}

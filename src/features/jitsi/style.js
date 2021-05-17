@@ -9,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items:center;
+  overflow: hidden;
 `;
 
 export const Loader=styled.h5`
@@ -21,4 +22,5 @@ export const JitSiContainer=styled.div`
   width: 100%;
   height: 100%;
   background: #474747;
+  z-zIndex: 5;
 `;

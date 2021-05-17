@@ -7,7 +7,7 @@ import FeedBackApi from "../../api/feedbackApi";
 
 const FeedBack = (props) => {
   const { feedBackStatus } = useSelector((state) => state.feedback);
-  const { InfoTutor } = useSelector((state) => state.jitsi);
+  const { Tutor } = useSelector((state) => state.feedback);
   const [star, setStar] = useState(0);
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const FeedBack = (props) => {
     dispatch(CloseFeedBackLobby());
     const body = { rating: star, feedback: "" };
     try {
-      const res = await FeedBackApi.postFeedBack("91776606011397128", body);
+      const res = await FeedBackApi.postFeedBack(Tutor.id, body);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -33,12 +33,13 @@ const FeedBack = (props) => {
       style={{
         overlay: {
           background: "rgba(0,0,0,0.4)",
+          zIndex: "100",
         },
       }}
       isOpen={feedBackStatus}
     >
-      <SC.Avatar src={InfoTutor.avatar} />
-      <SC.Name>{InfoTutor.name}</SC.Name>
+      <SC.Avatar src={Tutor.avatar} />
+      <SC.Name>{Tutor.name}</SC.Name>
       <SC.FeedBackGroup>
         <StarRatings
           numberOfStars={5}
@@ -52,7 +53,7 @@ const FeedBack = (props) => {
       </SC.FeedBackGroup>
       <SC.Form onSubmit={onHandleSubmit}>
         <SC.Note placeholder="FeedBack..." />
-        <SC.Submit>Submit</SC.Submit>
+          <SC.Submit>Đánh giá</SC.Submit>
       </SC.Form>
     </SC.Container>
   );

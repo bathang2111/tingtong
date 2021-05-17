@@ -6,7 +6,6 @@ export const getUserInfo = createAsyncThunk(
   "user/getUserInfo",
   async (params, thunkAPI) => {
     const response = await AuthApi.getUserInfo();
-    console.log(response);
     return response;
   }
 );

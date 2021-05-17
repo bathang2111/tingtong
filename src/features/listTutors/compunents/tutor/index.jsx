@@ -1,19 +1,31 @@
 import { useDispatch, useSelector } from "react-redux";
+import CallVideoApi from "../../../../api/callVideoApi";
 import {
   ToggleProfileModal,
   TutorIdDetail,
 } from "../../../homePage/homePageSlice";
 import { OpenRequestLobby, SetTutorsReceive } from "../../../jitsi/jitsiSlide";
 import * as SC from "./style";
+import Ripples from "react-ripples";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
   const { language } = useSelector((state) => state);
+  const left = (window.screen.width - 700) / 2;
+  const top = (window.screen.height - 380) / 2;
 
-  const handleclick = async () => {
+  const onRequestTheCall = async () => {
     // click event call video
-    dispatch(SetTutorsReceive(props.info));
-    dispatch(OpenRequestLobby());
+    localStorage.setItem("receiverId", props.info.id);
+    const room = await CallVideoApi.RequestCallVideo({
+      userId: props.info.userID,
+    });
+    const callerId = localStorage.getItem("idUser");
+    window.open(
+      `http://localhost:3000/video-call/${room.id}/${callerId}/${props.info.userID}`,
+      "Data",
+      `height=380,width=700,left=${left},top=${top}`
+    );
   };
 
   const toggleProfileModal = () => {
@@ -51,10 +63,16 @@ const Tutor = (props) => {
           <span>{props.info.introduction}</span>
         </SC.Introduce>
         <SC.ButtonGroup>
-          <SC.ProfileButton onClick={toggleProfileModal}>
-            Profile
-          </SC.ProfileButton>
-          <SC.CallButton onClick={handleclick}>{language.call}</SC.CallButton>
+          <Ripples>
+            <SC.ProfileButton onClick={toggleProfileModal}>
+              Profile
+            </SC.ProfileButton>
+          </Ripples>
+          <Ripples>
+            <SC.CallButton onClick={onRequestTheCall}>
+              {language.call}
+            </SC.CallButton>
+          </Ripples>
         </SC.ButtonGroup>
       </SC.Container>
     </SC.Pain>

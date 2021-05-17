@@ -11,6 +11,8 @@ import {
 } from "../../features/messenger/messageSlide";
 import { ToggleCalender } from "../calender/calenderSlide";
 import { ToggleSmallScreen } from "../controlSlide";
+import { getUserInfo } from "../../features/userProfile/userProfileSlide";
+import Ripples from "react-ripples";
 
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -34,10 +36,25 @@ const Header = (props) => {
         </SC.Logo>
         {isLogin ? (
           <>
-            <SC.TutorLink to="/tutors">{language.tutors}</SC.TutorLink>
-            <SC.CoursesLink to="/courses">{language.courses}</SC.CoursesLink>
+            <SC.LinkGroup>
+              <Ripples>
+                <SC.TutorLink to="/tutors">{language.tutors}</SC.TutorLink>
+              </Ripples>
+              <Ripples>
+                <SC.CoursesLink to="/courses">
+                  {language.courses}
+                </SC.CoursesLink>
+              </Ripples>
+            </SC.LinkGroup>
+
             <SC.Group>
-              <SC.BtnSubcribe>{language.subcribe}</SC.BtnSubcribe>
+              <SC.PainBtn>
+                <Ripples>
+                  <SC.BtnSubcribe to="/payment">
+                    {language.subcribe}
+                  </SC.BtnSubcribe>
+                </Ripples>
+              </SC.PainBtn>
               <SC.Message onClick={toggleMessage}>
                 <SC.Icon src={MessageIcon} />
                 {notification > 0 ? <SC.Noti>{notification}</SC.Noti> : ""}
