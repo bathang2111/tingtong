@@ -23,7 +23,7 @@ export const Container = styled(Modal)`
   bottom: auto;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  background: #ffffff;
+  background: #000;
   outline: none;
   display: flex;
   flex-direction: column;
@@ -59,7 +59,7 @@ export const FeedBackGroup = styled.div`
 `;
 
 export const Form = styled.form`
-  width: 240px;
+  width: 340px;
   margin: 10px 0 0;
   padding: 0;
   display: flex;
@@ -70,8 +70,9 @@ export const Form = styled.form`
 
 export const Note = styled.input`
   width: 240px;
-  height: 20px;
+  height: 25px;
   border: none;
+  border-radius: 15px;
   font-size: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.7);
   margin-bottom: 20px;
@@ -80,16 +81,22 @@ export const Note = styled.input`
   }
 `;
 
+
 export const Submit = styled.button`
-  width: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   height: 30px;
-  font-size: 14px;
-  text-align: center;
-  color: #ffffff;
-  background: #2f8c92;
+  padding: 4px 25px;
+  background: #2F8C92;
+  color: #fff;
+  border-radius: 15px;
+  font-size: 15px;
   border: none;
-  border-radius: 5px;
-  :focus {
+  outline: none;
+  &:focus {
     outline: none;
+  }
+  &:hover {
   }
 `;

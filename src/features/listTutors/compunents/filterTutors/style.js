@@ -15,6 +15,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
+  font-family: "Roboto", sans-serif;
   color: #545455;
   padding: 0;
   margin: 0;

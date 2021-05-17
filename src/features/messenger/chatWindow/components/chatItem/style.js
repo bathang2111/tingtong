@@ -19,20 +19,22 @@ export const ContainerRight = styled.div`
 `;
 
 export const Avatar = styled.img`
-  widows: 25px;
+  width: 25px;
   height: 25px;
   border-radius: 50%;
+  margin-top: auto;
+  // margin-bottom: -3px;
 `;
 
 export const ChatItemLeft = styled.div`
   word-break: break-word;
   margin-left: 5px;
   max-width: 100%;
-  border-radius: 20px;
+  border-radius: 20px 20px 20px 0;
   padding: 10px;
   font-size: 15px;
   display: flex;
-  background: #d8dadf;
+  background: rgba(190, 190, 190, 0.5);
   color: #333333;
 `;
 
@@ -44,6 +46,6 @@ export const ChatItemRight = styled.div`
   padding: 10px;
   font-size: 15px;
   display: flex;
-  background: #1771e6;
+  background: #6990A6;
   color: #fff;
 `;

@@ -9,6 +9,7 @@ import SignUp from "../features/signUp";
 import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
 import UserProfile from "../features/userProfile";
+import Payment from "../features/payment";
 
 export const Routes = [
   {
@@ -63,12 +64,18 @@ export const Routes = [
     name: "UserProfile",
     path: "/userprofile",
     exact: false,
-    main: () => <UserProfile/>,
+    main: () => <UserProfile />,
   },
   {
     name: "Jitsi",
-    path: "/jitsi",
+    path: "/video-call/:roomId/:callerId/:receiverId",
+    exact: true,
+    main: ({ match }) => <CallVideo match={match} />,
+  },
+  {
+    name: "payment",
+    path: "/payment",
     exact: false,
-    main: () => <CallVideo />,
+    main: () => <Payment />,
   },
 ];

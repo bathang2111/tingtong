@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Background from "../../components/background";
 import * as SC from "./style";
@@ -13,20 +13,21 @@ LogIn.propTypes = {};
 
 function LogIn(props) {
   const { checkLogin } = useSelector((state) => state.login);
+
   return (
     <div>
       {checkLogin ? <Redirect to="/" /> : ""}
-      <Background></Background>
       <SC.Container>
-        <SC.Logo src={logo}>
-          {/* <img src={logo} /> */}
-        </SC.Logo>
-        <SC.FormLogin>
-          <SC.SmallLogo src={logo} />
-          <FormLogIn></FormLogIn>
-          <FormLogInAnotherAccount></FormLogInAnotherAccount>
-          <FooterLogIn></FooterLogIn>
-        </SC.FormLogin>
+        <SC.SubContainer>
+          <Background position="row"/>
+          <SC.Title>Login</SC.Title>
+          <SC.FormLogin>
+            <SC.SmallLogo src={logo} />
+            <FormLogIn></FormLogIn>
+            <FormLogInAnotherAccount></FormLogInAnotherAccount>
+            <FooterLogIn></FooterLogIn>
+          </SC.FormLogin>
+        </SC.SubContainer>
       </SC.Container>
     </div>
   );

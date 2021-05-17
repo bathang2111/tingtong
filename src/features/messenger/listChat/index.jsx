@@ -6,19 +6,21 @@ import {
   setNotificationInList,
   ToggleListChat,
 } from "../messageSlide";
-import { useEffect, useState } from "react";
-import { socketChat } from "../../../app/App";
+import { useContext, useEffect, useState } from "react";
+// import { socketChat } from "../../../app/App";
 import SearchMessage from "./components/search";
 import RingMessage from "../../../assets/audio/ringChat.mp3";
+import { SocketContext } from "../../../api/socketService";
 
 const ListChat = (props) => {
   const { roomHistories } = useSelector((state) => state.message);
   const { isOpen } = useSelector((state) => state.message);
   const audio = new Audio(RingMessage);
   const dispatch = useDispatch();
-
+  const socker = useContext(SocketContext);
+  const socket = socker.socketChat;
   useEffect(() => {
-    socketChat.on("msgToClient", async (data) => {
+    socket.on("msgToClient", async (data) => {
       if (!isOpen) return;
       await dispatch(GetRoomHistories());
     });
@@ -31,7 +33,7 @@ const ListChat = (props) => {
 
   // CẬP NHẬT ROOM HISTORIES
   useEffect(() => {
-    socketChat.on("update-room-histories", async (data) => {
+    socket.on("update-room-histories", async (data) => {
       dispatch(setNotificationInList());
       audio.currentTime = 0;
       audio.play();

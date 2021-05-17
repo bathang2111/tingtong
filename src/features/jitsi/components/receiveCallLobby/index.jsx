@@ -1,75 +1,109 @@
 import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
-import CancelCall from "../../../../assets/images/CancelCall.png";
-import ReceiveCall from "../../../../assets/images/ReceiveCall.png";
+import CancleIcon from "../../../../assets/images/CancelIcon.png";
 import { CloseReceiveLobby, OpenReceiveLobby } from "../../jitsiSlide";
 import { Redirect } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReceiveTheCallRING from "../../../../assets/audio/ReceiveTheCall.mp3";
-import { socketVideoCall } from "../../../../app/App.js";
+import Camera from "../../../../assets/images/IconCallVideo.png";
+import { SocketContext } from "../../../../api/socketService";
 
 const ReceiveCallLobby = (props) => {
   const dispatch = useDispatch();
   const { LobbyReceiveCallStatus } = useSelector((state) => state.jitsi);
-  const [onCall, setOnCall] = useState(false);
   const [roomInfo, setRoom] = useState();
+  const socket = useContext(SocketContext);
+  const { image } = useSelector((state) => state.userprofile);
+  const [noti, setNoti] = useState({
+    title: "Cuộc gọi đến",
+    descrip: "đang gọi cho bạn",
+    timer: "Bắt đầu ngay khi chấp nhận",
+    accept: "Chấp nhận",
+    cancle: "Từ chối",
+  });
 
   //THÔNG BÁO KHI CÓ CUỘC GỌI ĐẾN
   useEffect(() => {
-    socketVideoCall.on("sendToReceiver", (data) => {
+    socket.socketVideoCall.on("sendToReceiver", (data) => {
       if (data.action == 1) {
-        dispatch(OpenReceiveLobby());
         setRoom(data);
+        console.log(data);
+        dispatch(OpenReceiveLobby());
       } else {
         dispatch(CloseReceiveLobby());
       }
     });
   }, []);
 
-  //TỪ CHỐI CUỘC GỌI
-  const onCancleTheCall = () => {
-    socketVideoCall.emit("receiver", {
-      event: "receiver",
-      room: roomInfo.room,
-      caller: roomInfo.caller,
-      action: 2,
-    });
-    dispatch(CloseReceiveLobby());
-  };
-
   //CHẤP NHẬN CUỘC GỌI
   const onAccept = () => {
-    setOnCall(true);
-    socketVideoCall.emit("receiver", {
+    socket.socketVideoCall.emit("receiver", {
       event: "receiver",
       room: roomInfo.room,
-      caller: roomInfo.caller,
+      caller: roomInfo.caller_id,
       action: 1,
+    });
+    dispatch(CloseReceiveLobby());
+    //set WIDTH and HEIGHT
+    const width = window.screen.width - 200;
+    const height = window.screen.height - 180;
+    const receiverId = localStorage.getItem("idUser");
+    window.open(
+      `http://localhost:3000/video-call/${roomInfo.room}/${roomInfo.caller_id}/${receiverId}`,
+      "Data",
+      `height=${height},width=${width},left=100,top=50`
+    );
+  };
+
+  //TỪ CHỐI CUỘC GỌI
+  const onCancleTheCall = () => {
+    socket.socketVideoCall.emit("receiver", {
+      event: "receiver",
+      room: roomInfo.room,
+      caller: roomInfo.caller_id,
+      action: 2,
     });
     dispatch(CloseReceiveLobby());
   };
 
   return (
     <>
-      {onCall ? <Redirect to="/jitsi" /> : ""}
-      <SC.Container
-        isOpen={LobbyReceiveCallStatus}
-        style={{
-          overlay: {
-            background: "none",
-          },
-        }}
-      >
+      <SC.Container isOpen={LobbyReceiveCallStatus}>
         <audio src={ReceiveTheCallRING} autoPlay />
-        <SC.Avatar />
-        <SC.Groupbtn>
-          <SC.CancelCallBtn onClick={onCancleTheCall}>
-            <SC.Icon src={CancelCall} />
-          </SC.CancelCallBtn>
-          <SC.ReceiveCallBtn onClick={onAccept}>
-            <SC.Icon src={ReceiveCall} />
-          </SC.ReceiveCallBtn>
-        </SC.Groupbtn>
+        <SC.GroupTitle>
+          <SC.Pain>
+            <SC.Title>{noti.title}</SC.Title>
+            <SC.CloseBtn onClick={onCancleTheCall}>
+              <SC.Cancle src={CancleIcon} />
+            </SC.CloseBtn>
+          </SC.Pain>
+        </SC.GroupTitle>
+        <SC.MainGroup>
+          <SC.Avatar
+            src={
+              roomInfo && roomInfo.caller_avater
+                ? roomInfo.caller_avater
+                : image
+            }
+          />
+          <SC.GroupNoti>
+            <SC.SubTitle>
+              {roomInfo ? roomInfo.caller_name : ""} {noti.descrip}
+            </SC.SubTitle>
+            <SC.Timer>{noti.timer}</SC.Timer>
+          </SC.GroupNoti>
+        </SC.MainGroup>
+        <SC.BtnGroup>
+          <SC.SubPain>
+            <SC.CancleTheCall onClick={onCancleTheCall}>
+              {noti.cancle}
+            </SC.CancleTheCall>
+            <SC.AcceptTheCall onClick={onAccept}>
+              <SC.Camera src={Camera} />
+              {noti.accept}
+            </SC.AcceptTheCall>
+          </SC.SubPain>
+        </SC.BtnGroup>
       </SC.Container>
     </>
   );

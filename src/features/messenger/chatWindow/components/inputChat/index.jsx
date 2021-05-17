@@ -1,15 +1,14 @@
 import * as SC from "./style";
 import SendIcon from "../../../../../assets/images/SendIcon.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  CloseIsChatTing,
-  OpenIsChatTing,
   PushMessageContent,
   setNotification,
 } from "../../../messageSlide";
-import { socketChat } from "../../../../../app/App";
 import { useEffect } from "react";
+import { SocketContext } from "../../../../../api/socketService";
+import { useForm } from "react-hook-form";
 
 const InputChat = (props) => {
   const dispatch = useDispatch();
@@ -17,9 +16,12 @@ const InputChat = (props) => {
   const { chatContent } = useSelector((state) => state.message);
   const { listChatTing } = useSelector((state) => state.message);
   const [message, setMessage] = useState({});
+  const socket = useContext(SocketContext);
+  const { handleSubmit } = useForm();
+  const [isChatTing, setChatTing] = useState(false);
 
   useEffect(() => {
-    socketChat.on("msgToClient", (data) => {
+    socket.socketChat.on("msgToClient", (data) => {
       setMessage(data);
     });
   }, []);
@@ -28,7 +30,6 @@ const InputChat = (props) => {
     if (chatContent.roomId == "") return;
     if (message.senderId == localStorage.getItem("idUser")) return;
     if (message.roomId == chatContent.roomId) {
-      console.log("trung r");
       const chatt = {
         senderId: message.senderId,
         mesContent: message.mesContent,
@@ -36,7 +37,6 @@ const InputChat = (props) => {
       dispatch(PushMessageContent(chatt));
       return;
     } else {
-      console.log("k trung  ");
       listChatTing.forEach((item) => {
         if (item.roomId == message.roomId) {
           const chatt = {
@@ -53,10 +53,26 @@ const InputChat = (props) => {
 
   const onChange = (event) => {
     setValue(event.target.value);
+    if (event.target.value != "") {
+      if (isChatTing) return;
+      socket.socketChat.emit("actionSender", {
+        room: chatContent.roomId,
+        receiver: [chatContent.receiver],
+        action: 1,
+      });
+      setChatTing(true);
+    } else {
+      socket.socketChat.emit("actionSender", {
+        room: chatContent.roomId,
+        receiver: [chatContent.receiver],
+        action: 2,
+      });
+      setChatTing(false);
+    }
   };
 
-  const EventForm = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
+    setChatTing(false);
     if (!vale) return;
     const chatt = {
       senderId: localStorage.getItem("idUser"),
@@ -64,7 +80,7 @@ const InputChat = (props) => {
     };
     dispatch(PushMessageContent(chatt));
     //send message
-    socketChat.emit("msgToServer", {
+    socket.socketChat.emit("msgToServer", {
       event: "msgToServer",
       room: chatContent.roomId,
       mes_content: vale,
@@ -74,18 +90,8 @@ const InputChat = (props) => {
     setValue("");
   };
 
-  const onHandleSubmit = (e) => {
-    EventForm(e);
-  };
-  const onEnterSubmit = (e) => {
-    if (e.key !== "Enter") return;
-    else {
-      EventForm(e);
-    }
-  };
-
   return (
-    <SC.Container onKeyDown={onEnterSubmit} onSubmit={onHandleSubmit}>
+    <SC.Container onSubmit={handleSubmit(onSubmit)}>
       <SC.ChatInput value={vale} onChange={onChange} placeholder="Aa" />
       <SC.BtnSend>
         <SC.ImageSend src={SendIcon} />

@@ -25,7 +25,7 @@ const ListChatTing = (props) => {
           <SC.BtnAvatar
             style={
               item.roomId == chatContent.roomId
-                ? { border: "2px solid #1771E6" }
+                ? { border: "2px solid #2F8C92" }
                 : { border: "none" }
             }
             onClick={() => onHandeClick(item, index)}

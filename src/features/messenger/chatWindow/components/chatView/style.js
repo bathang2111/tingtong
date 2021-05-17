@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import MenuIcon from "../../../../../assets//images/MenuIcon.png";
 
 export const Container = styled.div`
   width: 100%;
@@ -20,6 +21,26 @@ export const Container = styled.div`
   }
 `;
 
-export const IsChatTing=styled.div`
-  background: #ff0;
+export const IsChatTing = styled.div`
+  width: 60px;
+  height: 50px;
+  padding: 10;
+  box-sizing: border-box;
+  margin-left: 30px;
+`;
+
+export const Doc = styled.div`
+  background: rgba(190, 190, 190, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 30px;
+  border-radius: 20px;
+  z-index: 10;
+`;
+
+export const Imagee = styled.img`
+  width: 20px;
+  z-index: -1;
 `;

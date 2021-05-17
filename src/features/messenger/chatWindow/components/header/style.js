@@ -9,6 +9,8 @@ export const Container = styled.div`
   border-radius: 10px 10px 0 0;
   box-sizing: border-box;
   padding: 8px;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+  z-index: 5;
 `;
 
 export const Avatar = styled.img`
@@ -21,8 +23,10 @@ export const Name = styled.div`
   padding: 0;
   margin: 0;
   font-size: 15px;
-  color: #050505;
+  // color: #050505;
   margin-left: 5px;
+  height: 32px;
+  line-height: 32px;
 `;
 
 export const Pain = styled.div`

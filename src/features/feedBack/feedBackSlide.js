@@ -4,6 +4,7 @@ const FeedBack = createSlice({
   name: "feedback",
   initialState: {
     feedBackStatus: false,
+    Tutor: {},
   },
   reducers: {
     OpenFeedBackLobby: (state) => {
@@ -14,9 +15,13 @@ const FeedBack = createSlice({
       state.feedBackStatus = false;
       return state;
     },
+    setInfoTutor: (state, action) => {
+      state.Tutor = action.payload;
+      return state;
+    },
   },
 });
 
 const { reducer, actions } = FeedBack;
-export const { OpenFeedBackLobby, CloseFeedBackLobby } = actions;
+export const { OpenFeedBackLobby, CloseFeedBackLobby, setInfoTutor } = actions;
 export default reducer;

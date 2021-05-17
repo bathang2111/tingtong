@@ -20,9 +20,9 @@ export const BtnAuth = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
+  border-radius:20px;
   width: 250px;
-  height: 40px;
+  height: 32px;
   padding-left: 15px;
   margin-bottom: 15px;
 

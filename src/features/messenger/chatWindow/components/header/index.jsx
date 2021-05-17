@@ -2,12 +2,11 @@ import * as SC from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import CancleIcon from "../../../../..//assets/images/CancelIcon.png";
 import Arrow from "../../../../../assets/images/arrow.png";
-// import { CloseChatWindow } from "../../../../messageSlide";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import "../../style.scss";
 import { ClearChatContent, CloseChatWindow } from "../../../messageSlide";
-import { socketChat } from "../../../../../app/App";
 import { useEffect } from "react";
+import { SocketContext } from "../../../../../api/socketService";
 
 const MessageHeader = (props) => {
   const ArrowRef = useRef(null);
@@ -17,6 +16,7 @@ const MessageHeader = (props) => {
   const { image } = useSelector((state) => state.userprofile);
   const { chatContent } = useSelector((state) => state.message);
   const { listChatTing } = useSelector((state) => state.message);
+  const socket = useContext(SocketContext);
 
   const onHandleclick = () => {
     HeaderRef.current.classList.toggle("changeBackground");
@@ -30,7 +30,7 @@ const MessageHeader = (props) => {
     if (listChatTing.length <= 1) {
       dispatch(CloseChatWindow());
     }
-    socketChat.emit("leaveRoom", {
+    socket.socketChat.emit("leaveRoom", {
       event: "leaveRoom",
       room: chatContent.roomId,
     });

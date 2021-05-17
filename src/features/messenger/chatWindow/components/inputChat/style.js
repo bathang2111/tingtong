@@ -16,7 +16,7 @@ export const Container = styled.form`
 export const ChatInput = styled.input`
   width: 85%;
   background: rgb(216, 218, 220);
-  height: 30px;
+  height: 37px;
   border: 0.5px solid white;
   border-radius: 15px;
   outline: none;

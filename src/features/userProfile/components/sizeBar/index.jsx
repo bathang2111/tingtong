@@ -12,6 +12,7 @@ const SizeBar = (props) => {
   const ToggleRef1 = useRef(null);
   const dispatch = useDispatch();
   const { image } = useSelector((state) => state.userprofile);
+  const { userInfo } = useSelector((state) => state.userprofile);
 
   const ToggleLeft = () => {
     ToggleRef.current.classList.toggle("minimize");
@@ -31,9 +32,9 @@ const SizeBar = (props) => {
             <img src={image} />
           </div>
           <div className="user-info">
-            <p className="user-name">Thắng Đẹp Trai</p>
-            <p className="user-title">bathangg123@gmail.com</p>
-            <p className="user-title">0123456789</p>
+            <p className="user-name">{userInfo ? userInfo.fullName : ""}</p>
+            <p className="user-title">{userInfo ? userInfo.address : ""}</p>
+            <p className="user-title">{userInfo ? userInfo.phoneNumber : ""}</p>
           </div>
         </div>
         <div className="main-menu"></div>

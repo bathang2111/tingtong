@@ -8,7 +8,7 @@ export const Globalstyled = createGlobalStyle`
       overflow-x:hidden; 
         margin:0px;
         height: 100%;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family: 'Helvetica Neue', Helvetica,"Open sans", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         ::-webkit-scrollbar {

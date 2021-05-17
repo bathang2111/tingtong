@@ -3,17 +3,30 @@ import ChatItem from "../chatItem";
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { useEffect } from "react";
-import { socketChat } from "../../../../../app/App";
-import { PushMessageContent, setNotification } from "../../../messageSlide";
+import { useState } from "react";
+import { useContext } from "react";
+import { SocketContext } from "../../../../../api/socketService";
+import IconChatTing from "../../../../../assets/images/IconChatTing.gif";
+import audioChatTing from "../../../../../assets/audio/audioIsChatTing.mp3";
 
 const ChatView = (props) => {
   const { chatContent } = useSelector((state) => state.message);
-  const { isChatTing } = useSelector((state) => state.message);
+  const { isOpenChatWindow } = useSelector((state) => state.message);
   const viewRef = useRef(null);
+  const [isChatTing, setChatTing] = useState(false);
+  const socket = useContext(SocketContext);
+  let audio = new Audio(audioChatTing);
 
   useEffect(() => {
     viewRef.current.scrollIntoView();
   }, [chatContent.roomId]);
+
+  useEffect(() => {
+    socket.socketChat.on("msgToClient", (data) => {
+      // console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+      setChatTing(false);
+    });
+  }, []);
 
   useEffect(() => {
     viewRef.current.scrollIntoView({
@@ -21,7 +34,27 @@ const ChatView = (props) => {
       block: "end",
       inline: "nearest",
     });
-  }, [chatContent.content]);
+  }, [chatContent.content, isChatTing]);
+
+  useEffect(() => {
+    socket.socketChat.on("actionToReceiver", (data) => {
+      // console.log("action to recieve");
+      if (localStorage.getItem("idUser") == data.sender) return;
+      if (data.action == 1) {
+        setChatTing(true);
+      } else {
+        setChatTing(false);
+      }
+    });
+    return () => socket.socketChat.on("actionToReceiver");
+  }, []);
+
+  useEffect(() => {
+    if (!isOpenChatWindow) return;
+    if (!isChatTing) return;
+    audio.currentTime = 0;
+    audio.play();
+  }, [isChatTing]);
 
   const showListChat = () => {
     if (Object.keys(chatContent.content).length == 0) return;
@@ -32,7 +65,17 @@ const ChatView = (props) => {
   };
   return (
     <SC.Container>
-      {showListChat()} <div ref={viewRef}></div>
+      {showListChat()}
+      {isChatTing ? (
+        <SC.IsChatTing>
+          <SC.Doc>
+            <SC.Imagee src={IconChatTing} />
+          </SC.Doc>
+        </SC.IsChatTing>
+      ) : (
+        <SC.IsChatTing />
+      )}
+      <div ref={viewRef} />
     </SC.Container>
   );
 };

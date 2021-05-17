@@ -4,25 +4,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
 import Footer from "../../../../components/footer";
-import { setCourseDetail } from "../../coursesSlide";
-import Course from "../course/course";
+import { getCourses, setCourseDetail } from "../../coursesSlide";
+import Ripples from "react-ripples"
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
   const url = props.match.url;
   const { courseDetail } = useSelector((state) => state.courses);
   const [lesson, setLessons] = useState({ listLessons: [], length: 0 });
+  const { curriculums } = useSelector((state) => state.courses);
+  const [relativeCourse, setRela] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    console.log("da choi");
     const response = await CurriculumsApi.getCourseDetail(id);
     dispatch(setCourseDetail(response));
     setLessons({
       listLessons: response.lessons,
       length: response.lessons.length,
     });
-  }, [courseDetail]);
+  }, [id]);
+
+  useEffect(async () => {
+    if (curriculums.length == 0) {
+      await dispatch(getCourses());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (curriculums.length == 0) return;
+    if (!courseDetail.id) return;
+    const rela = curriculums.filter((item) => {
+      return item.id == courseDetail.curriculumID;
+    });
+    setRela(rela[0].courses);
+  }, [curriculums, courseDetail]);
 
   const showLesson = () => {
     const result = lesson.listLessons.map((les, index) => {
@@ -40,9 +56,15 @@ const CourseDetailPage = (props) => {
   };
 
   const showRelativeCourse = () => {
-    const a = [1, 2, 3, 4, 5];
-    const re = a.map((item) => {
-      return <Course match={{url:null}} course={{id:null}} />;
+    const re = relativeCourse.map((item) => {
+      if (item.id == courseDetail.id) return;
+      return (
+        <SC.RelativeCourse to={`/courses/${item.id}`}>
+          <SC.RelaImage src={item.avatar} />
+          <SC.RelaTitle>{item.name}</SC.RelaTitle>
+          <SC.RelaDescription>{item.description}</SC.RelaDescription>
+        </SC.RelativeCourse>
+      );
     });
     return re;
   };
@@ -57,7 +79,9 @@ const CourseDetailPage = (props) => {
             <SC.Title>{courseDetail.name}</SC.Title>
           </SC.Avatar>
           <SC.OtherCourse>Other Courses</SC.OtherCourse>
-          <SC.RelativeCourses>{showRelativeCourse()}</SC.RelativeCourses>
+          <SC.RelativeCoursesList>
+            {showRelativeCourse()}
+          </SC.RelativeCoursesList>
         </SC.LeftGroup>
         <SC.RightGroup>
           <SC.OverView>OverView</SC.OverView>
