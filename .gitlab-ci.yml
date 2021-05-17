@@ -2,7 +2,7 @@ variables:
     CI_JOB_USER: tingtong
     CI_JOB_TOKEN: yuyz3-Uzq9xjKiQFiwZF
     CI_REGISTRY_IMAGE: registry.gitlab.com/online-learning-hcmus/client/tingtong
-    SERVER: 115.78.232.219
+    SERVER: 34.126.81.165
 
 stages:
     - build
