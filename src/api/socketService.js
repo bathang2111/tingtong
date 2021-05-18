@@ -1,9 +1,10 @@
 import { createContext } from "react";
 import io from "socket.io-client";
+import { SOCKET_URL } from "../constants/baseURl";
 
 export const socketChat = (token) => {
   if (!token) return null;
-  const socker = io("https://34.126.81.165:5003/chat", {
+  const socker = io(`${SOCKET_URL}/chat`, {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,
@@ -14,7 +15,7 @@ export const socketChat = (token) => {
 
 export const socketVideoCall = (token) => {
   if (!token) return null;
-  const socker = io("https://34.126.81.165:5003/video-call", {
+  const socker = io(`${SOCKET_URL}/video-call`, {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,
@@ -25,7 +26,7 @@ export const socketVideoCall = (token) => {
 
 export const socketTutor = (token) => {
   if (!token) return null;
-  const socker = io("https://34.126.81.165:5003/tutor", {
+  const socker = io(`${SOCKET_URL}/tutor`, {
     // transports: ["websocket", "polling", "flashsocket"],
     query: {
       token: token,
