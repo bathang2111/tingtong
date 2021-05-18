@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import TutorsApi from "../../api/tutorsApi";
 import LocalVideo from "./components/localVideo";
 
-const socket = io("http://34.126.81.165:5003/video-call", {
+const socket = io("https://34.126.81.165:5003/video-call", {
   // transports: ["websocket", "polling", "flashsocket"],
   query: {
     token: localStorage.getItem("token"),

@@ -12,7 +12,7 @@ build-staging:
     image: docker:stable
     stage: build
     only:
-        - dev
+        - staging
     services:
         - docker:dind
     script:
@@ -24,7 +24,7 @@ deploy-staging:
     image: docker:stable
     stage: deploy
     only:
-        - dev
+        - staging
     services:
         - docker:dind
     before_script:

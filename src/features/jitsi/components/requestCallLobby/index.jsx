@@ -71,7 +71,7 @@ const RequestCallLobby = (props) => {
         receiver: props.receiverId,
         action: 2,
       });
-    }, 10000);
+    }, 40000);
   }, []);
 
   const showNotification = () => {

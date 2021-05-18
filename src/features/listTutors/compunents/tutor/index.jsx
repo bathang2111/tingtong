@@ -22,7 +22,7 @@ const Tutor = (props) => {
     });
     const callerId = localStorage.getItem("idUser");
     window.open(
-      `http://localhost:3000/video-call/${room.id}/${callerId}/${props.info.userID}`,
+      `https://tingtong.xyz/video-call/${room.id}/${callerId}/${props.info.userID}`,
       "Data",
       `height=380,width=700,left=${left},top=${top}`
     );
