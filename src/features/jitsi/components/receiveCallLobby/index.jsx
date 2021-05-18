@@ -49,7 +49,7 @@ const ReceiveCallLobby = (props) => {
     const height = window.screen.height - 180;
     const receiverId = localStorage.getItem("idUser");
     window.open(
-      `http://localhost:3000/video-call/${roomInfo.room}/${roomInfo.caller_id}/${receiverId}`,
+      `https://tingtong.xyz/video-call/${roomInfo.room}/${roomInfo.caller_id}/${receiverId}`,
       "Data",
       `height=${height},width=${width},left=100,top=50`
     );
