@@ -1,7 +1,7 @@
 variables:
     CI_JOB_USER: tingtong
     CI_JOB_TOKEN: yuyz3-Uzq9xjKiQFiwZF
-    CI_REGISTRY_IMAGE: registry.gitlab.com/online-learning-hcmus/client/tingtong
+    CI_REGISTRY_IMAGE: registry.gitlab.com/online-learning-hcmus/client/tingtong:staging
     SERVER: 34.126.81.165
 
 stages:
@@ -39,11 +39,11 @@ deploy-staging:
         - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY_IMAGE
         - docker pull $CI_REGISTRY_IMAGE
         - docker save $CI_REGISTRY_IMAGE > image_web_student.tar
-        - scp image_web_student.tar ubuntu@$SERVER:~/tingtong/
+        - scp image_web_student.tar root@$SERVER:~/tingtong/
 
-        - scp docker-compose/docker-compose.yml ubuntu@$SERVER:~/tingtong/docker-compose/docker-compose_web_student.yml
+        - scp docker-compose/docker-compose.yml root@$SERVER:~/tingtong/docker-compose/docker-compose_web_student.yml
 
-        - ssh -tt ubuntu@$SERVER "cd tingtong &&
+        - ssh -tt root@$SERVER "cd tingtong &&
           docker load  < image_web_student.tar &&
           docker rm -f tingtong_web_student &&
           docker-compose -f docker-compose/docker-compose_web_student.yml up -d"
