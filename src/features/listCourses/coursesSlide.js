@@ -24,10 +24,15 @@ const Listcourses = createSlice({
     courseDetail: {},
     loading: false,
     error: false,
+    isOpenSlide: false,
   },
   reducers: {
     setCourseDetail: (state, action) => {
       state.courseDetail = action.payload;
+      return state;
+    },
+    TogglePopUpSlide: (state) => {
+      state.isOpenSlide = !state.isOpenSlide;
       return state;
     },
   },
@@ -58,5 +63,5 @@ const Listcourses = createSlice({
 });
 
 const { reducer, actions } = Listcourses;
-export const { setCourseDetail } = actions;
+export const { setCourseDetail, TogglePopUpSlide } = actions;
 export default reducer;

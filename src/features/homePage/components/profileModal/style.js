@@ -136,7 +136,7 @@ export const Line = styled.div`
 export const VideoIntro = styled.video`
   width: 340px;
   max-height:200px;
-  background: rgba(0,0,0,0.7);
+  // background: rgba(0,0,0,0.7);
 `;
 
 export const FeedBack = styled.div`

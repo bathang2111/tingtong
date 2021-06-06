@@ -33,6 +33,7 @@ const SizeBar = (props) => {
           </div>
           <div className="user-info">
             <p className="user-name">{userInfo ? userInfo.fullName : ""}</p>
+            <p className="user-title">{userInfo ? userInfo.email : ""}</p>
             <p className="user-title">{userInfo ? userInfo.address : ""}</p>
             <p className="user-title">{userInfo ? userInfo.phoneNumber : ""}</p>
           </div>

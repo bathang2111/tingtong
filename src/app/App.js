@@ -8,6 +8,7 @@ import ChatWindow from "../features/messenger/chatWindow";
 import ListChat from "../features/messenger/listChat";
 import SmallScreenMenu from "../components/header/components/smallScreenMenu";
 import ListChatTing from "../features/messenger/chatWindow/components/listChating";
+import CourseDetailPage from ".././features/listCourses/components/courseDetailPage";
 import MessageApi from "../api/messageApi";
 import { useEffect, useState } from "react";
 import {
@@ -22,6 +23,7 @@ function App() {
   const token = localStorage.getItem("token");
   const [tokenn, setToken] = useState();
 
+  const url = window.location.pathname;
   useEffect(() => {
     if (!token) return;
     setToken(token);
@@ -44,6 +46,18 @@ function App() {
     return;
   };
 
+  const checkPage = () => {
+    if (isLogin) {
+      return 
+    } else {
+      if (url.indexOf("/courses/") != -1) {
+        return <Redirect to={url} />
+      } else {
+        return <Redirect to="/wellcome" />;
+      }
+    }
+  };
+
   return (
     <SocketContext.Provider
       value={
@@ -56,7 +70,8 @@ function App() {
           : null
       }
     >
-      {isLogin ? "" : <Redirect to="/wellcome" />}
+      {checkPage()}
+      {/* {isLogin ? "" : <Redirect to="/wellcome" />} */}
       {listPage()}
       {tokenn ? (
         <>

@@ -57,6 +57,8 @@ export const GroupLesson = styled.div`
 `;
 
 export const RightGroup = styled.div`
+  width: calc(100% - 400px);
+  // height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -76,10 +78,12 @@ export const NameLesson = styled.h4`
   padding: 0;
   color: #333333;
   font-size: 34px;
+  font-weight: 400;
 `;
 
 export const Linkk = styled(Link)`
   text-decoration: none;
+  width: 100%;
   &:hover {
     background: #f5f5f5;
   }
@@ -91,7 +95,43 @@ export const Description = styled.span`
   margin-top: 10px;
 `;
 
-export const Pain = styled.div`
-  widows: 10px;
-  height: 25px;
+export const PreparGroup = styled.div`
+  // width: 80%;
+  height: 170px;
+  // background: #ff0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: scroll;
+`;
+
+export const SubTitlee = styled.span`
+  font-size: 20px;
+  margin-top: 30px;
+  color: #333333;
+`;
+
+export const Review = styled.span`
+  font-size: 16px;
+  padding: 0;
+  margin: 10px 0;
+  color: #333333;
+`;
+
+export const BeforeImg = styled.img`
+  width: 178px;
+  height: 135px;
+  border-radius:8px;
+  &:hover {
+    border: 1px solid #ff0;
+  }
+`;
+
+export const Videos = styled.video`
+  width: 178px;
+  height: 135px;
+  border-radius:8px;
+  &:hover {
+    border: 1px solid #ff0;
+  }
 `;

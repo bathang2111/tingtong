@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import LoveIcon from "../../../../assets/images/Love.png";
+
 import StarIcon from "../../../../assets/images/star.png";
 import HaffStarIcon from "../../../../assets/images/HaffStar.png";
 
@@ -84,9 +84,12 @@ export const Name = styled.h1`
 export const Love = styled.div`
   width: 29px;
   height: 24px;
-  background: url(${LoveIcon});
-  background-size: cover;
   margin-left: auto;
+`;
+
+export const Heart = styled.img`
+  width: 29px;
+  height: 24px;
 `;
 
 export const Feedback = styled.div`
@@ -135,13 +138,16 @@ export const Introduce = styled.div`
 `;
 
 export const ButtonGroup = styled.div`
-  width: 157px;
-  height: 34px;
   position: absolute;
   right: 10px;
   bottom: 10px;
   display: flex;
   flex-direction: row;
+`;
+
+export const Painn = styled.div`
+  height: 10px;
+  width: 10px;
 `;
 
 export const ProfileButton = styled(Link)`
