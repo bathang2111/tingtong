@@ -101,7 +101,7 @@ const Profile = (props) => {
 
       <SC.CallVideoButton>Gọi</SC.CallVideoButton>
       <SC.Line />
-      <SC.VideoIntro src={Tutor.introVideo} />
+      <SC.VideoIntro src={Tutor.introVideo} controls />
 
       <SC.IntroGroup>
         <SC.Title>About Me</SC.Title>

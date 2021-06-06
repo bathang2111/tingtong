@@ -4,15 +4,34 @@ import {
   ToggleProfileModal,
   TutorIdDetail,
 } from "../../../homePage/homePageSlice";
-import { OpenRequestLobby, SetTutorsReceive } from "../../../jitsi/jitsiSlide";
 import * as SC from "./style";
 import Ripples from "react-ripples";
+import LoveIcon from "../../../../assets/images/Love.png";
+import LoveIconActive from "../../../../assets/images/iconHeart.png";
+import { useState } from "react";
+import FeedBackApi from "../../../../api/feedbackApi";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
   const { language } = useSelector((state) => state);
+  const [heartActive, setActive] = useState(LoveIcon);
   const left = (window.screen.width - 700) / 2;
   const top = (window.screen.height - 380) / 2;
+
+  const LikeTutor = async () => {
+    if (heartActive == LoveIcon) {
+      setActive(LoveIconActive);
+      try {
+        const res = await FeedBackApi.likeTutor(props.info.id);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }else{
+      setActive(LoveIcon)
+    }
+    // heartActive == LoveIcon ? setActive(LoveIconActive) : setActive(LoveIcon);
+  };
 
   const onRequestTheCall = async () => {
     // click event call video
@@ -43,7 +62,9 @@ const Tutor = (props) => {
           <SC.Info>
             <SC.GroupName>
               <SC.Name>{props.info.name}</SC.Name>
-              <SC.Love />
+              <SC.Love onClick={LikeTutor}>
+                <SC.Heart src={heartActive} />
+              </SC.Love>
             </SC.GroupName>
             <SC.Feedback>
               <SC.Star />
@@ -68,6 +89,7 @@ const Tutor = (props) => {
               Profile
             </SC.ProfileButton>
           </Ripples>
+          <SC.Painn/>
           <Ripples>
             <SC.CallButton onClick={onRequestTheCall}>
               {language.call}

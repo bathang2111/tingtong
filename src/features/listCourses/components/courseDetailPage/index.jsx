@@ -5,7 +5,13 @@ import { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
 import Footer from "../../../../components/footer";
 import { getCourses, setCourseDetail } from "../../coursesSlide";
-import Ripples from "react-ripples"
+import iconShare from "../../../../assets/images/iconShare.png";
+import LoveIcon from "../../../../assets/images/Love.png";
+import LoveIconActive from "../../../../assets/images/iconHeart.png";
+import Ripples from "react-ripples";
+import ShareLink from "../shareLink";
+import Enroll from "../enroll"
+import FeedBackApi from "../../../../api/feedbackApi";
 
 const CourseDetailPage = (props) => {
   const id = props.match.params.id;
@@ -15,6 +21,9 @@ const CourseDetailPage = (props) => {
   const { curriculums } = useSelector((state) => state.courses);
   const [relativeCourse, setRela] = useState([]);
   const dispatch = useDispatch();
+  const [shareLink, setShareLink] = useState(false);
+  const [subcribe, setSubcribe] = useState(false);
+  const [heartActive, setActive] = useState(LoveIcon);
 
   useEffect(async () => {
     const response = await CurriculumsApi.getCourseDetail(id);
@@ -69,19 +78,57 @@ const CourseDetailPage = (props) => {
     return re;
   };
 
+  const togglePopup = () => {
+    setShareLink(false);
+  };
+
+  const togglePopup2 = () => {
+    setSubcribe(false);
+  };
+
+  const LikeCourse = async () => {
+    if (heartActive == LoveIcon) {
+      setActive(LoveIconActive);
+      try {
+        const res = await FeedBackApi.likeCourse(id)
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }else{
+      setActive(LoveIcon)
+    }
+    // heartActive == LoveIcon ? setActive(LoveIconActive) : setActive(LoveIcon);
+  };
+
+
   return (
     <>
+      <ShareLink
+        togglePopup={(value) => togglePopup(value)}
+        isOpen={shareLink}
+      />
+      <Enroll
+        togglePopup={(value) => togglePopup2(value)}
+        isOpen={subcribe}
+      />
       <Header />
       <SC.Container>
         <SC.LeftGroup>
           <SC.Avatar>
+            <SC.Love onClick={LikeCourse}>
+              <SC.Heart src={heartActive} />
+            </SC.Love>
             <SC.Image src={courseDetail.avatar} />
             <SC.Title>{courseDetail.name}</SC.Title>
+            <SC.SubcribeBtn onClick={() => setSubcribe(true)}>
+              Ghi danh
+            </SC.SubcribeBtn>
+            <SC.ShareBtn onClick={() => setShareLink(true)}>
+              <SC.ShareIcon src={iconShare} />
+              Chia sẻ
+            </SC.ShareBtn>
           </SC.Avatar>
-          <SC.OtherCourse>Other Courses</SC.OtherCourse>
-          <SC.RelativeCoursesList>
-            {showRelativeCourse()}
-          </SC.RelativeCoursesList>
         </SC.LeftGroup>
         <SC.RightGroup>
           <SC.OverView>OverView</SC.OverView>
@@ -101,6 +148,12 @@ const CourseDetailPage = (props) => {
           {showLesson()}
         </SC.RightGroup>
       </SC.Container>
+
+      <SC.Painn>
+        <SC.OtherCourse>Other Courses</SC.OtherCourse>
+        <SC.RelativeCoursesList>{showRelativeCourse()}</SC.RelativeCoursesList>
+      </SC.Painn>
+
       <Footer />
     </>
   );

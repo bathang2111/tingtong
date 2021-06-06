@@ -8,6 +8,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  // background: #ff0;
 `;
 
 export const LeftGroup = styled.div`
@@ -17,6 +18,7 @@ export const LeftGroup = styled.div`
 `;
 
 export const Avatar = styled.div`
+  position: relative;
   width: 410px;
   height: 615px;
   border-radius: 20px;
@@ -25,6 +27,20 @@ export const Avatar = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+`;
+
+export const Love = styled.div`
+  position: absolute;
+  top:20px;
+  right:20px;
+  width: 29px;
+  height: 24px;
+  margin-left: auto;
+`;
+
+export const Heart = styled.img`
+  width: 29px;
+  height: 24px;
 `;
 
 export const Image = styled.img`
@@ -39,6 +55,33 @@ export const Title = styled.h1`
   color: #363636;
 `;
 
+export const ShareBtn = styled.button`
+  position: absolute;
+  padding: 10px 20px;
+  font-size: 15px;
+  background: #2f8c92;
+  color: #fff;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 6px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+export const ShareIcon = styled.img`
+  width: 15px;
+  height: 15px;
+  margin-right: 3px;
+`;
+
+export const SubcribeBtn=styled(ShareBtn)`
+  right: 150px;
+`;
 export const OtherCourse = styled.span`
   margin: 65px 0 10px;
   font-size: 20px;
@@ -46,6 +89,9 @@ export const OtherCourse = styled.span`
   padding: 0;
 `;
 
+export const Painn = styled.div`
+  padding: 10px 50px;
+`;
 export const RelativeCoursesList = styled.div`
   width: 100%;
   height: 273px;

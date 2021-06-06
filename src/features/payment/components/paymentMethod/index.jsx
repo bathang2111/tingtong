@@ -14,11 +14,11 @@ const DisCount = (props) => {
 
   const onHandleSubmit = async () => {
     const body = {
-      orderID: localStorage.getItem("idUser"),
-      amount: price,
+      orderID: "125dasddasdasdasasd",
+      amount: price * 100,
       bankCode: bankCode,
-      orderDescription: "Mua gói thời gian",
-      orderType: "topup",
+      orderDescription: "description",
+      orderType: "popup",
       locale: "vn",
       currCode: "VND",
     };
