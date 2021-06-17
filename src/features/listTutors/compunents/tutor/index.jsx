@@ -6,31 +6,45 @@ import {
 } from "../../../homePage/homePageSlice";
 import * as SC from "./style";
 import Ripples from "react-ripples";
-import LoveIcon from "../../../../assets/images/Love.png";
-import LoveIconActive from "../../../../assets/images/iconHeart.png";
+import unLikeTutorIcon from "../../../../assets/images/Love.png";
+import likeTutorIcon from "../../../../assets/images/iconHeart.png";
 import { useState } from "react";
 import FeedBackApi from "../../../../api/feedbackApi";
+import { useEffect } from "react";
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
   const { language } = useSelector((state) => state);
-  const [heartActive, setActive] = useState(LoveIcon);
+  const [likeStatus, setStatusLikeTutor] = useState(false);
   const left = (window.screen.width - 700) / 2;
   const top = (window.screen.height - 380) / 2;
 
+  useEffect(() => {
+    console.log(props.favoriteTutors);
+    if (!props.favoriteTutors) return
+    const check = props.favoriteTutors.find(item => item.id == props.info.id)
+    if (check) {
+      setStatusLikeTutor(true)
+    }
+  },[props.favoriteTutors])
+
   const LikeTutor = async () => {
-    if (heartActive == LoveIcon) {
-      setActive(LoveIconActive);
+    if (likeStatus == false) {
+      setStatusLikeTutor(true);
       try {
         const res = await FeedBackApi.likeTutor(props.info.id);
-        console.log(res);
       } catch (error) {
         console.log(error);
       }
-    }else{
-      setActive(LoveIcon)
+    } else {
+      setStatusLikeTutor(false)
+      try {
+        const res = await FeedBackApi.unlikeTutor(props.info.id);
+      } catch (error) {
+        console.log(error);
+      }
     }
-    // heartActive == LoveIcon ? setActive(LoveIconActive) : setActive(LoveIcon);
+    // likeStatus == likeTutorIcon ? setStatusLikeTutor(unLikeTutorIcon) : setStatusLikeTutor(likeTutorIcon);
   };
 
   const onRequestTheCall = async () => {
@@ -58,12 +72,11 @@ const Tutor = (props) => {
           <SC.Avatar background={props.info.avatar}>
             {props.info.isOnline ? <SC.IsOnline /> : ""}
           </SC.Avatar>
-
           <SC.Info>
             <SC.GroupName>
               <SC.Name>{props.info.name}</SC.Name>
               <SC.Love onClick={LikeTutor}>
-                <SC.Heart src={heartActive} />
+                <SC.Heart src={likeStatus ? likeTutorIcon : unLikeTutorIcon} />
               </SC.Love>
             </SC.GroupName>
             <SC.Feedback>
@@ -89,7 +102,7 @@ const Tutor = (props) => {
               Profile
             </SC.ProfileButton>
           </Ripples>
-          <SC.Painn/>
+          <SC.Painn />
           <Ripples>
             <SC.CallButton onClick={onRequestTheCall}>
               {language.call}

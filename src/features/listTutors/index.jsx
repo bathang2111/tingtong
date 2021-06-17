@@ -11,15 +11,25 @@ import Loader from "./compunents/loader";
 import Error from "../../components/error";
 import { checkTutorOnline } from "./tutorSlide";
 import { SocketContext } from "../../api/socketService";
+import AuthApi from "../../api/authApi";
 
 const ListTutors = (props) => {
   const Tutors = useSelector((state) => state.tutors);
+  const [favoriteTutors, setFavoriteTutor] = useState();
   const { language } = useSelector((state) => state);
   const SearchTutors = useSelector(
     (state) => state.tutors.listTutorsWhenSearch
   );
   const dispatch = useDispatch();
-  const socket=useContext(SocketContext)
+  const socket = useContext(SocketContext);
+
+  useEffect(async () => {
+    try {
+      const res = await AuthApi.getUserInfo();
+      setFavoriteTutor(res.favoriteTutors);
+      // setFavoriteTutor(res.)
+    } catch (error) {}
+  }, []);
 
   useEffect(async () => {
     if (Tutors.listTutors.length > 0) return;
@@ -28,13 +38,13 @@ const ListTutors = (props) => {
 
   //listen event tutor online=========================================================================
   useEffect(() => {
-    if(!socket)return
+    if (!socket) return;
     socket.socketTutor.on("active", (data) => {
       console.log(data);
       dispatch(checkTutorOnline("93752215470085131"));
     });
   }, []);
-
+  
   const ShowListTutors = () => {
     if (SearchTutors.length > 0) {
       const result = SearchTutors.map((tutor) => {
@@ -50,7 +60,9 @@ const ListTutors = (props) => {
       return <Error />;
     } else {
       const result = Tutors.listTutors.map((tutor) => {
-        return <Tutor key={tutor.id} info={tutor} />;
+        return (
+          <Tutor key={tutor.id} info={tutor} favoriteTutors={favoriteTutors} />
+        );
       });
       return result;
     }
