@@ -171,7 +171,7 @@ function FormLogIn(props) {
     ]);
 
     const body = {
-      name: user_info.username,
+      username: user_info.username,
       password: user_info.password
     }
 
@@ -183,12 +183,12 @@ function FormLogIn(props) {
     await dispatch(getAuthLogin(data))
       .then((res) => {
         const result = unwrapResult(res);
-        if (result.user.id && result.user.role == 1) {
+        if (result.user.id && result.user.role == 0) {
           localStorage.setItem("idUser", result.user.id);
           localStorage.setItem("token", result.accessToken);
           // connectSocket();
           dispatch(isLoginOn());
-          history.push('/home');
+          history.push('/');
         } else {
           
         }
@@ -301,7 +301,7 @@ function FormLogIn(props) {
           <Typography className={classes.txt_not_acc}>
             Bạn chưa có tài khoản?
           </Typography>
-          <a href="/register" className={classes.txt_register}>
+          <a href="/signup" className={classes.txt_register}>
             Đăng ký
           </a>
         </Grid>
