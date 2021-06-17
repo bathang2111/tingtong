@@ -20,12 +20,9 @@ function LogIn(props) {
       <SC.Container>
         <SC.SubContainer>
           <Background position="row"/>
-          <SC.Title>Login</SC.Title>
           <SC.FormLogin>
             <SC.SmallLogo src={logo} />
             <FormLogIn></FormLogIn>
-            <FormLogInAnotherAccount></FormLogInAnotherAccount>
-            <FooterLogIn></FooterLogIn>
           </SC.FormLogin>
         </SC.SubContainer>
       </SC.Container>
