@@ -8,13 +8,31 @@ import { getCourses } from "./coursesSlide";
 import Error from "../../components/error";
 import * as SC from "./style.js";
 import Loader from "./components/loader";
+import ItemCurriculum from "./components/curriculum/ItemCurriculum";
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
 
+const useStyles = makeStyles((theme) => ({
+
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(2)
+  }
+
+}));
 const ListCourses = (props) => {
   const Curriculums = useSelector((state) => state.courses);
   const SearchCourses = useSelector(
     (state) => state.courses.listCoursesWhenSearch
   );
   const dispatch = useDispatch();
+  const classes = useStyles();
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   useEffect(async () => {
     if (Curriculums.curriculums.length > 0) return;
@@ -30,16 +48,6 @@ const ListCourses = (props) => {
   }, []);
 
   const showListCourses = () => {
-    if (SearchCourses.length > 0) {
-      const result = SearchCourses.map((course) => {
-        return <Course key={course.id} course={course} match={props.match} />;
-      });
-      return (
-        <SC.Container style={{ marginTop: "20px" }}>
-          <SC.ListCourses>{result}</SC.ListCourses>
-        </SC.Container>
-      );
-    }
 
     if (Curriculums.loading) {
       return <Loader />;
@@ -47,15 +55,8 @@ const ListCourses = (props) => {
       return <Error />;
     } else {
       const result = Curriculums.curriculums.map((curr) => {
-        const listCourses = curr.courses.map((course) => {
-          return <Course key={course.id} course={course} match={props.match} />;
-        });
         return (
-          <SC.Container>
-            <SC.TypeOfCourse>{curr.title}</SC.TypeOfCourse>
-            <SC.Description>{curr.description}</SC.Description>
-            <SC.ListCourses>{listCourses}</SC.ListCourses>
-          </SC.Container>
+          <ItemCurriculum curriculum={curr}></ItemCurriculum>
         );
       });
       return result;
@@ -66,17 +67,15 @@ const ListCourses = (props) => {
     <>
       <Header />
       <SearchCourse />
-      {showListCourses()}
-      {/* <SC.Container>
-        <SC.TypeOfCourse>beginner</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>intermediate</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>advanced</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>english exam</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-      </SC.Container> */}
+      <SC.Container>
+        <Typography style={{ 'magin': 0, 'fontSize': '2.1rem', 'marginTop': '24px' }} gutterBottom variant="h5" component="h5">
+          Khám phá các Khóa học
+        </Typography>
+        {showListCourses()}
+      </SC.Container>
+      <div className={classes.pagination}>
+        <Pagination size="large" color="primary" count={10} page={page} siblingCount={0} onChange={handleChange} />
+      </div>
       <Footer />
     </>
   );
