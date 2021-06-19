@@ -21,6 +21,20 @@ const MainProfile = (props) => {
   const { userInfo } = useSelector((state) => state.userprofile);
   const [ToggleUpdate, setUpdate] = useState(false);
 
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(","),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
   const logout = () => {
     localStorage.clear();
     window.location.reload();
@@ -51,10 +65,7 @@ const MainProfile = (props) => {
       dispatch(SaveAvatar(imageAfterChange));
       dispatch(ChangeAvatar());
 
-      const i = imageAfterChange.indexOf("base64,");
-      const buffer = Buffer.from(imageAfterChange.slice(i + 7), "base64");
-      const filename = "string.png";
-      const file = new File(buffer, filename, { type: "image/png" });
+      const file = dataURLtoFile(imageAfterChange,'avatar.txt');
       var data = new FormData();
       data.append("files", file);
 
@@ -98,6 +109,10 @@ const MainProfile = (props) => {
             height={300}
             onCrop={onCrop}
             mimeTypes="svg"
+            label="Chọn hình ảnh"
+            exportAsSquare={true}
+            // cropRadius={10}
+            // cropColor="black"
             src={image}
             // onClose={this.onClose}
             // onBeforeFileLoad={onBeforeFileLoad}

@@ -61,18 +61,18 @@ export const SmallLogo = styled.img`
   } ;
 `;
 
-export const FormSignUp = styled.form`
+export const FormSignUp = styled.div`
   width: 340px;
-  height: 420px;
+  height: 390px;
   background-color: #ffffff;
-  border: 1px solid rgba(132, 116, 161, 0.7);
+  border-radius: 3px;
+  box-shadow: 0 1px 14px 0 rgba(0, 0, 0, 0.07);
   z-index: 7;
   display: flex;
   flex-direction: column;
   margin: 0 0 0 50px;
   align-items: center;
   justify-content: space-around;
-  padding: 20px 0;
   @media (max-width: 450px) {
     width: 100vw;
     height: 100vh;
@@ -80,6 +80,7 @@ export const FormSignUp = styled.form`
     margin: 0;
   } ;
 `;
+
 
 export const Input = styled.input`
   padding: 0 10px;
