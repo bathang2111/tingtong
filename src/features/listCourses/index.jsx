@@ -12,6 +12,7 @@ import ItemCurriculum from "./components/curriculum/ItemCurriculum";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
+import CuriculumsApi from '../../api/curiculumsApi'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -23,38 +24,29 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 const ListCourses = (props) => {
-  const Curriculums = useSelector((state) => state.courses);
-  const SearchCourses = useSelector(
-    (state) => state.courses.listCoursesWhenSearch
-  );
-  const dispatch = useDispatch();
+  const [curriculums, setCurriculums] = useState([]);
+  const [total, setTotal] = useState(1);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(2);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const classes = useStyles();
-  const [page, setPage] = React.useState(1);
   const handleChange = (event, value) => {
     setPage(value);
   };
 
   useEffect(async () => {
-    if (Curriculums.curriculums.length > 0) return;
-    try {
-      await dispatch(getCourses());
-      // const action = getCourses();
-      // const result = await dispatch(action);
-      // console.log(unwrapResult(result));
-      // setListCourses(unwrapResult(result));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    getCurriculums(limit, page);
+  }, [page]);
 
   const showListCourses = () => {
-
-    if (Curriculums.loading) {
+    if (isLoading) {
       return <Loader />;
-    } else if (Curriculums.error) {
+    } else if (isError) {
       return <Error />;
     } else {
-      const result = Curriculums.curriculums.map((curr) => {
+      const result = curriculums.map((curr) => {
         return (
           <ItemCurriculum curriculum={curr}></ItemCurriculum>
         );
@@ -62,6 +54,19 @@ const ListCourses = (props) => {
       return result;
     }
   };
+
+
+  const getCurriculums = async (limit, page) => {
+    CuriculumsApi.getCurriculums(limit, page).then(res => {
+      setCurriculums(res.list);
+      setTotal(res.totalPages);
+      setIsLoading(false)
+      setIsError(false)
+    }).catch(err => {
+      setIsLoading(false)
+      setIsError(true)
+    })
+  }
 
   return (
     <>
@@ -74,7 +79,7 @@ const ListCourses = (props) => {
         {showListCourses()}
       </SC.Container>
       <div className={classes.pagination}>
-        <Pagination size="large" color="primary" count={10} page={page} siblingCount={0} onChange={handleChange} />
+        <Pagination size="large" color="primary" count={total} page={page} siblingCount={0} onChange={handleChange} />
       </div>
       <Footer />
     </>
