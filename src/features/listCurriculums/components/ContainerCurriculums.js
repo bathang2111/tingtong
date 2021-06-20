@@ -18,15 +18,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ContainerCurriculums({ curriculums }) {
+function ContainerCurriculums({ curriculums, onHandleOnclick }) {
 
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <List component="nav" aria-label="main mailbox folders">
-                {curriculums && curriculums.map(item => {
-                    return <ItemCurriculum link={ } name={item.title}></ItemCurriculum>
+                {curriculums && curriculums.map((item, index) => {
+                    return <ItemCurriculum key={index} link={`/curriculums/${item.id}/courses`} name={item.title}></ItemCurriculum>
                 })}
             </List>
         </div>

@@ -5,6 +5,7 @@ import ItemCourse from '../itemCourse/ItemCourse';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
+import { useHistory } from 'react-router-dom';
 ItemCurriculum.propTypes = {
 
 };
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ItemCurriculum({ curriculum }) {
     const classes = useStyles();
-
+    const history = useHistory();
     return (
         <Grid row className={classes.root}>
             <Grid item>
@@ -38,7 +39,7 @@ function ItemCurriculum({ curriculum }) {
                         {curriculum.title}
                     </Typography>
 
-                    <Button size="small" color="primary">
+                    <Button onClick={() => history.push(`curriculums/${curriculum.id}/courses`)} size="small" color="primary">
                         Xem tất cả
                     </Button>
                 </Grid>

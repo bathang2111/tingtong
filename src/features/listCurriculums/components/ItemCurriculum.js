@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from 'react-router-dom';
 
 ItemCurriculum.propTypes = {
 
@@ -10,9 +12,10 @@ function ListItemLink(props) {
 }
 
 function ItemCurriculum({ link, name }) {
-    return <ListItemLink href={link}>
+    const history = useHistory();
+    return <ListItem button onClick={() => history.replace(link)}>
         <ListItemText primary={name} />
-    </ListItemLink>
+    </ListItem>
 }
 
 export default ItemCurriculum;
