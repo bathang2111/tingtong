@@ -11,6 +11,7 @@ const UserProfile = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
   const { userInfo } = useSelector((state) => state.userprofile);
   const dispatch = useDispatch();
+
   useEffect(async () => {
     if (userInfo && userInfo.fullName) return;
     await dispatch(getUserInfo());

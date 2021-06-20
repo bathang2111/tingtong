@@ -2,6 +2,7 @@ import React from "react";
 import HomePage from "../features/homePage";
 import LogIn from "../features/logIn";
 import ListCourses from "../features/listCourses/index";
+import CurriculumsPage from "../features/listCurriculums/index";
 import CallVideo from "../features/jitsi";
 import CourseDetailPage from "../features/listCourses/components/courseDetailPage";
 import LessonDetailPage from "../features/listCourses/components/lessonDetailPage";
@@ -47,6 +48,12 @@ export const Routes = [
     path: "/courses",
     exact: true,
     main: ({ match }) => <ListCourses match={match} />,
+  },
+  {
+    name: "Courses",
+    path: "/curriculums/:id/courses",
+    exact: true,
+    main: ({ match }) => <CurriculumsPage match={match} />,
   },
   {
     name: "CourseDetailPage",

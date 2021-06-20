@@ -1,8 +1,8 @@
-import axiosClien from "./axiosClient";
+import axiosClien, { getAPI } from "./axiosClient";
 
 const CurriculumsApi = {
-  getCurriculums: () => {
-    const url = "/curriculums";
+  getCurriculums: (limit, page) => {
+    const url = `/curriculums?limit=${limit}&page=${page}`;
     return axiosClien.get(url);
   },
   getCourseDetail: (params) => {
@@ -17,5 +17,15 @@ const CurriculumsApi = {
     const url = `/courses/searches?q=${params}`;
     return axiosClien.get(url);
   },
+
+  getListCurriculums: () => {
+    const url = "/curriculums/list";
+    return getAPI(url);
+  },
+
+  getCourseByCurriculumsID: (id, limit, page) => {
+    const url = `/curriculums/${id}/course?limit=${limit}&page=${page}`;
+    return getAPI(url);
+  }
 };
 export default CurriculumsApi;

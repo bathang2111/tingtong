@@ -8,75 +8,79 @@ import { getCourses } from "./coursesSlide";
 import Error from "../../components/error";
 import * as SC from "./style.js";
 import Loader from "./components/loader";
+import ItemCurriculum from "./components/curriculum/ItemCurriculum";
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
+import CuriculumsApi from '../../api/curiculumsApi'
 
+const useStyles = makeStyles((theme) => ({
+
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(2)
+  }
+
+}));
 const ListCourses = (props) => {
-  const Curriculums = useSelector((state) => state.courses);
-  const SearchCourses = useSelector(
-    (state) => state.courses.listCoursesWhenSearch
-  );
-  const dispatch = useDispatch();
+  const [curriculums, setCurriculums] = useState([]);
+  const [total, setTotal] = useState(1);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(2);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const classes = useStyles();
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   useEffect(async () => {
-    if (Curriculums.curriculums.length > 0) return;
-    try {
-      await dispatch(getCourses());
-      // const action = getCourses();
-      // const result = await dispatch(action);
-      // console.log(unwrapResult(result));
-      // setListCourses(unwrapResult(result));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    getCurriculums(limit, page);
+  }, [page]);
 
   const showListCourses = () => {
-    if (SearchCourses.length > 0) {
-      const result = SearchCourses.map((course) => {
-        return <Course key={course.id} course={course} match={props.match} />;
-      });
-      return (
-        <SC.Container style={{ marginTop: "20px" }}>
-          <SC.ListCourses>{result}</SC.ListCourses>
-        </SC.Container>
-      );
-    }
-
-    if (Curriculums.loading) {
+    if (isLoading) {
       return <Loader />;
-    } else if (Curriculums.error) {
+    } else if (isError) {
       return <Error />;
     } else {
-      const result = Curriculums.curriculums.map((curr) => {
-        const listCourses = curr.courses.map((course) => {
-          return <Course key={course.id} course={course} match={props.match} />;
-        });
+      const result = curriculums.map((curr) => {
         return (
-          <SC.Container>
-            <SC.TypeOfCourse>{curr.title}</SC.TypeOfCourse>
-            <SC.Description>{curr.description}</SC.Description>
-            <SC.ListCourses>{listCourses}</SC.ListCourses>
-          </SC.Container>
+          <ItemCurriculum curriculum={curr}></ItemCurriculum>
         );
       });
       return result;
     }
   };
 
+
+  const getCurriculums = async (limit, page) => {
+    CuriculumsApi.getCurriculums(limit, page).then(res => {
+      setCurriculums(res.list);
+      setTotal(res.totalPages);
+      setIsLoading(false)
+      setIsError(false)
+    }).catch(err => {
+      setIsLoading(false)
+      setIsError(true)
+    })
+  }
+
   return (
     <>
       <Header />
       <SearchCourse />
-      {showListCourses()}
-      {/* <SC.Container>
-        <SC.TypeOfCourse>beginner</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>intermediate</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>advanced</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-        <SC.TypeOfCourse>english exam</SC.TypeOfCourse>
-        <SC.ListCourses>{showListCourses()}</SC.ListCourses>
-      </SC.Container> */}
+      <SC.Container>
+        <Typography style={{ 'magin': 0, 'fontSize': '2.1rem', 'marginTop': '24px' }} gutterBottom variant="h5" component="h5">
+          Khám phá các Khóa học
+        </Typography>
+        {showListCourses()}
+      </SC.Container>
+      <div className={classes.pagination}>
+        <Pagination size="large" color="primary" count={total} page={page} siblingCount={0} onChange={handleChange} />
+      </div>
       <Footer />
     </>
   );
