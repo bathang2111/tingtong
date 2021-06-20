@@ -12,6 +12,7 @@ import Error from "../../components/error";
 import { checkTutorOnline } from "./tutorSlide";
 import { SocketContext } from "../../api/socketService";
 import AuthApi from "../../api/authApi";
+import Typography from "@material-ui/core/Typography";
 
 const ListTutors = (props) => {
   const Tutors = useSelector((state) => state.tutors);
@@ -44,7 +45,7 @@ const ListTutors = (props) => {
       dispatch(checkTutorOnline("93752215470085131"));
     });
   }, []);
-  
+
   const ShowListTutors = () => {
     if (SearchTutors.length > 0) {
       const result = SearchTutors.map((tutor) => {
@@ -73,7 +74,15 @@ const ListTutors = (props) => {
       <FilterTutors />
       <SC.Container>
         <Profile />
-        <SC.OnlineTutors>{language.onlineTutors}</SC.OnlineTutors>
+        <Typography
+          style={{ marginLeft:80 , fontSize: "1.5rem", marginTop: "24px" }}
+          gutterBottom
+          variant="h5"
+          component="h5"
+        >
+          {language.onlineTutors}
+        </Typography>
+        {/* <SC.OnlineTutors>{language.onlineTutors}</SC.OnlineTutors> */}
         <SC.Pain>
           <SC.GridTutors>{ShowListTutors()}</SC.GridTutors>
         </SC.Pain>

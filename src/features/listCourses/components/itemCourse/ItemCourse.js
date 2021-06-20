@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 ItemCourse.propTypes = {
 
@@ -26,9 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 function ItemCourse({ course }) {
     const classes = useStyles();
+    const history=useHistory()
 
     return (
-        <Card className={classes.root}>
+        <Card onClick={()=>history.push(`/courses/${course.id}`)} className={classes.root}>
             <CardActionArea>
                 <CardMedia
                     component="img"

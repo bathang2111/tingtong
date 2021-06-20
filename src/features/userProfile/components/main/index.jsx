@@ -11,6 +11,8 @@ import axios from "axios";
 import { FILE_URL } from "../../../../constants/baseURl";
 import UpdateUser from "../updateUser";
 import Ripples from "react-ripples";
+import { useEffect } from "react";
+import AuthApi from "../../../../api/authApi";
 
 const MainProfile = (props) => {
   const dispatch = useDispatch();
@@ -20,20 +22,16 @@ const MainProfile = (props) => {
   const { image } = useSelector((state) => state.userprofile);
   const { userInfo } = useSelector((state) => state.userprofile);
   const [ToggleUpdate, setUpdate] = useState(false);
+  const [urlOfFile, setUrl] = useState();
 
-  function dataURLtoFile(dataurl, filename) {
-    var arr = dataurl.split(","),
-      mime = arr[0].match(/:(.*?);/)[1],
-      bstr = atob(arr[1]),
-      n = bstr.length,
-      u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
-  }
+  useEffect(async () => {
+    if (!urlOfFile) return;
+    const data = { avatar: urlOfFile };
+    try {
+      const res = await AuthApi.UpdateUserInfo(data);
+      console.log(res);
+    } catch (error) {}
+  }, [urlOfFile]);
 
   const logout = () => {
     localStorage.clear();
@@ -60,12 +58,22 @@ const MainProfile = (props) => {
     setImage(preview);
   };
 
+  function urltoFile(url, filename, mimeType) {
+    return fetch(url)
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        return new File([blob], filename, { type: mimeType });
+      });
+  }
+
   const saveImage = async () => {
     if (window.confirm(`${language.alertChange}`)) {
       dispatch(SaveAvatar(imageAfterChange));
       dispatch(ChangeAvatar());
 
-      const file = dataURLtoFile(imageAfterChange,'avatar.txt');
+      const file = await urltoFile(imageAfterChange, "avatar.jpg", "image/jpg");
       var data = new FormData();
       data.append("files", file);
 
@@ -77,7 +85,8 @@ const MainProfile = (props) => {
         },
       };
       axios.post(FILE_URL, data, config).then((response) => {
-        console.log(response.data);
+        // console.log(response);
+        setUrl(response[0].url);
       });
     } else {
       return;
@@ -113,7 +122,7 @@ const MainProfile = (props) => {
             exportAsSquare={true}
             // cropRadius={10}
             // cropColor="black"
-            src={image}
+            src={userInfo.avatar ? userInfo.avatar : image}
             // onClose={this.onClose}
             // onBeforeFileLoad={onBeforeFileLoad}
           />
