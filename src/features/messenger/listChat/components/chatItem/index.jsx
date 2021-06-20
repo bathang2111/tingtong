@@ -10,9 +10,9 @@ import * as SC from "./style";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useContext } from "react";
 import { SocketContext } from "../../../../../api/socketService";
+import DefaultAvatar from "../../../../../assets/images/avatar4.png"
 
 const ChatItem = (props) => {
-  const { image } = useSelector((state) => state.userprofile);
   const { isOpenChatWindow } = useSelector((state) => state.message);
   const { chatContent } = useSelector((state) => state.message);
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const ChatItem = (props) => {
 
   return (
     <SC.Container onClick={toggleChatWindow}>
-      <SC.Avatar avatar={props.info.avatar || image} />
+      <SC.Avatar avatar={props.info.avatar || DefaultAvatar} />
       <SC.Pain>
         <SC.Name>{props.info.username}</SC.Name>
         <SC.LastMessage>

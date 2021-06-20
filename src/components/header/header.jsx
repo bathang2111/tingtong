@@ -11,7 +11,7 @@ import {
 } from "../../features/messenger/messageSlide";
 import { ToggleCalender } from "../calender/calenderSlide";
 import { ToggleSmallScreen } from "../controlSlide";
-import { getUserInfo } from "../../features/userProfile/userProfileSlide";
+import DefaulAvatar from "../../assets/images/avatar4.png";
 import Ripples from "react-ripples";
 
 const Header = (props) => {
@@ -63,7 +63,7 @@ const Header = (props) => {
                 <SC.Icon src={CalendarIcon} />
               </SC.CalenDar>
               <SC.btnAvatar to="/userprofile">
-                <SC.Avatar src={image} />
+                <SC.Avatar src={image ? image : DefaulAvatar} />
               </SC.btnAvatar>
               <SC.Menu onClick={() => dispatch(ToggleSmallScreen())} />
             </SC.Group>

@@ -4,16 +4,16 @@ import { paramsSerializer } from '../utils/paramsSerializer';
 
 axios.defaults.baseURL = BASE_URL
 axios.defaults.paramsSerializer = paramsSerializer;
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 axios.defaults.headers = {
   "Content-Type": "application/json",
 }
 
-// axios.interceptors.request.use(async (config) => {
-//   const token = localStorage.getItem('token');
-//   config.headers.Authorization = `Bearer ${token}`;
-//   return config;
-// });
+axios.interceptors.request.use(async (config) => {
+  const token = localStorage.getItem('token');
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
 
 // axios.interceptors.request.use(
 //   config => {

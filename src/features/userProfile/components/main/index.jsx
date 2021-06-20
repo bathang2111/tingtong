@@ -11,6 +11,8 @@ import axios from "axios";
 import { FILE_URL } from "../../../../constants/baseURl";
 import UpdateUser from "../updateUser";
 import Ripples from "react-ripples";
+import { useEffect } from "react";
+import AuthApi from "../../../../api/authApi";
 
 const MainProfile = (props) => {
   const dispatch = useDispatch();
@@ -20,6 +22,16 @@ const MainProfile = (props) => {
   const { image } = useSelector((state) => state.userprofile);
   const { userInfo } = useSelector((state) => state.userprofile);
   const [ToggleUpdate, setUpdate] = useState(false);
+  const [urlOfFile, setUrl] = useState();
+
+  useEffect(async () => {
+    if (!urlOfFile) return;
+    const data = { avatar: urlOfFile };
+    try {
+      const res = await AuthApi.UpdateUserInfo(data);
+      console.log(res);
+    } catch (error) {}
+  }, [urlOfFile]);
 
   const logout = () => {
     localStorage.clear();
@@ -46,15 +58,22 @@ const MainProfile = (props) => {
     setImage(preview);
   };
 
+  function urltoFile(url, filename, mimeType) {
+    return fetch(url)
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        return new File([blob], filename, { type: mimeType });
+      });
+  }
+
   const saveImage = async () => {
     if (window.confirm(`${language.alertChange}`)) {
       dispatch(SaveAvatar(imageAfterChange));
       dispatch(ChangeAvatar());
 
-      const i = imageAfterChange.indexOf("base64,");
-      const buffer = Buffer.from(imageAfterChange.slice(i + 7), "base64");
-      const filename = "string.png";
-      const file = new File(buffer, filename, { type: "image/png" });
+      const file = await urltoFile(imageAfterChange, "avatar.jpg", "image/jpg");
       var data = new FormData();
       data.append("files", file);
 
@@ -66,7 +85,8 @@ const MainProfile = (props) => {
         },
       };
       axios.post(FILE_URL, data, config).then((response) => {
-        console.log(response.data);
+        // console.log(response);
+        setUrl(response[0].url);
       });
     } else {
       return;
@@ -98,7 +118,11 @@ const MainProfile = (props) => {
             height={300}
             onCrop={onCrop}
             mimeTypes="svg"
-            src={image}
+            label="Chọn hình ảnh"
+            exportAsSquare={true}
+            // cropRadius={10}
+            // cropColor="black"
+            src={userInfo.avatar ? userInfo.avatar : image}
             // onClose={this.onClose}
             // onBeforeFileLoad={onBeforeFileLoad}
           />

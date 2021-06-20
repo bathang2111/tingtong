@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AuthApi from "../../api/authApi";
-import DefaultAvatar from "../../assets/images/avatar4.png";
 
 export const getUserInfo = createAsyncThunk(
   "user/getUserInfo",
@@ -12,7 +11,7 @@ export const getUserInfo = createAsyncThunk(
 
 const UserProfile = createSlice({
   name: "userProfile",
-  initialState: { changeAvatar: false, image: DefaultAvatar, userInfo: {} },
+  initialState: { changeAvatar: false, image: "", userInfo: {} },
   reducers: {
     ChangeAvatar: (state) => {
       state.changeAvatar = !state.changeAvatar;
@@ -28,6 +27,7 @@ const UserProfile = createSlice({
     [getUserInfo.rejected]: () => {},
     [getUserInfo.fulfilled]: (state, action) => {
       state.userInfo = action.payload;
+      state.image = action.payload.avatar;
       return state;
     },
   },

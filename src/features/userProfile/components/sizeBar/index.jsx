@@ -6,6 +6,7 @@ import "./demo.scss";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeAvatar } from "../../userProfileSlide";
+import DefaultAvatar from "../../../../assets/images/avatar4.png";
 
 const SizeBar = (props) => {
   const ToggleRef = useRef(null);
@@ -29,7 +30,7 @@ const SizeBar = (props) => {
         <div className="user-profile">
           <div className="user-background"></div>
           <div className="user-image" onClick={changeAvatar}>
-            <img src={image} />
+            <img src={image ? image : DefaultAvatar} />
           </div>
           <div className="user-info">
             <p className="user-name">{userInfo ? userInfo.fullName : ""}</p>

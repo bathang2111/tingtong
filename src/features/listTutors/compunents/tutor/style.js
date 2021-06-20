@@ -6,7 +6,7 @@ import HaffStarIcon from "../../../../assets/images/HaffStar.png";
 
 export const Pain = styled.div`
   widows: 410px;
-  padding: 0 5px;
+  padding: 5px;
 `;
 export const Container = styled.div`
   font-family: serif;
@@ -17,6 +17,7 @@ export const Container = styled.div`
   border-radius: 10px;
   box-sizing: border-box;
   padding: 10px;
+  box-sizing:borde-box;
   position: relative;
   margin: 0 0 10px;
   &:hover {
@@ -25,7 +26,7 @@ export const Container = styled.div`
 `;
 
 export const InfoGroup = styled.div`
-  width: 355px;
+  width: 340px;
   height: 95px;
   display: flex;
   flex-direction: row;
@@ -33,9 +34,9 @@ export const InfoGroup = styled.div`
 
 export const Avatar = styled.div`
   position: relative;
-  width: 95px;
+  width: 85px;
   height: 85px;
-  border-radius: 10px;
+  border-radius: 50%;
   margin: 0px;
   background: url(${(props) => props.background});
   background-size: cover;
