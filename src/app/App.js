@@ -17,6 +17,7 @@ import {
   socketVideoCall,
   socketTutor,
 } from "../api/socketService";
+import AuthApi from "../api/authApi";
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -28,6 +29,10 @@ function App() {
     if (!token) return;
     setToken(token);
   }, [token]);
+
+  // useEffect(async () => {
+  //   await AuthApi.getUserInfo();
+  // }, []);
 
   const listPage = () => {
     if (Routes) {
@@ -48,10 +53,10 @@ function App() {
 
   const checkPage = () => {
     if (isLogin) {
-      return 
+      return;
     } else {
       if (url.indexOf("/courses/") != -1) {
-        return <Redirect to={url} />
+        return <Redirect to={url} />;
       } else {
         return <Redirect to="/wellcome" />;
       }

@@ -49,7 +49,7 @@ const Listcourses = createSlice({
     [getCourses.fulfilled]: (state, action) => {
       state.loading = false;
       state.error = false;
-      state.curriculums = action.payload;
+      state.curriculums = action.payload.list;
       return state;
     },
 
