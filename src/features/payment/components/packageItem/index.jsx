@@ -4,29 +4,18 @@ import { setTimePackage, setPrice } from "../../paymentSlide.js";
 import succes from "../../../../assets/images/iconSucces.png";
 import * as SC from "./style.js";
 
-const PaymentItem = (props) => {
-  const { timePackage } = useSelector((state) => state.payment);
+const PaymentItem = ({ item }) => {
   const dispatch = useDispatch();
-  const value = props.value;
   return (
     <SC.Container>
       <SC.Background />
       <SC.Avatar>
-        <SC.Image src={value.image} />
+        <SC.Image src={item.image} />
       </SC.Avatar>
       <SC.Pain>
-        <SC.Timer>{value.time} giờ</SC.Timer>
-        <SC.Cost>{value.price}vnd</SC.Cost>
-        <SC.Choose
-          onClick={() => {
-            dispatch(setPrice(value.price));
-            dispatch(setTimePackage(value));
-          }}
-        >
-          Chon
-        </SC.Choose>
+        <SC.Timer>{item.time} giờ</SC.Timer>
+        <SC.Cost>{item.price}vnd</SC.Cost>
       </SC.Pain>
-      {value.name == timePackage.name ? <SC.IconSucces src={succes} /> : ""}
     </SC.Container>
   );
 };
