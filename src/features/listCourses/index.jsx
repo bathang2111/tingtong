@@ -9,18 +9,17 @@ import Error from "../../components/error";
 import * as SC from "./style.js";
 import Loader from "./components/loader";
 import ItemCurriculum from "./components/curriculum/ItemCurriculum";
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Pagination from '@material-ui/lab/Pagination';
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Pagination from "@material-ui/lab/Pagination";
+import AuthApi from "../../api/authApi";
 
 const useStyles = makeStyles((theme) => ({
-
   pagination: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(2)
-  }
-
+    display: "flex",
+    justifyContent: "center",
+    margin: theme.spacing(2),
+  },
 }));
 const ListCourses = (props) => {
   const Curriculums = useSelector((state) => state.courses);
@@ -30,6 +29,7 @@ const ListCourses = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [page, setPage] = React.useState(1);
+
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -48,16 +48,13 @@ const ListCourses = (props) => {
   }, []);
 
   const showListCourses = () => {
-
     if (Curriculums.loading) {
       return <Loader />;
     } else if (Curriculums.error) {
       return <Error />;
     } else {
       const result = Curriculums.curriculums.map((curr) => {
-        return (
-          <ItemCurriculum curriculum={curr}></ItemCurriculum>
-        );
+        return <ItemCurriculum curriculum={curr}></ItemCurriculum>;
       });
       return result;
     }
@@ -68,13 +65,25 @@ const ListCourses = (props) => {
       <Header />
       <SearchCourse />
       <SC.Container>
-        <Typography style={{ 'magin': 0, 'fontSize': '2.1rem', 'marginTop': '24px' }} gutterBottom variant="h5" component="h5">
+        <Typography
+          style={{ magin: 0, fontSize: "2.1rem", marginTop: "24px" }}
+          gutterBottom
+          variant="h5"
+          component="h5"
+        >
           Khám phá các Khóa học
         </Typography>
         {showListCourses()}
       </SC.Container>
       <div className={classes.pagination}>
-        <Pagination size="large" color="primary" count={10} page={page} siblingCount={0} onChange={handleChange} />
+        <Pagination
+          size="large"
+          color="primary"
+          count={10}
+          page={page}
+          siblingCount={0}
+          onChange={handleChange}
+        />
       </div>
       <Footer />
     </>
