@@ -35,10 +35,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
     height: 38,
     width: '100%', // Fix IE 11 issue.
-    backgroundColor: '#c12026',
-    '&:hover': {
-      backgroundColor: '#99181d',
-    },
   },
 
   submit_fb: {
@@ -90,7 +86,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 'normal',
     letterSpacing: 'normal',
     marginLeft: theme.spacing(1),
-    color: '#c12026',
+    color: '#2f8c92',
   },
 
   not_acc: {
@@ -107,7 +103,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 'normal',
     letterSpacing: 'normal',
     marginLeft: theme.spacing(1),
-    color: '#c12026',
+    color: '#2f8c92',
   },
 
   title: {
