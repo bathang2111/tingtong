@@ -27,8 +27,8 @@ const ListCourses = (props) => {
   const [curriculums, setCurriculums] = useState([]);
   const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
-  const [isLoading, setIsLoading] = useState(false);
+  const [limit, setLimit] = useState(4);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   const classes = useStyles();

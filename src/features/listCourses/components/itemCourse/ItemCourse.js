@@ -54,7 +54,7 @@ function ItemCourse({ course }) {
                     flex
                     justifyContent="flex-end"
                     alignItems="center">
-                    <Button size="small" color="primary">
+                    <Button onClick={()=>history.push(`/courses/${course.id}`)} size="small" color="primary">
                         Xem chi tiết
                     </Button>
                 </Grid>

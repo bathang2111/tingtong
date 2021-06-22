@@ -17,21 +17,32 @@ import {
   socketVideoCall,
   socketTutor,
 } from "../api/socketService";
+import AuthRouter from "./AuthRouter";
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
   const token = localStorage.getItem("token");
   const [tokenn, setToken] = useState();
 
-  const url = window.location.pathname;
   useEffect(() => {
     if (!token) return;
     setToken(token);
   }, [token]);
 
+  // useEffect(async () => {
+  //   await AuthApi.getUserInfo();
+  // }, []);
+
   const listPage = () => {
     if (Routes) {
       const result = Routes.map((route) => {
+        if (route.auth) {
+          return <AuthRouter key={route.path}
+            path={route.path}
+            exact={route.exact}
+            component={route.main}>
+          </AuthRouter>
+        }
         return (
           <Route
             key={route.path}
@@ -46,32 +57,18 @@ function App() {
     return;
   };
 
-  const checkPage = () => {
-    if (isLogin) {
-      return 
-    } else {
-      if (url.indexOf("/courses/") != -1) {
-        return <Redirect to={url} />
-      } else {
-        return <Redirect to="/wellcome" />;
-      }
-    }
-  };
-
   return (
     <SocketContext.Provider
       value={
         tokenn
           ? {
-              socketChat: socketChat(tokenn),
-              socketVideoCall: socketVideoCall(token),
-              socketTutor: socketTutor(token),
-            }
+            socketChat: socketChat(tokenn),
+            socketVideoCall: socketVideoCall(token),
+            socketTutor: socketTutor(token),
+          }
           : null
       }
     >
-      {checkPage()}
-      {/* {isLogin ? "" : <Redirect to="/wellcome" />} */}
       {listPage()}
       {tokenn ? (
         <>
