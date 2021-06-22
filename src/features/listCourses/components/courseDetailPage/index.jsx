@@ -31,7 +31,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { green, pink } from "@material-ui/core/colors";
 import AuthApi from "../../../../api/authApi";
 
@@ -73,6 +73,8 @@ const CourseDetailPage = (props) => {
   const classes = useStyles();
   const id = props.match.params.id;
   const url = props.match.url;
+  const { params } = useRouteMatch();
+  console.log(params.id);
   const { courseDetail } = useSelector((state) => state.courses);
   const [lesson, setLessons] = useState({ listLessons: [], length: 0 });
   const { curriculums } = useSelector((state) => state.courses);
@@ -138,7 +140,7 @@ const CourseDetailPage = (props) => {
       try {
         const res = await AuthApi.getUserInfo();
         setFavoriteCourse(res.favoriteCourses);
-      } catch (error) {}
+      } catch (error) { }
     }
   }, [id]);
 
