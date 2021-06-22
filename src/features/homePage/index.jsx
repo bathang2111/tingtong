@@ -12,10 +12,8 @@ import Footer from "../../components/footer";
 HomePage.propTypes = {};
 
 function HomePage(props) {
-  const isLogin = useSelector((state) => state.login.checkLogin);
   return (
     <SC.Container>
-      {isLogin ? <Redirect to="/"/> : ""}
       <Header />
       <Backgroundd />
       <SC.GroupTitle>
