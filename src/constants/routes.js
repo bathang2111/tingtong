@@ -9,7 +9,7 @@ import LessonDetailPage from "../features/listCourses/components/lessonDetailPag
 import SignUp from "../features/signUp";
 import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
-import UserProfile from "../features/userProfile";
+import SettingPage from "../features/setting/SettingPage";
 import Payment from "../features/payment";
 
 export const Routes = [
@@ -68,10 +68,10 @@ export const Routes = [
     main: ({ match }) => <LessonDetailPage match={match} />,
   },
   {
-    name: "UserProfile",
-    path: "/userprofile",
+    name: "Setting",
+    path: "/setting",
     exact: false,
-    main: () => <UserProfile />,
+    main: () => <SettingPage />,
   },
   {
     name: "Jitsi",

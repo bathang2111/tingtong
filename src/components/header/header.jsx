@@ -62,7 +62,7 @@ const Header = (props) => {
               <SC.CalenDar onClick={() => dispatch(ToggleCalender())}>
                 <SC.Icon src={CalendarIcon} />
               </SC.CalenDar>
-              <SC.btnAvatar to="/userprofile">
+              <SC.btnAvatar to="/setting">
                 <SC.Avatar src={image ? image : DefaulAvatar} />
               </SC.btnAvatar>
               <SC.Menu onClick={() => dispatch(ToggleSmallScreen())} />
