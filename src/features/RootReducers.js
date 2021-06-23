@@ -11,7 +11,6 @@ import language from "../lang/translateSlide";
 import userprofile from "./userProfile/userProfileSlide";
 import message from "./messenger/messageSlide";
 import calender from "../components/calender/calenderSlide";
-import payment from "./payment/paymentSlide";
 
 const RootReducers = combineReducers({
   controlapp,
@@ -26,7 +25,6 @@ const RootReducers = combineReducers({
   userprofile,
   message,
   calender,
-  payment,
 });
 
 export default RootReducers;

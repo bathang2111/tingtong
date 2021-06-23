@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Document, Page } from "react-pdf";
-// import "./singleStyle.css"
 
 export default function SinglePage(props) {
   const [numPages, setNumPages] = useState(null);
