@@ -10,7 +10,7 @@ import SignUp from "../features/signUp";
 import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
 import SettingPage from "../features/setting/SettingPage";
-import Payment from "../features/payment";
+import Payment from "../features/payment/Payment";
 
 export const Routes = [
   {
