@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,20 +51,19 @@ export default function AllPages(props) {
   const classes = useStyles();
   const [numPages, setNumPages] = useState(null);
   const [indexActive, setIndex] = useState(props.indexActive);
-
+  const viewRef = useRef(null);
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   const { pdp } = props;
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
-  // const { pdf } = props;
-  const pdf =
-    "https://cdn.tingtong.xyz/2021/06/21/S01+Why+Docker+Slides-ec2a36f963.pdf";
+  // const { pdf } = props;u
+  const { pdfSlide } = props;
 
   return (
     <Document
-      file={pdf}
+      file={pdfSlide}
       options={{ workerSrc: "/pdf.worker.js" }}
       onLoadSuccess={onDocumentLoadSuccess}
     >
@@ -74,11 +74,11 @@ export default function AllPages(props) {
 
           width: "100%",
           height: "auto",
-          overflowX: "scroll",
+          overflowX: "auto",
           overflowY: "hidden",
         }}
       >
-        {Array.from(new Array(numPages), (el, index) => (
+        {Array.from(new Array(props.preview ? 3 : numPages), (el, index) => (
           <Card
             style={
               props.lobby
@@ -86,7 +86,7 @@ export default function AllPages(props) {
                 : {
                     height: 78,
                     padding: 4,
-                    background: index + 1 == indexActive ? "#2f8c92" : "",
+                    background: index + 1 == indexActive ? "#4CAF50" : "",
                   }
             }
             className={classes.root}
@@ -99,7 +99,10 @@ export default function AllPages(props) {
                 onClick={() => {
                   if (props.lobby) {
                     props.openSlide(true);
-                    props.setIndexActive(index + 1);
+                    props.setIndexActive({
+                      index: index + 1,
+                      status: props.preview ? 1 : 2,
+                    });
                   } else {
                     setIndex(index + 1);
                   }
@@ -125,16 +128,31 @@ export default function AllPages(props) {
           <CardContent>
             <Page height={props.sizePage} pageNumber={indexActive} />
           </CardContent>
-
-          <IconButton
-            onClick={() => {
-              setIndex(indexActive + 1);
-            }}
-            className={classes.button}
-            aria-label="add to favorites"
-          >
-            <ArrowForwardIos />
-          </IconButton>
+          {props.preview ? (
+            <IconButton
+              style={indexActive == 3 ? { boxShadow: "none" } : {}}
+              onClick={() => {
+                if (indexActive == 3) return;
+                setIndex(indexActive + 1);
+              }}
+              className={classes.button}
+              aria-label="add to favorites"
+            >
+              <ArrowForwardIos />
+            </IconButton>
+          ) : (
+            <IconButton
+              style={indexActive == numPages ? { boxShadow: "none" } : {}}
+              onClick={() => {
+                if (indexActive == numPages) return;
+                setIndex(indexActive + 1);
+              }}
+              className={classes.button}
+              aria-label="add to favorites"
+            >
+              <ArrowForwardIos />
+            </IconButton>
+          )}
         </CardActions>
       ) : (
         ""
