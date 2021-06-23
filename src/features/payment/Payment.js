@@ -17,6 +17,7 @@ import { formatNumber } from "../../utils/unitUtils";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from "react-router-dom";
+import ItemDiscountSelected from "./components/discount/ItemDiscountSelected";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,12 +89,12 @@ const Payment = (props) => {
   }
 
   const onHandleSelectPackage = data => {
-    console.log(data);
     setPackageSelected(data);
   }
 
   const onHandleSelectDiscount = discount => {
-    setDiscountSelected(discount);
+    console.log("1");
+    setDiscountSelected(discount ? discount : null);
     setOnCloseDiscountDialog(!openDiscountDialog);
   }
 
@@ -103,6 +104,11 @@ const Payment = (props) => {
 
   const handleSelectDataSet = (data) => {
     setBankCode(data);
+  }
+
+  const onHandleDelete = data => {
+    console.log("2");
+    setDiscountSelected(null);
   }
 
   const onOperator = () => {
@@ -190,9 +196,11 @@ const Payment = (props) => {
             <Grid item xs={12} md={4}>
               <Paper className={classes.paperTotal}>
                 <Typography variant="body1" component="h2">TingTong Khuyến Mãi</Typography>
+
+                {discountSelected && <ItemDiscountSelected item={discountSelected} onDelete={onHandleDelete}></ItemDiscountSelected>}
                 <Link style={{ "marginTop": "12px" }} component="button" variant="body2" onClick={() => {
                   setOnCloseDiscountDialog(!openDiscountDialog)
-                }}>{discountSelected ? ("Mã Khuyến Mại : " + discountSelected.id) : "Chọn Khuyến Mại"}</Link>
+                }}>Chọn Khuyến Mại</Link>
               </Paper>
               <Paper className={classes.paperTotal}>
                 <div className={classes.itemTotal}>

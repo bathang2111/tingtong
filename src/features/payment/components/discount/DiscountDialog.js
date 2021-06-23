@@ -15,8 +15,7 @@ DiscountDialog.propTypes = {
 function DiscountDialog({ open, onClose, onSelect, selected }) {
     const descriptionElementRef = React.useRef(null);
     const [discount, setDiscount] = useState([]);
-    const [selectedIndex, setSelectedIndex] = React.useState(selected || {});
-
+    const [selectedIndex, setSelectedIndex] = React.useState(selected || null);
     React.useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
@@ -29,6 +28,10 @@ function DiscountDialog({ open, onClose, onSelect, selected }) {
     useEffect(() => {
         getAllPromotion();
     }, []);
+
+    useEffect(() => {
+        setSelectedIndex(selected);
+    }, [selected])
 
     const getAllPromotion = async () => {
         PaymentApi.GetAllPromotion().then(res => {
