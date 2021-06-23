@@ -73,7 +73,6 @@ const CourseDetailPage = () => {
   const classes = useStyles();
   const match = useRouteMatch();
   const { params } = match;
-  console.log(match);
   const id = params.id;
   const url = match.url;
   const { courseDetail } = useSelector((state) => state.courses);

@@ -28,7 +28,6 @@ import CardHeader from "@material-ui/core/CardHeader";
 import { CardMedia } from "@material-ui/core";
 ///////////////////////////////
 import AllPages from "../slidePDF/allPDF";
-import pdfFile from "./pdfFile.pdf";
 ////////////////
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,10 +54,12 @@ const LessonDetailPage = (props) => {
   const history = useHistory();
   let indexx;
   const [indexActive, setIndex] = useState(1);
+  const [action, setAction] = useState(0);
 
   const setIndexActive = (value) => {
     console.log(value);
-    setIndex(value);
+    setIndex(value.index);
+    setAction(value.status);
   };
 
   useEffect(async () => {
@@ -98,40 +99,6 @@ const LessonDetailPage = (props) => {
     }
   };
 
-  const showPreparSlide = () => {
-    if (!lesson.prepareSlides) return;
-    const result = lesson.prepareSlides.map((item) => {
-      return (
-        <SC.BeforeImg
-          onClick={() => dispatch(TogglePopUpSlide())}
-          src={item.imageLink}
-        />
-      );
-    });
-    return result;
-  };
-
-  const showSlide = () => {
-    if (!lesson.slides) return;
-    const result = lesson.slides.map((item) => {
-      return (
-        <SC.BeforeImg
-          onClick={() => dispatch(TogglePopUpSlide())}
-          src={item.imageLink}
-        />
-      );
-    });
-    return result;
-  };
-
-  const showVideos = () => {
-    if (!lesson.videos) return;
-    const result = lesson.videos.map((item) => {
-      return <SC.Videos controls src={item.videoUrl} />;
-    });
-    return result;
-  };
-
   const openSlide = () => {
     setShowSlide(true);
   };
@@ -143,11 +110,16 @@ const LessonDetailPage = (props) => {
   return (
     <>
       <SlideShow
+        pdfSlide={lesson.slides ? lesson.slides[0].imageLink : ""}
+        pdfPreparSlide={
+          lesson.prepareSlides ? lesson.prepareSlides[0].imageLink : ""
+        }
+        preview={action == 1 ? true : false}
         name={lesson.title}
         indexActive={indexActive}
         togglePopup={(value) => togglePopupSlideShow(value)}
         isOpen={showSlidePopUp}
-        pdf={pdfFile}
+        // pdf={pdfFile}
       />
       <Header />
       <Container style={{ background: "#e8e9ec", marginTop: 30 }} fixed>
@@ -220,6 +192,18 @@ const LessonDetailPage = (props) => {
                 </Typography>
                 <Divider />
                 <Divider />
+                <AllPages
+                  size={100}
+                  setIndexActive={(value) => setIndexActive(value)}
+                  lobby={true}
+                  openSlide={() => openSlide()}
+                  preview={true}
+                  pdfSlide={
+                    lesson.prepareSlides
+                      ? lesson.prepareSlides[0].imageLink
+                      : ""
+                  }
+                />
 
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Lesson Slide
@@ -232,7 +216,7 @@ const LessonDetailPage = (props) => {
                   setIndexActive={(value) => setIndexActive(value)}
                   lobby={true}
                   openSlide={() => openSlide()}
-                  pdf={pdfFile}
+                  pdfSlide={lesson.slides ? lesson.slides[0].imageLink : ""}
                 />
 
                 {/* ////////////////////////////////// */}
