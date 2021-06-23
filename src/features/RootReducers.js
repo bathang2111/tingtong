@@ -8,7 +8,7 @@ import signup from "../app/authSlide/signUpSlide";
 import jitsi from "./jitsi/jitsiSlide";
 import feedback from "./feedBack/feedBackSlide";
 import language from "../lang/translateSlide";
-import userprofile from "./userProfile/userProfileSlide";
+import userprofile from "./setting/userProfileSlide";
 import message from "./messenger/messageSlide";
 import calender from "../components/calender/calenderSlide";
 import payment from "./payment/paymentSlide";

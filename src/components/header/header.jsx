@@ -13,15 +13,16 @@ import { ToggleCalender } from "../calender/calenderSlide";
 import { ToggleSmallScreen } from "../controlSlide";
 import DefaulAvatar from "../../assets/images/avatar4.png";
 import Ripples from "react-ripples";
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+import AuthApi from "../../api/authApi";
 
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -32,6 +33,10 @@ const Header = (props) => {
   const anchorRef = React.useRef(null);
   const history = useHistory();
   const dispatch = useDispatch();
+
+  useEffect(async () => {
+    await AuthApi.getUserInfo();
+  }, []);
 
   const toggleMessage = () => {
     dispatch(ToggleListChat());
@@ -48,8 +53,6 @@ const Header = (props) => {
     }
 
     setOpen(false);
-
-
   };
 
   const handleSetting = (event) => {
@@ -60,7 +63,7 @@ const Header = (props) => {
     setOpen(false);
 
     history.push("/setting");
-  }
+  };
 
   const handleLogout = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -70,11 +73,12 @@ const Header = (props) => {
     setOpen(false);
 
     localStorage.clear();
-    history.replace("/wellcome");
-  }
+    // history.replace("/wellcome");
+    window.location.reload();
+  };
 
   function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
@@ -119,7 +123,12 @@ const Header = (props) => {
                   </SC.BtnSubcribe>
                 </Ripples>
               </SC.PainBtn> */}
-              <Button onClick={() => history.push("/payment")} fullWidth variant="contained" color="primary">
+              <Button
+                onClick={() => history.push("/payment")}
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
                 {language.subcribe}
               </Button>
               <SC.Message onClick={toggleMessage}>
@@ -129,21 +138,36 @@ const Header = (props) => {
               {/* <SC.CalenDar onClick={() => dispatch(ToggleCalender())}>
                 <SC.Icon src={CalendarIcon} />
               </SC.CalenDar> */}
-              <SC.btnAvatar ref={anchorRef}
-                aria-controls={open ? 'menu-list-grow' : undefined}
+              <SC.btnAvatar
+                ref={anchorRef}
+                aria-controls={open ? "menu-list-grow" : undefined}
                 aria-haspopup="true"
-                onClick={handleToggle}>
+                onClick={handleToggle}
+              >
                 <SC.Avatar src={image ? image : DefaulAvatar} />
               </SC.btnAvatar>
-              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+              <Popper
+                open={open}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+              >
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom",
+                    }}
                   >
                     <Paper>
                       <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                        <MenuList
+                          autoFocusItem={open}
+                          id="menu-list-grow"
+                          onKeyDown={handleListKeyDown}
+                        >
                           <MenuItem onClick={handleSetting}>Cài đặt</MenuItem>
                           <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                         </MenuList>
@@ -157,10 +181,17 @@ const Header = (props) => {
           </>
         ) : (
           <div>
-            <Button style={{"marginRight" : "16px"}} onClick={() => history.push("/login")}>
+            <Button
+              style={{ marginRight: "16px" }}
+              onClick={() => history.push("/login")}
+            >
               Đăng nhập
             </Button>
-            <Button onClick={() => history.push("/signup")} variant="contained" color="primary">
+            <Button
+              onClick={() => history.push("/signup")}
+              variant="contained"
+              color="primary"
+            >
               Đăng ký
             </Button>
           </div>

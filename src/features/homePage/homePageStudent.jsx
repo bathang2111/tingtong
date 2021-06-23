@@ -6,7 +6,7 @@ import ListTutors from "../listTutors/index";
 import Profile from "./components/profileModal/profileModal";
 import Footer from "../../components/footer";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo } from "../userProfile/userProfileSlide";
+import { getUserInfo } from "../setting/userProfileSlide";
 
 HomePageStudent.propTypes = {};
 
