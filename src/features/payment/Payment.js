@@ -9,6 +9,14 @@ import { Container, Grid, Button, Link } from "@material-ui/core";
 import ContainerPackage from "./components/ContainerPackage";
 import momo from '../../assets/images/momo.svg';
 import vnppay from '../../assets/images/vnpay.svg';
+import banks from './data';
+import PaymentApi from "../../api/paymentApi";
+import DiscountDialog from "./components/discount/DiscountDialog";
+import { formatNumber } from "../../utils/unitUtils";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,102 +56,36 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const packages = [
-  {
-    id: 1,
-    time: 1,
-    price: 200000
-  },
-  {
-    id: 2,
-    time: 2,
-    price: 300000
-  },
-  {
-    id: 3,
-    time: 3,
-    price: 400000
-  },
-  {
-    id: 4,
-    time: 4,
-    price: 500000
-  },
-  {
-    id: 5,
-    time: 5,
-    price: 600000
-  },
-  {
-    id: 6,
-    time: 6,
-    price: 700000
-  }
-]
-
-const discounts = [
-  {
-    id: 1,
-    type: 1,
-    discount: 20000,
-    isExpire: false,
-    description: "Donald Trieu 1"
-  },
-  {
-    id: 2,
-    type: 1,
-    discount: 30000,
-    isExpire: false,
-    isStatus: false,
-    description: "Donald Trieu 1"
-  },
-  {
-    id: 3,
-    type: 2,
-    discount: 30000,
-    isExpire: false,
-    isStatus: false,
-    description: "Donald Trieu 1"
-  },
-  {
-    id: 4,
-    type: 2,
-    discount: 40000,
-    isExpire: false,
-    isStatus: false,
-    description: "Donald Trieu 1"
-  },
-  {
-    id: 5,
-    type: 2,
-    discount: 40000,
-    isExpire: false,
-    isStatus: false,
-    description: "Donald Trieu 1"
-  },
-  {
-    id: 6,
-    type: 2,
-    discount: 40000,
-    isExpire: false,
-    isStatus: false,
-    description: "Donald Trieu 1"
-  }
-]
-
-// From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
-const methodPayments = [
-  { image: vnppay, label: 'VNPAY' },
-  { image: momo, label: 'MOMO' },
-];
-
 const Payment = (props) => {
   const classes = useStyles();
-  const [estimate, setEstimate] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [packageSelected, setPackageSelected] = useState({});
-  const [discountSelected, setDiscountSelected] = useState({});
+  const [estimate, setEstimate] = useState(formatNumber(0, 'vnd'));
+  const [discount, setDiscount] = useState(formatNumber(0, 'percent'));
+  const [total, setTotal] = useState(formatNumber(0, 'vnd'));
+  const [packageSelected, setPackageSelected] = useState(null);
+  const [discountSelected, setDiscountSelected] = useState(null);
+  const [openDiscountDialog, setOnCloseDiscountDialog] = useState(false);
+  const [bankCode, setBankCode] = useState(banks[0]);
+  const [packageTime, setPackageTime] = useState();
+
+  const history = useHistory();
+
+  useEffect(() => {
+    getTimePackage();
+  }, [])
+
+  useEffect(() => {
+    onOperator();
+  }, [discountSelected, packageSelected]);
+
+  const getTimePackage = () => {
+    try {
+      PaymentApi.GetAllPackage().then(res => {
+        setPackageTime(res);
+      })
+    } catch (error) {
+
+    }
+  }
 
   const onHandleSelectPackage = data => {
     console.log(data);
@@ -152,10 +94,81 @@ const Payment = (props) => {
 
   const onHandleSelectDiscount = discount => {
     setDiscountSelected(discount);
+    setOnCloseDiscountDialog(!openDiscountDialog);
   }
 
+  const onCloseDiscountDialog = () => {
+    setOnCloseDiscountDialog(!openDiscountDialog);
+  }
 
+  const handleSelectDataSet = (data) => {
+    setBankCode(data);
+  }
 
+  const onOperator = () => {
+    let _count = 0;
+    let _estimate = packageSelected ? packageSelected.price : 0;
+    let _discount = discountSelected ? discountSelected.discounts : 0;
+    if (discountSelected && discountSelected.unit == 'percent') {
+      _count = _estimate - (_discount / 100) * _estimate
+    } else {
+      _count = _estimate;
+
+    }
+    setTotal(formatNumber(_count, 'vnd'));
+    setEstimate(formatNumber(_estimate, 'vnd'));
+    setDiscount(formatNumber(_discount, (discountSelected ? discountSelected.unit : 'vnd')));
+  }
+
+  const handleSubmit = async () => {
+    if (!packageSelected || !bankCode) {
+      toast.error('Vui lòng chọn gói đăng ký và ngân hàng để thanh toán', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      console.log(packageSelected);
+      const body = {
+        bankCode: bankCode.value,
+        timePackageId: packageSelected.id,
+        promotionId: discountSelected ? discountSelected.id : ""
+      }
+      if (!discountSelected) {
+        delete body.promotionId
+      }
+      console.log(body);
+      try {
+        PaymentApi.CreateLinkVnPay(body).then(res => {
+          window.location.replace(res.payment_url)
+        }).catch(err => {
+          toast.error('Thanh toán thất bại', {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
+      } catch (error) {
+        toast.error('Thanh toán thất bại', {
+          position: "top-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    }
+  }
   return (
     <>
       <Header></Header>
@@ -170,7 +183,7 @@ const Payment = (props) => {
                   Chọn gói đăng ký
                 </Typography>
                 <Box className={classes.containerPackage}>
-                  <ContainerPackage packageSelected={packageSelected} packages={packages} onSelect={onHandleSelectPackage}></ContainerPackage>
+                  <ContainerPackage packageSelected={packageSelected} packages={packageTime} onSelect={onHandleSelectPackage}></ContainerPackage>
                 </Box>
               </Paper>
             </Grid>
@@ -178,45 +191,52 @@ const Payment = (props) => {
               <Paper className={classes.paperTotal}>
                 <Typography variant="body1" component="h2">TingTong Khuyến Mãi</Typography>
                 <Link style={{ "marginTop": "12px" }} component="button" variant="body2" onClick={() => {
-                  console.info("I'm a button.");
-                }}>Chọn Khuyến Mại</Link>
+                  setOnCloseDiscountDialog(!openDiscountDialog)
+                }}>{discountSelected ? ("Mã Khuyến Mại : " + discountSelected.id) : "Chọn Khuyến Mại"}</Link>
               </Paper>
               <Paper className={classes.paperTotal}>
                 <div className={classes.itemTotal}>
                   <Typography variant="body1" component="h2">Tạm tính</Typography>
-                  <Typography variant="body1" component="h2">0</Typography>
+                  <Typography variant="body1" component="h2">{estimate}</Typography>
                 </div>
                 <div className={classes.itemTotal}>
                   <Typography variant="body1" component="h2">Giảm giá</Typography>
-                  <Typography variant="body1" component="h2">0</Typography>
+                  <Typography variant="body1" component="h2">{discount}</Typography>
                 </div>
                 <div className={classes.itemTotal}>
                   <Typography variant="body1" component="h2">Tổng</Typography>
-                  <Typography variant="body1" component="h2">0</Typography>
+                  <Typography variant="body1" component="h2">{total}</Typography>
                 </div>
-                <Typography style={{ "marginTop": "12px" }} variant="body1" component="h2">Chọn phương thức thanh toán</Typography>
+                <Typography style={{ "marginTop": "12px" }} variant="body1" component="h2">Phương thức thanh toán</Typography>
+
+                <div style={{ "marginTop": "12px", "display": "flex", "justifyContent": "center" }}>
+                  <img style={{ "maxWidth": "50px", "maxHeight": "50px" }} src={vnppay}></img>
+                </div>
 
                 <Autocomplete
                   style={{ "marginTop": "12px", "marginBottom": "12px" }}
                   id="method-payment-select"
                   size="small"
                   fullWidth
-                  options={methodPayments}
+                  options={banks}
                   classes={{
                     option: classes.option,
                   }}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
+                  value={bankCode}
+                  onChange={(event, newValue) => {
+                    handleSelectDataSet(newValue);
+                  }}
                   renderOption={(option) => (
                     <React.Fragment>
-                      <img style={{ "maxWidth": "25px", "maxHeight": "25px", "marginRight": "5px" }} src={option.image}></img>
-                      {option.label}
+                      <Typography variant="body2" component="h2">{option.label}</Typography>
                     </React.Fragment>
                   )}
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Chọn một phương thức"
+                      label="Chọn một ngân hàng hoặc ví"
                       variant="outlined"
                       inputProps={{
                         ...params.inputProps,
@@ -226,7 +246,7 @@ const Payment = (props) => {
                   )}
                 />
 
-                <Button fullWidth variant="contained" color="primary">
+                <Button onClick={() => handleSubmit()} fullWidth variant="contained" color="primary">
                   Thanh Toán
                 </Button>
               </Paper>
@@ -235,6 +255,19 @@ const Payment = (props) => {
         </Container>
       </div>
       <Footer></Footer>
+
+      <DiscountDialog open={openDiscountDialog} onClose={onCloseDiscountDialog} selected={discountSelected} onSelect={onHandleSelectDiscount}></DiscountDialog>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

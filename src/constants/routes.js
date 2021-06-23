@@ -11,6 +11,7 @@ import HomePageStudent from "../features/homePage/homePageStudent";
 import ListTutors from "../features/listTutors";
 import SettingPage from "../features/setting/SettingPage";
 import Payment from "../features/payment/Payment";
+import PaymentResult from "../features/payment/PaymentResult";
 
 export const Routes = [
   {
@@ -93,8 +94,15 @@ export const Routes = [
   {
     name: "payment",
     path: "/payment",
-    exact: false,
+    exact: true,
     main: () => <Payment />,
+    auth: true
+  },
+  {
+    name: "payment",
+    path: "/payment/result",
+    exact: true,
+    main: () => <PaymentResult />,
     auth: true
   },
 ];

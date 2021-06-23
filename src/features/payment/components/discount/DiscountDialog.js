@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import PaymentApi from "../../../../api/paymentApi";
+import ItemDiscount from './ItemDiscount';
 DiscountDialog.propTypes = {
 
 };
 
-function DiscountDialog({ open, onClose, onSelect }) {
+function DiscountDialog({ open, onClose, onSelect, selected }) {
     const descriptionElementRef = React.useRef(null);
+    const [discount, setDiscount] = useState([]);
+    const [selectedIndex, setSelectedIndex] = React.useState(selected || {});
+
     React.useEffect(() => {
         if (open) {
             const { current: descriptionElement } = descriptionElementRef;
@@ -19,6 +25,26 @@ function DiscountDialog({ open, onClose, onSelect }) {
             }
         }
     }, [open]);
+
+    useEffect(() => {
+        getAllPromotion();
+    }, []);
+
+    const getAllPromotion = async () => {
+        PaymentApi.GetAllPromotion().then(res => {
+            setDiscount(res);
+        }).catch(err => {
+
+        })
+    }
+
+    const handleListItemClick = (item) => {
+        setSelectedIndex(item);
+    }
+
+    const handleApplyPromotion = () => {
+        onSelect(selectedIndex);
+    }
 
     return (
         <div>
@@ -34,18 +60,18 @@ function DiscountDialog({ open, onClose, onSelect }) {
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
                         tabIndex={-1}>
-                        {[...new Array(50)]
-                            .map(
-                                () => `Cras mattis consectetur purus sit amet fermentum.
-                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                            )
-                            .join('\n')}
+                        {discount && discount.map((item, index) => {
+                            return <ItemDiscount key={index} item={item} onSelect={handleListItemClick} selected={selectedIndex && item.id === selectedIndex.id ? true : false}></ItemDiscount>
+                        })}
                     </DialogContentText>
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleApplyPromotion} color="primary">
+                        Áp dụng
+                    </Button>
+                </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 }
 

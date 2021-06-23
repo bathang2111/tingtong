@@ -5,7 +5,7 @@ import SettingDrawer from './components/SettingDrawer';
 import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import UserProfilePage from './pages/UserProfilePage';
 import CallHistoryPage from './pages/CallHistoryPage';
-import TrasactionHistoryPage from './pages/TrasactionHistoryPage';
+import TransactionHistoryPage from './pages/TransactionHistoryPage';
 import AuthRouter from '../../app/AuthRouter';
 import Footer from "../../components/footer";
 import Header from "../../components/header/header";
@@ -52,7 +52,7 @@ function SettingPage(props) {
                     <Switch>
                         <AuthRouter component={UserProfilePage} path="/setting/user-profile" />
                         <AuthRouter component={CallHistoryPage} path="/setting/call-history" />
-                        <AuthRouter component={TrasactionHistoryPage} path="/setting/trasaction-history" />
+                        <AuthRouter component={TransactionHistoryPage} path="/setting/transaction-history" />
                         <Route path="/setting">
                             <Redirect to="/setting/user-profile" />
                         </Route>
