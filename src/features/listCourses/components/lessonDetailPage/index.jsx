@@ -54,6 +54,12 @@ const LessonDetailPage = (props) => {
   const [showSlidePopUp, setShowSlide] = useState(false);
   const history = useHistory();
   let indexx;
+  const [indexActive, setIndex] = useState(1);
+
+  const setIndexActive = (value) => {
+    console.log(value);
+    setIndex(value);
+  };
 
   useEffect(async () => {
     const params = { idLesson, courseId: id };
@@ -137,6 +143,8 @@ const LessonDetailPage = (props) => {
   return (
     <>
       <SlideShow
+        name={lesson.title}
+        indexActive={indexActive}
         togglePopup={(value) => togglePopupSlideShow(value)}
         isOpen={showSlidePopUp}
         pdf={pdfFile}
@@ -212,15 +220,22 @@ const LessonDetailPage = (props) => {
                 </Typography>
                 <Divider />
                 <Divider />
-                {/* {showPreparSlide()} */}
-                {/* ////////////////////////////////////// */}
 
-                <AllPages openSlide={() => openSlide()} pdf={pdfFile} />
-
-                {/* ////////////////////////////////// */}
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Lesson Slide
                 </Typography>
+                {/* {showPreparSlide()} */}
+                {/* ////////////////////////////////////// */}
+
+                <AllPages
+                  size={100}
+                  setIndexActive={(value) => setIndexActive(value)}
+                  lobby={true}
+                  openSlide={() => openSlide()}
+                  pdf={pdfFile}
+                />
+
+                {/* ////////////////////////////////// */}
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Watched Video
                 </Typography>

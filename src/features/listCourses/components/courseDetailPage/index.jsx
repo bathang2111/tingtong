@@ -74,8 +74,8 @@ const CourseDetailPage = () => {
   const match = useRouteMatch();
   const { params } = match;
   console.log(match);
-  const id ="asdsad" //props.match.params.id;
-  const url = "dasdsa";
+  const id = params.id;
+  const url = match.url;
   const { courseDetail } = useSelector((state) => state.courses);
   const [lesson, setLessons] = useState({ listLessons: [], length: 0 });
   const { curriculums } = useSelector((state) => state.courses);
