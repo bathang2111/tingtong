@@ -69,12 +69,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CourseDetailPage = (props) => {
+const CourseDetailPage = () => {
   const classes = useStyles();
-  const id = props.match.params.id;
-  const url = props.match.url;
-  const { params } = useRouteMatch();
-  console.log(params.id);
+  const match = useRouteMatch();
+  const { params } = match;
+  console.log(match);
+  const id = params.id;
+  const url = match.url;
   const { courseDetail } = useSelector((state) => state.courses);
   const [lesson, setLessons] = useState({ listLessons: [], length: 0 });
   const { curriculums } = useSelector((state) => state.courses);
@@ -140,7 +141,7 @@ const CourseDetailPage = (props) => {
       try {
         const res = await AuthApi.getUserInfo();
         setFavoriteCourse(res.favoriteCourses);
-      } catch (error) { }
+      } catch (error) {}
     }
   }, [id]);
 
