@@ -27,10 +27,10 @@ const PaymentItem = ({ item, onSelect, selected }) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Gói {item.time} giờ
+            {item.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Giá : {item.price}
+            {item.price}
           </Typography>
         </CardContent>
       </CardActionArea>
