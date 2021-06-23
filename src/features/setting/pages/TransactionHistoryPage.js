@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-TrasactionHistoryPage.propTypes = {
+TransactionHistoryPage.propTypes = {
     
 };
 
-function TrasactionHistoryPage(props) {
+function TransactionHistoryPage(props) {
     return (
         <div>
             
@@ -13,4 +13,4 @@ function TrasactionHistoryPage(props) {
     );
 }
 
-export default TrasactionHistoryPage;
+export default TransactionHistoryPage;

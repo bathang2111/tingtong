@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     // background: "#ff0",
   },
+  cancle: {
+    width: 30,
+    height: 30,
+  },
 }));
 
 export default function SlideShow(props) {
@@ -82,17 +86,18 @@ export default function SlideShow(props) {
           }
           action={
             <IconButton onClick={() => props.togglePopup(false)}>
-              <Close />
+              <Close className={classes.cancle} />
             </IconButton>
           }
         />
         <CardContent className={classes.content}>
           <AllPages
             indexActive={props.indexActive}
+            preview={props.preview}
             size={70}
             sizePage={sizePage}
             lobby={false}
-            pdf={props.pdf}
+            pdfSlide={props.pdfSlide}
           />
         </CardContent>
       </Card>
