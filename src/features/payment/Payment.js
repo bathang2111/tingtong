@@ -50,28 +50,84 @@ const useStyles = makeStyles((theme) => ({
 
 const packages = [
   {
+    id: 1,
     time: 1,
     price: 200000
   },
   {
+    id: 2,
     time: 2,
     price: 300000
   },
   {
+    id: 3,
     time: 3,
     price: 400000
   },
   {
+    id: 4,
     time: 4,
     price: 500000
   },
   {
+    id: 5,
     time: 5,
     price: 600000
   },
   {
+    id: 6,
     time: 6,
     price: 700000
+  }
+]
+
+const discounts = [
+  {
+    id: 1,
+    type: 1,
+    discount: 20000,
+    isExpire: false,
+    description: "Donald Trieu 1"
+  },
+  {
+    id: 2,
+    type: 1,
+    discount: 30000,
+    isExpire: false,
+    isStatus: false,
+    description: "Donald Trieu 1"
+  },
+  {
+    id: 3,
+    type: 2,
+    discount: 30000,
+    isExpire: false,
+    isStatus: false,
+    description: "Donald Trieu 1"
+  },
+  {
+    id: 4,
+    type: 2,
+    discount: 40000,
+    isExpire: false,
+    isStatus: false,
+    description: "Donald Trieu 1"
+  },
+  {
+    id: 5,
+    type: 2,
+    discount: 40000,
+    isExpire: false,
+    isStatus: false,
+    description: "Donald Trieu 1"
+  },
+  {
+    id: 6,
+    type: 2,
+    discount: 40000,
+    isExpire: false,
+    isStatus: false,
+    description: "Donald Trieu 1"
   }
 ]
 
@@ -83,6 +139,22 @@ const methodPayments = [
 
 const Payment = (props) => {
   const classes = useStyles();
+  const [estimate, setEstimate] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [packageSelected, setPackageSelected] = useState({});
+  const [discountSelected, setDiscountSelected] = useState({});
+
+  const onHandleSelectPackage = data => {
+    console.log(data);
+    setPackageSelected(data);
+  }
+
+  const onHandleSelectDiscount = discount => {
+    setDiscountSelected(discount);
+  }
+
+
 
   return (
     <>
@@ -98,14 +170,14 @@ const Payment = (props) => {
                   Chọn gói đăng ký
                 </Typography>
                 <Box className={classes.containerPackage}>
-                  <ContainerPackage packages={packages}></ContainerPackage>
+                  <ContainerPackage packageSelected={packageSelected} packages={packages} onSelect={onHandleSelectPackage}></ContainerPackage>
                 </Box>
               </Paper>
             </Grid>
             <Grid item xs={12} md={4}>
               <Paper className={classes.paperTotal}>
                 <Typography variant="body1" component="h2">TingTong Khuyến Mãi</Typography>
-                <Link style={{"marginTop": "12px"}} component="button" variant="body2" onClick={() => {
+                <Link style={{ "marginTop": "12px" }} component="button" variant="body2" onClick={() => {
                   console.info("I'm a button.");
                 }}>Chọn Khuyến Mại</Link>
               </Paper>
