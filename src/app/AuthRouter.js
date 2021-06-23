@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 
+// render
 const renderMergedProps = (component, ...rest) => {
     const finalProps = Object.assign({}, ...rest);
     return React.createElement(component, finalProps);

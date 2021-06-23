@@ -7,14 +7,14 @@ const Course = (props) => {
   const endpoint = props.course.id;
   return (
     <SC.Container>
-      <Ripples during="2000">
+      {/* <Ripples during="2000">
         <SC.CourseDetail to={`${url}/${endpoint}`}>
           <SC.Img src={props.course.avatar} />
           <SC.Title>{props.course.name}</SC.Title>
           <SC.SubTitle>{props.course.description}</SC.SubTitle>
           <SC.Cover></SC.Cover>
         </SC.CourseDetail>
-      </Ripples>
+      </Ripples> */}
     </SC.Container>
   );
 };
