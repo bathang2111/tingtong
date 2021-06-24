@@ -10,16 +10,18 @@ import SmallScreenMenu from "../components/header/components/smallScreenMenu";
 import ListChatTing from "../features/messenger/chatWindow/components/listChating";
 import CourseDetailPage from ".././features/listCourses/components/courseDetailPage";
 import MessageApi from "../api/messageApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import {
   SocketContext,
   socketChat,
   socketVideoCall,
   socketTutor,
 } from "../api/socketService";
+
 import AuthRouter from "./AuthRouter";
 import AuthApi from "../api/authApi";
 import { getUserInfo } from "../features/setting/userProfileSlide";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -58,7 +60,12 @@ function App() {
           />
         );
       });
-      return <Switch>{result}</Switch>;
+      return (
+        <Fragment>
+          <ScrollToTop />
+          <Switch>{result}</Switch>
+        </Fragment>
+      );
     }
     return;
   };

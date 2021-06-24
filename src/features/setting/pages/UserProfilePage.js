@@ -342,6 +342,7 @@ function UserProfilePage(props) {
                     {/* <InputLabel htmlFor="age-native-simple">Age</InputLabel> */}
                     <Select
                       native
+                      defaultValue={localStorage.getItem("lang")}
                       //   value="VietNam"
                       onChange={onHandleChange}
                       inputProps={{

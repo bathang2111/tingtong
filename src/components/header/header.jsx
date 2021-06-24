@@ -22,7 +22,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
-import AuthApi from "../../api/authApi";
 
 const Header = (props) => {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -33,10 +32,6 @@ const Header = (props) => {
   const anchorRef = React.useRef(null);
   const history = useHistory();
   const dispatch = useDispatch();
-
-  useEffect(async () => {
-    await AuthApi.getUserInfo();
-  }, []);
 
   const toggleMessage = () => {
     dispatch(ToggleListChat());
