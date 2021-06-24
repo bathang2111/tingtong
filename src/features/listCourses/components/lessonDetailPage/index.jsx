@@ -1,7 +1,7 @@
 import Header from "../../../../components/header/header";
 import Footer from "../../../../components/footer";
 import * as SC from "./style";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CurriculumsApi from "../../../../api/curiculumsApi";
 import { useDispatch, useSelector } from "react-redux";
 import Ripples from "react-ripples";
@@ -20,15 +20,28 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import { useHistory } from "react-router-dom";
 import { ListItemAvatar } from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import { CardMedia } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
+
+
 ///////////////////////////////
 import AllPages from "../slidePDF/allPDF";
+import { AspectRatio, Close } from "@material-ui/icons";
+import { IconButton } from "@material-ui/core";
 ////////////////
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,8 +51,35 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: "center",
   },
+  media: {
+    height: 100,
+    width: 180,
+    // border: "2px solid",
+  },
+  video: {
+    maxWidth: 700,
+    height: "auto",
+    // border: "2px solid",
+  },
   description: {
     textAlign: "center",
+  },
+  divider: {
+    height: 3,
+    margin: "15px 0",
+  },
+  empty: {
+    width: 180,
+    height: 100,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#e8e9ec",
+  },
+  emptyIcon: {
+    width: 60,
+    height: 60,
+    opacity: 0.3,
   },
 }));
 
@@ -48,6 +88,10 @@ const LessonDetailPage = (props) => {
   const { idLesson } = props.match.params;
   const { id } = props.match.params;
   const [lesson, setLesson] = useState({});
+  const [lessonSlide, setLessonSlide] = useState();
+  const [lessonPreparSlide, setLessonPreparSlide] = useState();
+  const [lessonVideos, setLessonVideo] = useState([]);
+  const [mainVideoUrl, setMainVideoUrl] = useState();
   const [courseDetail, setCourse] = useState({});
   const dispatch = useDispatch();
   const [showSlidePopUp, setShowSlide] = useState(false);
@@ -55,9 +99,9 @@ const LessonDetailPage = (props) => {
   let indexx;
   const [indexActive, setIndex] = useState(1);
   const [action, setAction] = useState(0);
+  const [open, setOpen] = React.useState(false);
 
   const setIndexActive = (value) => {
-    console.log(value);
     setIndex(value.index);
     setAction(value.status);
   };
@@ -65,9 +109,44 @@ const LessonDetailPage = (props) => {
   useEffect(async () => {
     const params = { idLesson, courseId: id };
     const response = await CurriculumsApi.getLessonDetail(params);
-    console.log(response);
     setLesson(response);
   }, [props.match.url]);
+
+  useEffect(() => {
+    if (!lesson.id) return;
+    if (lesson.slides && lesson.slides.length > 0) {
+      setLessonSlide(lesson.slides[0].imageLink);
+    }
+    if (lesson.prepareSlides && lesson.prepareSlides.length > 0) {
+      setLessonPreparSlide(lesson.prepareSlides[0].imageLink);
+    }
+    if (lesson.videos && lesson.videos.length > 0) {
+      setLessonVideo(lesson.videos);
+    }
+  }, [lesson]);
+
+  const showLessonVideo = () => {
+    if (lessonVideos.length == 0)
+      return (
+        <Card className={classes.empty}>
+          <AspectRatio className={classes.emptyIcon} />
+        </Card>
+      );
+    const result = lessonVideos.map((item) => {
+      return (
+        <CardActionArea
+          onClick={() => {
+            setMainVideoUrl(item.videoUrl);
+            setOpen(true);
+          }}
+          className={classes.media}
+        >
+          <CardMedia className={classes.media} image={item.thumbnailUrl} />
+        </CardActionArea>
+      );
+    });
+    return result;
+  };
 
   useEffect(async () => {
     const response = await CurriculumsApi.getCourseDetail(id);
@@ -110,10 +189,8 @@ const LessonDetailPage = (props) => {
   return (
     <>
       <SlideShow
-        pdfSlide={lesson.slides ? lesson.slides[0].imageLink : ""}
-        pdfPreparSlide={
-          lesson.prepareSlides ? lesson.prepareSlides[0].imageLink : ""
-        }
+        pdfSlide={lessonSlide ? lessonSlide : ""}
+        pdfPreparSlide={lessonPreparSlide ? lessonPreparSlide : ""}
         preview={action == 1 ? true : false}
         name={lesson.title}
         indexActive={indexActive}
@@ -178,6 +255,7 @@ const LessonDetailPage = (props) => {
                   </Typography>
                 }
               />
+              <Divider className={classes.divider} />
               <CardContent>
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Before the Lesson
@@ -186,25 +264,20 @@ const LessonDetailPage = (props) => {
                   variant="body2"
                   color="textSecondary"
                   component="p"
-                  style={{ fontSize: 15 }}
+                  style={{ fontSize: 15, marginBottom: 10 }}
                 >
                   Review these slides to prepare for your lesson
                 </Typography>
-                <Divider />
-                <Divider />
+
                 <AllPages
                   size={100}
                   setIndexActive={(value) => setIndexActive(value)}
                   lobby={true}
                   openSlide={() => openSlide()}
                   preview={true}
-                  pdfSlide={
-                    lesson.prepareSlides
-                      ? lesson.prepareSlides[0].imageLink
-                      : ""
-                  }
+                  pdfSlide={lessonPreparSlide ? lessonPreparSlide : ""}
                 />
-
+                <Divider className={classes.divider} />
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Lesson Slide
                 </Typography>
@@ -216,14 +289,59 @@ const LessonDetailPage = (props) => {
                   setIndexActive={(value) => setIndexActive(value)}
                   lobby={true}
                   openSlide={() => openSlide()}
-                  pdfSlide={lesson.slides ? lesson.slides[0].imageLink : ""}
+                  pdfSlide={lessonSlide ? lessonSlide : ""}
                 />
 
-                {/* ////////////////////////////////// */}
+                <Divider className={classes.divider} />
                 <Typography noWrap gutterBottom variant="h5" component="h2">
                   Watched Video
                 </Typography>
-                <video src={lesson.video ? lesson.video[0] : ""} />
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+
+                    width: "100%",
+                    // height:100,
+                    overflowX: "auto",
+                    overflowY: "hidden",
+                  }}
+                >
+                  {showLessonVideo()}
+                </div>
+
+                {/* ////////////////////////////////// */}
+                {open ? (
+                  <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    // onClose={handleClose}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                  >
+                    <DialogActions>
+                      <DialogTitle id="alert-dialog-slide-title">
+                        {"Xem xong"}
+                      </DialogTitle>
+                      <IconButton onClick={() => setOpen(false)}>
+                        <Close />
+                      </IconButton>
+                    </DialogActions>
+                    <DialogContent style={{ paddingBottom: 24 }}>
+                      <CardMedia
+                        component="video"
+                        controls
+                        className={classes.video}
+                        image={mainVideoUrl}
+                        autoPlay
+                      />
+                    </DialogContent>
+                  </Dialog>
+                ) : (
+                  ""
+                )}
+                {/* ///////////////////// */}
               </CardContent>
             </Card>
           </Grid>

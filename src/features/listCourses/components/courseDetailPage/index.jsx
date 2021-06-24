@@ -46,7 +46,7 @@ import ReportCourse from "../report/Report";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 410,
+    // minWidth: 410,
   },
   media: {
     height: 0,
@@ -271,8 +271,8 @@ const CourseDetailPage = () => {
       <Header />
       <>
         <Container style={{ background: "#e8e9ec" }} fixed>
-          <Grid container spacing={10}>
-            <Grid style={{ marginTop: 30 }} item xs={12} sm={4}>
+          <Grid container spacing={5}>
+            <Grid style={{ marginTop: 30 }} item xs={12}  md={4}>
               <Card className={classes.root}>
                 <CardHeader
                   avatar={
@@ -335,7 +335,7 @@ const CourseDetailPage = () => {
                   }
                   title={
                     <Typography
-                      style={{ maxWidth: 270 }}
+                      // style={{ maxWidth: 270 }}
                       noWrap
                       gutterBottom
                       variant="h4"
@@ -421,7 +421,7 @@ const CourseDetailPage = () => {
                 </Collapse>
               </Card>
             </Grid>
-            <Grid item style={{ marginTop: 30 }} xs={12} sm={8}>
+            <Grid item style={{ marginTop: 30 }} xs={12}  md={8}>
               <Card>
                 <CardContent>
                   <List
