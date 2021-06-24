@@ -24,6 +24,7 @@ import DuoOutlinedIcon from "@material-ui/icons/DuoOutlined";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import DefaultAvatar from "../../../assets/images/avatar4.png";
+import { ImportContacts } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -147,6 +148,13 @@ function SettingDrawer({ open, onClose }) {
             <AccountCircleOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Trang cá nhân"} />
+        </ListItem>
+
+        <ListItem button>
+          <ListItemIcon>
+            <ImportContacts />
+          </ListItemIcon>
+          <ListItemText primary={"Khóa học"} />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
