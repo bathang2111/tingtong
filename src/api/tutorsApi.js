@@ -13,6 +13,10 @@ const TutorsApi = {
     const url = `tutors?keyword=${params}`;
     return axiosClien.get(url);
   },
+  ReportTutor: (params, body) => {
+    const url = `/students/tutors/${params}/reports`;
+    return axiosClien.post(url, body);
+  },
 };
 
 export default TutorsApi;

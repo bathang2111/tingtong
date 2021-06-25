@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DefaultAvatar from "../../../assets/images/avatar4.png";
 import { useHistory } from "react-router-dom";
 import { Link } from "@material-ui/core";
-
+import { ImportContacts } from "@material-ui/icons";
 const drawerWidth = 240;
 
 SettingDrawer.propTypes = {};
@@ -154,13 +154,21 @@ function SettingDrawer({ open, onClose }) {
           </ListItemIcon>
           <ListItemText primary={"Trang cá nhân"} />
         </ListItemLink>
+        <ListItemLink onClick={() => history.push("/setting/courses-saved")}>
+          <ListItemIcon>
+            <ImportContacts />
+          </ListItemIcon>
+          <ListItemText primary={"Khóa học"} />
+        </ListItemLink>
         <ListItemLink onClick={() => history.push("/setting/call-history")}>
           <ListItemIcon>
             <DuoOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Lịch sử cuộc gọi"} />
         </ListItemLink>
-        <ListItemLink onClick={() => history.push("/setting/transaction-history")}>
+        <ListItemLink
+          onClick={() => history.push("/setting/transaction-history")}
+        >
           <ListItemIcon>
             <MonetizationOnOutlinedIcon />
           </ListItemIcon>
