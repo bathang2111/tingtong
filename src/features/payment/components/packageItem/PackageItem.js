@@ -6,19 +6,18 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import image from '../../../../assets/images/imageCapGold.png';
-
 const useStyles = makeStyles({
   root: {
-    width: '100'
+    width: '100%'
   },
 });
 
-const PaymentItem = ({ item }) => {
+const PaymentItem = ({ item, onSelect, selected }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
+    <Card style={{"border" : `${selected ? "1px solid #2f8c92" : ""}`}} className={classes.root}>
+      <CardActionArea onClick={() => onSelect(item)}>
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
@@ -28,10 +27,10 @@ const PaymentItem = ({ item }) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Gói {item.time} giờ
+            {item.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Giá : {item.price}
+            {item.price}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -21,7 +21,6 @@ import {
   CardHeader,
   CardActions,
   CardContent,
-  CardActionArea,
   Typography,
   IconButton,
   Avatar,
@@ -29,6 +28,11 @@ import {
   CardMedia,
   Button,
 } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Rating from "@material-ui/lab/Rating";
 // import { socketChat } from "../../../../app/App";
 import {
@@ -43,12 +47,8 @@ import FeedBackApi from "../../../../api/feedbackApi";
 import { getUserInfo } from "../../../setting/userProfileSlide";
 import { SendStatusLike } from "../../../listTutors/tutorSlide";
 import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import CallVideoApi from "../../../../api/callVideoApi";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -127,6 +127,9 @@ const Profile = (props) => {
   const [IsOpenReport, setOpen] = useState(false);
   const left = (window.screen.width - 700) / 2;
   const top = (window.screen.height - 380) / 2;
+  const [isOpenNoti, setOpenNoti] = useState(false);
+  const { totalTime } = useSelector((state) => state.userprofile.userInfo);
+  const history = useHistory();
 
   const handleChange = (e) => {
     setReason(e.target.value);
@@ -229,6 +232,10 @@ const Profile = (props) => {
   };
 
   const onRequestTheCall = async (event) => {
+    if (totalTime === 0) {
+      setOpenNoti(true);
+      return;
+    }
     // click event call video
     localStorage.setItem("receiverId", Tutor.id);
     const room = await CallVideoApi.RequestCallVideo({
@@ -256,35 +263,76 @@ const Profile = (props) => {
         },
       }}
     >
-      {/* //////////////////// */}
-      <div>
-        <Dialog open={IsOpenReport} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Báo cáo</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Giúp chúng tôi hiểu rõ gia sư này đang gặp vấn đề gì. Bạn sẽ mô tả
-              vấn đề đó như thế nào?
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Mô tả vấn đề"
-              onChange={handleChange}
-              type="text"
-              fullWidth
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)} color="primary">
-              Hủy
-            </Button>
-            <Button onClick={handleReport} color="primary">
-              Báo cáo
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+      {/* //////////notification////////// */}
+      {isOpenNoti ? (
+        <div>
+          <Dialog
+            open={isOpenNoti}
+            onClose={() => setOpenNoti(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Hết thời gian"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Thời gian còn lại của bạn không đủ để kết nối tới giáo viên, bạn
+                có muốn mua thêm gói thời gian để tiếp tục không?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpenNoti(false)} color="primary">
+                Hủy
+              </Button>
+              <Button
+                onClick={() => {
+                  setOpenNoti(false);
+                  history.push("/payment");
+                }}
+                color="primary"
+                autoFocus
+              >
+                Mua gói
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      ) : (
+        ""
+      )}
+
+      {IsOpenReport ? (
+        <div>
+          <Dialog open={IsOpenReport} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Báo cáo</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Giúp chúng tôi hiểu rõ gia sư này đang gặp vấn đề gì. Bạn sẽ mô
+                tả vấn đề đó như thế nào?
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Mô tả vấn đề"
+                onChange={handleChange}
+                type="text"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpen(false)} color="primary">
+                Hủy
+              </Button>
+              <Button onClick={handleReport} color="primary">
+                Báo cáo
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      ) : (
+        ""
+      )}
+
       {/* //////////////////// */}
       <Card className={classes.container}>
         <CardActions disableSpacing>

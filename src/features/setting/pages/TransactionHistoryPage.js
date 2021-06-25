@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import TableCallHistory from '../components/TableCallHistory';
+import TableTransactionHistory from '../components/TableTransactionHistory';
 
-CallHistoryPage.propTypes = {
+TransactionHistoryPage.propTypes = {
 
 };
 
@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function CallHistoryPage(props) {
+function TransactionHistoryPage(props) {
     const classes = useStyles();
 
     return (
         <Paper className={classes.root}>
-            <Typography style={{ "marginBottom": "12px" }} variant="h2" component="h2">Lịch sử cuộc gọi</Typography>
-            <TableCallHistory></TableCallHistory>
+            <Typography style={{"marginBottom":"12px"}} variant="h2" component="h2">Lịch sử giao dịch</Typography>
+            <TableTransactionHistory></TableTransactionHistory>
         </Paper>
     );
 }
 
-export default CallHistoryPage;
+export default TransactionHistoryPage;

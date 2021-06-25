@@ -4,6 +4,8 @@ export const Container = styled.div`
   width: 100%;
   height: 150px;
   display: flex;
+  position: relative;
+  bottom: 0;
   flex-direction: row;
   background: #eeeeee;
   padding: 10px 100px 0;
@@ -26,7 +28,7 @@ export const GroupIcon = styled.div`
   justify-content: space-around;
 `;
 
-export const Parent=styled.div`
+export const Parent = styled.div`
   width: 28px;
   height: 28px;
   padding: 5px;

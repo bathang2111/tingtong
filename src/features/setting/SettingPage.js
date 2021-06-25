@@ -5,7 +5,7 @@ import SettingDrawer from './components/SettingDrawer';
 import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import UserProfilePage from './pages/UserProfilePage';
 import CallHistoryPage from './pages/CallHistoryPage';
-import TrasactionHistoryPage from './pages/TrasactionHistoryPage';
+import TransactionHistoryPage from './pages/TransactionHistoryPage';
 import AuthRouter from '../../app/AuthRouter';
 import Footer from "../../components/footer";
 import Header from "../../components/header/header";
@@ -21,7 +21,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        // height: '100vh'
+        height: '100vh'
     },
     toolbar: {
         display: 'flex',
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        width: "100%"
     },
 }));
 
@@ -54,7 +55,7 @@ function SettingPage(props) {
                         <AuthRouter component={UserProfilePage} path="/setting/user-profile" />
                         <AuthRouter component={CoursesSaved} path="/setting/courses-saved" />
                         <AuthRouter component={CallHistoryPage} path="/setting/call-history" />
-                        <AuthRouter component={TrasactionHistoryPage} path="/setting/trasaction-history" />
+                        <AuthRouter component={TransactionHistoryPage} path="/setting/transaction-history" />
                         <Route path="/setting">
                             <Redirect to="/setting/user-profile" />
                         </Route>

@@ -9,12 +9,15 @@ import {
   TutorIdDetail,
 } from "../../../homePage/homePageSlice";
 import * as SC from "./style";
-import Ripples from "react-ripples";
-import unLikeTutorIcon from "../../../../assets/images/Love.png";
-import likeTutorIcon from "../../../../assets/images/iconHeart.png";
 import { useState } from "react";
 import FeedBackApi from "../../../../api/feedbackApi";
 import { useEffect } from "react";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -23,20 +26,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import { SendStatusLike } from "../../tutorSlide";
-import { getUserInfo } from "../../../setting/userProfileSlide";
 import { BASE_URL_WINDOW_CALL } from "../../../../constants/baseURl";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,6 +79,9 @@ const Tutor = (props) => {
   const isOpen = useSelector((state) => state.homepage.toggleModal);
   const idTutorDetail = useSelector((state) => state.homepage.idTutor);
   const { status } = useSelector((state) => state.tutors);
+  const [isOpenNoti, setOpenNoti] = useState(false);
+  const { totalTime } = useSelector((state) => state.userprofile.userInfo);
+  const history = useHistory();
 
   useEffect(() => {
     if (!props.favoriteTutors) return;
@@ -123,6 +123,10 @@ const Tutor = (props) => {
   const onRequestTheCall = async (event) => {
     event.stopPropagation();
     event.preventDefault();
+    if (totalTime === 0) {
+      setOpenNoti(true);
+      return;
+    }
     // click event call video
     localStorage.setItem("receiverId", props.info.id);
     const room = await CallVideoApi.RequestCallVideo({
@@ -145,6 +149,42 @@ const Tutor = (props) => {
   };
   return (
     <SC.Pain>
+      {" "}
+      {isOpenNoti ? (
+        <div>
+          <Dialog
+            open={isOpenNoti}
+            onClose={() => setOpenNoti(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Hết thời gian"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Thời gian còn lại của bạn không đủ để kết nối tới giáo viên, bạn
+                có muốn mua thêm gói thời gian để tiếp tục không?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setOpenNoti(false)} color="primary">
+                Hủy
+              </Button>
+              <Button
+                onClick={() => {
+                  setOpenNoti(false);
+                  history.push("/payment");
+                }}
+                color="primary"
+                autoFocus
+              >
+                Mua gói
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      ) : (
+        ""
+      )}
       <Card className={classes.root}>
         <CardActionArea className={classes.area} onClick={toggleProfileModal}>
           <CardHeader
