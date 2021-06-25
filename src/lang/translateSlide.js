@@ -6,7 +6,7 @@ const en = Translations.en;
 
 const Language = createSlice({
   name: "language",
-  initialState: localStorage.getItem("lang") == "VietNam" ? vn : en,
+  initialState: localStorage.getItem("lang") == "vn" ? vn : en,
   reducers: {
     ChangeLanguageVietNam: (state) => {
       state = vn;

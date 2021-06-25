@@ -6,10 +6,11 @@ import {
   CardMedia,
   makeStyles,
   IconButton,
+  Typography,
 } from "@material-ui/core";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import { ArrowBackIos, ArrowForwardIos, AspectRatio } from "@material-ui/icons";
 import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,19 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: "#2f8c92",
     },
+  },
+  empty: {
+    width: 180,
+    height: 100,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    background: "#e8e9ec",
+  },
+  emptyIcon: {
+    width: 60,
+    height: 60,
+    opacity: 0.3,
   },
 
   title: {
@@ -64,6 +78,11 @@ export default function AllPages(props) {
   return (
     <Document
       file={pdfSlide}
+      error={
+        <Card className={classes.empty}>
+          <AspectRatio className={classes.emptyIcon} />
+        </Card>
+      }
       options={{ workerSrc: "/pdf.worker.js" }}
       onLoadSuccess={onDocumentLoadSuccess}
     >

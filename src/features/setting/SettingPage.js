@@ -20,7 +20,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        // height: '100vh'
+        height: '100vh'
     },
     toolbar: {
         display: 'flex',
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        width: "100%"
     },
 }));
 

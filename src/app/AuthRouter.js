@@ -20,7 +20,7 @@ const AuthRouter = ({ component: Component, ...rest }) => {
                 }>
             </Route >
         ) : (
-            <Redirect to="/login" />
+            <Redirect to="/wellcome" />
         )
     )
 }
