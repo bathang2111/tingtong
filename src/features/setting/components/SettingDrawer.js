@@ -24,12 +24,16 @@ import DuoOutlinedIcon from "@material-ui/icons/DuoOutlined";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import DefaultAvatar from "../../../assets/images/avatar4.png";
-import { ImportContacts } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import { Link } from "@material-ui/core";
 
 const drawerWidth = 240;
 
 SettingDrawer.propTypes = {};
 
+function ListItemLink(props) {
+  return <ListItem button component="div" {...props} />;
+}
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -101,6 +105,7 @@ function SettingDrawer({ open, onClose }) {
   const classes = useStyles();
   const theme = useTheme();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { image } = useSelector((state) => state.userprofile);
   const { userInfo } = useSelector((state) => state.userprofile);
 
@@ -143,33 +148,24 @@ function SettingDrawer({ open, onClose }) {
 
       <Divider />
       <List>
-        <ListItem button>
+        <ListItemLink onClick={() => history.push("/setting/user-profile")}>
           <ListItemIcon>
             <AccountCircleOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Trang cá nhân"} />
-        </ListItem>
-
-        <ListItem button>
+        </ListItemLink>
+        <ListItemLink onClick={() => history.push("/setting/call-history")}>
           <ListItemIcon>
-            <ImportContacts />
-          </ListItemIcon>
-          <ListItemText primary={"Khóa học"} />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            {" "}
             <DuoOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Lịch sử cuộc gọi"} />
-        </ListItem>
-        <ListItem button>
+        </ListItemLink>
+        <ListItemLink onClick={() => history.push("/setting/transaction-history")}>
           <ListItemIcon>
-            {" "}
             <MonetizationOnOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Lịch sử giao dịch"} />
-        </ListItem>
+        </ListItemLink>
       </List>
       <Divider />
       <div className={classes.toolbar}>
