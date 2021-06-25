@@ -22,8 +22,24 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+import { IconButton } from "@material-ui/core";
+import { Message, NotificationsActive } from "@material-ui/icons";
+import Badge from "@material-ui/core/Badge";
+
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  message: {
+    width: 32,
+    color: "#",
+    height: 32,
+  },
+  button: {
+    marginRight: 20,
+  },
+}));
 
 const Header = (props) => {
+  const classes = useStyles();
   const isLogin = useSelector((state) => state.login.checkLogin);
   const { language } = useSelector((state) => state);
   const { notification } = useSelector((state) => state.message);
@@ -119,6 +135,7 @@ const Header = (props) => {
                 </Ripples>
               </SC.PainBtn> */}
               <Button
+                className={classes.button}
                 onClick={() => history.push("/payment")}
                 fullWidth
                 variant="contained"
@@ -126,13 +143,21 @@ const Header = (props) => {
               >
                 {language.subcribe}
               </Button>
-              <SC.Message onClick={toggleMessage}>
-                <SC.Icon src={MessageIcon} />
-                {notification > 0 ? <SC.Noti>{notification}</SC.Noti> : ""}
-              </SC.Message>
-              {/* <SC.CalenDar onClick={() => dispatch(ToggleCalender())}>
-                <SC.Icon src={CalendarIcon} />
-              </SC.CalenDar> */}
+
+              <IconButton onClick={toggleMessage}>
+                <Badge
+                  invisible={notification > 0 ? false : true}
+                  color="error"
+                  badgeContent={notification > 0 ? notification : ""}
+                >
+                  <Message className={classes.message} />
+                </Badge>
+              </IconButton>
+
+              <IconButton>
+                <NotificationsActive className={classes.message} />
+              </IconButton>
+
               <SC.btnAvatar
                 ref={anchorRef}
                 aria-controls={open ? "menu-list-grow" : undefined}

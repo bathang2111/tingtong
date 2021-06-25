@@ -11,6 +11,7 @@ import Footer from "../../components/footer";
 import Header from "../../components/header/header";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { colors } from '@material-ui/core';
+import CoursesSaved from './pages/CoursesSaved';
 
 SettingPage.propTypes = {
 
@@ -51,6 +52,7 @@ function SettingPage(props) {
                 <main className={classes.content}>
                     <Switch>
                         <AuthRouter component={UserProfilePage} path="/setting/user-profile" />
+                        <AuthRouter component={CoursesSaved} path="/setting/courses-saved" />
                         <AuthRouter component={CallHistoryPage} path="/setting/call-history" />
                         <AuthRouter component={TrasactionHistoryPage} path="/setting/trasaction-history" />
                         <Route path="/setting">

@@ -25,6 +25,7 @@ import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutline
 import { useDispatch, useSelector } from "react-redux";
 import DefaultAvatar from "../../../assets/images/avatar4.png";
 import { ImportContacts } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -103,8 +104,8 @@ function SettingDrawer({ open, onClose }) {
   const dispatch = useDispatch();
   const { image } = useSelector((state) => state.userprofile);
   const { userInfo } = useSelector((state) => state.userprofile);
+  const history = useHistory();
 
-  console.log(theme.direction);
   return (
     <Drawer
       variant="permanent"
@@ -143,27 +144,27 @@ function SettingDrawer({ open, onClose }) {
 
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => history.push("/setting/user-profile")}>
           <ListItemIcon>
             <AccountCircleOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Trang cá nhân"} />
         </ListItem>
 
-        <ListItem button>
+        <ListItem button onClick={() => history.push("/setting/courses-saved")}>
           <ListItemIcon>
             <ImportContacts />
           </ListItemIcon>
           <ListItemText primary={"Khóa học"} />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => history.push("/setting/call-history")}>
           <ListItemIcon>
             {" "}
             <DuoOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={"Lịch sử cuộc gọi"} />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => history.push("/setting/trasaction-history")}>
           <ListItemIcon>
             {" "}
             <MonetizationOnOutlinedIcon />

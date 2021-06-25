@@ -34,6 +34,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
+import { SendStatusLike } from "../../tutorSlide";
+import { getUserInfo } from "../../../setting/userProfileSlide";
+import { BASE_URL_WINDOW_CALL } from "../../../../constants/baseURl";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,14 +79,25 @@ const Tutor = (props) => {
   const left = (window.screen.width - 700) / 2;
   const top = (window.screen.height - 380) / 2;
   const classes = useStyles();
+  const isOpen = useSelector((state) => state.homepage.toggleModal);
+  const idTutorDetail = useSelector((state) => state.homepage.idTutor);
+  const { status } = useSelector((state) => state.tutors);
 
   useEffect(() => {
     if (!props.favoriteTutors) return;
     const check = props.favoriteTutors.find((item) => item.id == props.info.id);
     if (check) {
       setStatusLikeTutor(true);
+    } else {
+      setStatusLikeTutor(false);
     }
   }, [props.favoriteTutors]);
+
+  useEffect(() => {
+    if (isOpen || idTutorDetail != props.info.id) return;
+    // console.log(status);
+    setStatusLikeTutor(status);
+  }, [isOpen]);
 
   const LikeTutor = async (event) => {
     event.stopPropagation();
@@ -116,7 +130,7 @@ const Tutor = (props) => {
     });
     const callerId = localStorage.getItem("idUser");
     window.open(
-      `https://tingtong.xyz/video-call/${room.id}/${callerId}/${props.info.userID}`,
+      `${BASE_URL_WINDOW_CALL}/video-call/${room.id}/${callerId}/${props.info.userID}`,
       "Data",
       `height=380,width=700,left=${left},top=${top}`
     );
@@ -125,6 +139,7 @@ const Tutor = (props) => {
   const toggleProfileModal = (event) => {
     event.stopPropagation();
     event.preventDefault();
+    dispatch(SendStatusLike(likeStatus));
     dispatch(ToggleProfileModal());
     dispatch(TutorIdDetail(props.info.id));
   };
