@@ -81,6 +81,7 @@ const Tutor = (props) => {
   const { status } = useSelector((state) => state.tutors);
   const [isOpenNoti, setOpenNoti] = useState(false);
   const { totalTime } = useSelector((state) => state.userprofile.userInfo);
+  const { avatar } = useSelector((state) => state.userprofile.userInfo);
   const history = useHistory();
 
   useEffect(() => {
@@ -128,6 +129,7 @@ const Tutor = (props) => {
       return;
     }
     // click event call video
+    localStorage.setItem("avatar", avatar);
     localStorage.setItem("receiverId", props.info.id);
     const room = await CallVideoApi.RequestCallVideo({
       userId: props.info.userID,
