@@ -24,6 +24,7 @@ const ListTutors = createSlice({
     listTutorsWhenSearch: [],
     loading: false,
     error: false,
+    status: false,
   },
   reducers: {
     checkTutorOnline: (state, action) => {
@@ -36,6 +37,10 @@ const ListTutors = createSlice({
       state.listTutors.sort((a, b) => {
         return b.isOnline - a.isOnline;
       });
+    },
+    SendStatusLike: (state, action) => {
+      state.status = action.payload;
+      return state;
     },
   },
   extraReducers: {
@@ -68,5 +73,5 @@ const ListTutors = createSlice({
 });
 
 const { reducer, actions } = ListTutors;
-export const { checkTutorOnline } = actions;
+export const { checkTutorOnline, SendStatusLike } = actions;
 export default reducer;

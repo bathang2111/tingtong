@@ -43,10 +43,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { useRef } from "react";
 import ReportCourse from "../report/Report";
+import { CardActionArea, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // minWidth: 410,
+    width: 180,
+  },
+  card: {
+    minWidth: 410,
   },
   media: {
     height: 0,
@@ -68,6 +72,58 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: green[500],
   },
 }));
+
+function RelativeCourse({ course }) {
+  const classes = useStyles();
+  const history = useHistory();
+
+  return (
+    <Card
+      onClick={() => history.push(`/courses/${course.id}`)}
+      className={classes.root}
+    >
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          alt="Contemplative Reptile"
+          height="137"
+          image={course.avatar}
+          title="Contemplative Reptile"
+        />
+        <CardContent>
+          <Typography noWrap gutterBottom variant="h5" component="h2">
+            {course.name}
+          </Typography>
+          <Typography
+            noWrap
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {course.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Grid
+          direction="row"
+          justify="start"
+          flex
+          justifyContent="flex-end"
+          alignItems="center"
+        >
+          <Button
+            onClick={() => history.push(`/courses/${course.id}`)}
+            size="small"
+            color="primary"
+          >
+            Xem chi tiết
+          </Button>
+        </Grid>
+      </CardActions>
+    </Card>
+  );
+}
 
 const CourseDetailPage = () => {
   const classes = useStyles();
@@ -200,24 +256,9 @@ const CourseDetailPage = () => {
     const re = relativeCourse.map((item) => {
       if (item.id == courseDetail.id) return;
       return (
-        <SC.RelativeCourse to={`/courses/${item.id}`}>
-          <SC.RelaImage src={item.avatar} />
-
-          <Typography noWrap gutterBottom variant="h5" component="h2">
-            {item.name}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            style={{ fontSize: 15 }}
-          >
-            {item.description}
-          </Typography>
-
-          {/* <SC.RelaTitle>{item.name}</SC.RelaTitle>
-          <SC.RelaDescription>{item.description}</SC.RelaDescription> */}
-        </SC.RelativeCourse>
+        <div style={{ padding: "0 10px" }}>
+          <RelativeCourse course={item} />
+        </div>
       );
     });
     return re;
@@ -272,8 +313,8 @@ const CourseDetailPage = () => {
       <>
         <Container style={{ background: "#e8e9ec" }} fixed>
           <Grid container spacing={5}>
-            <Grid style={{ marginTop: 30 }} item xs={12}  md={4}>
-              <Card className={classes.root}>
+            <Grid style={{ marginTop: 30 }} item xs={12} md={4}>
+              <Card className={classes.card}>
                 <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -335,8 +376,7 @@ const CourseDetailPage = () => {
                   }
                   title={
                     <Typography
-                      // style={{ maxWidth: 270 }}
-                      noWrap
+                      // noWrap
                       gutterBottom
                       variant="h4"
                       component="h2"
@@ -421,7 +461,7 @@ const CourseDetailPage = () => {
                 </Collapse>
               </Card>
             </Grid>
-            <Grid item style={{ marginTop: 30 }} xs={12}  md={8}>
+            <Grid item style={{ marginTop: 30 }} xs={12} md={8}>
               <Card>
                 <CardContent>
                   <List
@@ -464,17 +504,23 @@ const CourseDetailPage = () => {
               }
             />
             <CardContent>
-              <SC.Painn>
-                <SC.RelativeCoursesList>
-                  {showRelativeCourse()}
-                </SC.RelativeCoursesList>
-              </SC.Painn>
+              <SC.RelativeCoursesList>
+                {showRelativeCourse()}
+              </SC.RelativeCoursesList>
             </CardContent>
           </Card>
         </Container>
       </>
 
-      {/* <SC.Container>
+      <Footer />
+    </>
+  );
+};
+
+export default CourseDetailPage;
+
+{
+  /* <SC.Container>
         <SC.LeftGroup>
           <SC.Avatar>
             <SC.Love onClick={LikeCourse}>
@@ -507,14 +553,11 @@ const CourseDetailPage = () => {
           <SC.Pain />
           {showLesson()}
         </SC.RightGroup>
-      </SC.Container> */}
-      {/* <SC.Painn>
+      </SC.Container> */
+}
+{
+  /* <SC.Painn>
         <SC.OtherCourse>Other Courses</SC.OtherCourse>
         <SC.RelativeCoursesList>{showRelativeCourse()}</SC.RelativeCoursesList>
-      </SC.Painn> */}
-      <Footer />
-    </>
-  );
-};
-
-export default CourseDetailPage;
+      </SC.Painn> */
+}

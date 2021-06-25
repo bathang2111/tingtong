@@ -35,5 +35,9 @@ const CurriculumsApi = {
     const url = `/students/courses/${params}`;
     return axiosClien.post(url);
   },
+  getCoursesEnroll:()=>{
+    const url = `/students/courses`;
+    return axiosClien.get(url);
+  }
 };
 export default CurriculumsApi;
