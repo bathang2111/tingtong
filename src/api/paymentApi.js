@@ -16,6 +16,10 @@ const PaymentApi = {
 
   VerifiedPayment: (params) => {
     return getAPI(`/payments/vnpay/return${params}`)
+  },
+
+  PaymentHistory: (limit, page) => {
+    return getAPI(`students/payment-histories?limit=${limit}&page=${page}`)
   }
 };
 
