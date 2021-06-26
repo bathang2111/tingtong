@@ -7,13 +7,16 @@ import { useContext, useEffect, useState } from "react";
 import ReceiveTheCallRING from "../../../../assets/audio/ReceiveTheCall.mp3";
 import Camera from "../../../../assets/images/IconCallVideo.png";
 import { SocketContext } from "../../../../api/socketService";
+import DefaultAvatar from "../../../../assets/images/avatar4.png";
+import { BASE_URL_WINDOW_CALL } from "../../../../constants/baseURl";
+
 
 const ReceiveCallLobby = (props) => {
   const dispatch = useDispatch();
   const { LobbyReceiveCallStatus } = useSelector((state) => state.jitsi);
   const [roomInfo, setRoom] = useState();
   const socket = useContext(SocketContext);
-  const { image } = useSelector((state) => state.userprofile);
+  const { avatar } = useSelector((state) => state.userprofile.userInfo);
   const [noti, setNoti] = useState({
     title: "Cuộc gọi đến",
     descrip: "đang gọi cho bạn",
@@ -27,7 +30,6 @@ const ReceiveCallLobby = (props) => {
     socket.socketVideoCall.on("sendToReceiver", (data) => {
       if (data.action == 1) {
         setRoom(data);
-        console.log(data);
         dispatch(OpenReceiveLobby());
       } else {
         dispatch(CloseReceiveLobby());
@@ -48,8 +50,9 @@ const ReceiveCallLobby = (props) => {
     const width = window.screen.width - 200;
     const height = window.screen.height - 180;
     const receiverId = localStorage.getItem("idUser");
+    localStorage.setItem("avatar",avatar)
     window.open(
-      `https://tingtong.xyz/video-call/${roomInfo.room}/${roomInfo.caller_id}/${receiverId}`,
+      `${BASE_URL_WINDOW_CALL}/video-call/${roomInfo.room}/${roomInfo.caller_id}/${receiverId}`,
       "Data",
       `height=${height},width=${width},left=100,top=50`
     );
@@ -81,9 +84,9 @@ const ReceiveCallLobby = (props) => {
         <SC.MainGroup>
           <SC.Avatar
             src={
-              roomInfo && roomInfo.caller_avater
-                ? roomInfo.caller_avater
-                : image
+              roomInfo && roomInfo.caller_avatar
+                ? roomInfo.caller_avatar
+                : DefaultAvatar
             }
           />
           <SC.GroupNoti>
