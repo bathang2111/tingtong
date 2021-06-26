@@ -137,11 +137,10 @@ const Payment = (props) => {
         progress: undefined,
       });
     } else {
-      console.log(packageSelected);
       const body = {
         bankCode: bankCode.label,
         timePackageId: packageSelected.id,
-        promotionId: discountSelected ? discountSelected.id : ""
+        promotionId: discountSelected ? discountSelected.promotion_id : ""
       }
       if (!discountSelected) {
         delete body.promotionId
