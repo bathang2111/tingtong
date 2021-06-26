@@ -48,12 +48,10 @@ function ListCurriculums(props) {
     }, []);
 
     useEffect(() => {
-        console.log("Params thay doi");
         setPage(1);
     }, [params])
 
     useEffect(() => {
-        console.log("GET CURRICULUM");
         getCourseByCurriculumsID(params.id, limit, page)
     }, [page, params])
 
