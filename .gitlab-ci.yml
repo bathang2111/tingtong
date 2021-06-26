@@ -41,9 +41,10 @@ deploy-staging:
         - docker save $CI_REGISTRY_IMAGE > image_web_student.tar
         - scp image_web_student.tar root@$SERVER:~/tingtong/
 
-        - scp docker-compose/docker-compose.yml root@$SERVER:~/tingtong/docker-compose/docker-compose_web_student.yml
+        - scp .env.production root@$SERVER:~/tingtong/tingtong/
+        - scp docker-compose/docker-compose.yml root@$SERVER:~/tingtong/tingtong/docker-compose/
 
         - ssh -tt root@$SERVER "cd tingtong &&
           docker load  < image_web_student.tar &&
           docker rm -f tingtong_web_student &&
-          docker-compose -f docker-compose/docker-compose_web_student.yml up -d"
+          docker-compose -f tingtong/docker-compose/docker-compose.yml up -d"
