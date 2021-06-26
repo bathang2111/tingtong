@@ -22,32 +22,18 @@ export const CallVideo = (props) => {
   const { micStatus } = useSelector((state) => state.jitsi);
   const { shareScreen } = useSelector((state) => state.jitsi);
   const [request_cancle, setRequest_cancle] = useState(false);
-  const [localAvatar, setAvatar] = useState();
-  const { image } = useSelector((state) => state.userprofile);
+  const localAvatar = localStorage.getItem("avatar");
   const check =
     props.match.params.receiverId == localStorage.getItem("idUser")
       ? true
       : false;
-
-  useEffect(async () => {
-    if (check) {
-      const response = await TutorsApi.getTutorDetail(
-        localStorage.getItem("idUser")
-      );
-      setAvatar(response.avatar);
-    } else {
-      setAvatar(
-        "https://photo-baomoi.zadn.vn/w700_r1/2020_10_29_176_36860630/fe3f8e987edb9785ceca.jpg"
-      );
-    }
-  }, []);
 
   const startConference = () => {
     try {
       const domain = "stream.tingtong.xyz";
       const options = {
         roomName: props.match.params.roomId,
-        displayName: "thang",
+        // displayName: "thang",
         parentNode: document.getElementById("jitsi-container"),
         interfaceConfigOverwrite: {
           DEFAULT_BACKGROUND: "#000", //good
@@ -70,7 +56,7 @@ export const CallVideo = (props) => {
     }
   };
 
-  useEffect(async() => {
+  useEffect(async () => {
     if (window.JitsiMeetExternalAPI) {
       await startConference();
     } else alert("Jitsi Meet API script not loaded");
@@ -93,7 +79,6 @@ export const CallVideo = (props) => {
 
   //TOGGLE VIDEO
   useEffect(() => {
-    console.log(api);
     if (!api) return;
     const supAPI = api;
     supAPI.executeCommand("toggleVideo");

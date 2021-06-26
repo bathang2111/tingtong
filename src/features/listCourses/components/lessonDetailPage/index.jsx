@@ -32,7 +32,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 
-
 ///////////////////////////////
 import AllPages from "../slidePDF/allPDF";
 import { AspectRatio, Close } from "@material-ui/icons";
@@ -335,6 +334,7 @@ const LessonDetailPage = (props) => {
                         className={classes.video}
                         image={mainVideoUrl}
                         autoPlay
+                        loop={false}
                       />
                     </DialogContent>
                   </Dialog>

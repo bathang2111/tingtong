@@ -94,7 +94,7 @@ export const Painn = styled.div`
 `;
 export const RelativeCoursesList = styled.div`
   width: 100%;
-  height: 273px;
+  // height: 273px;
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 10px;
