@@ -19,7 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -34,6 +34,7 @@ import Box from "@material-ui/core/Box";
 import { SendStatusLike } from "../../tutorSlide";
 import { BASE_URL_WINDOW_CALL } from "../../../../constants/baseURl";
 import { useHistory } from "react-router-dom";
+import Badge from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +69,46 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
 }));
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    width: 13.5,
+    height: 13.5,
+    borderRadius: "50%",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "$ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}))(Badge);
+
+const SmallAvatar = withStyles((theme) => ({
+  root: {
+    width: 22,
+    height: 22,
+    border: `2px solid ${theme.palette.background.paper}`,
+  },
+}))(Avatar);
 
 const Tutor = (props) => {
   const dispatch = useDispatch();
@@ -191,11 +232,40 @@ const Tutor = (props) => {
         <CardActionArea className={classes.area} onClick={toggleProfileModal}>
           <CardHeader
             avatar={
-              <Avatar
-                src={props.info.avatar}
-                aria-label="recipe"
-                className={classes.avatar}
-              ></Avatar>
+              props.info.isOnline ? (
+                <StyledBadge
+                  overlap="circle"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  variant="dot"
+                >
+                  <Avatar
+                    src={props.info.avatar}
+                    aria-label="recipe"
+                    className={classes.avatar}
+                  ></Avatar>
+                </StyledBadge>
+              ) : (
+                /////////////
+                <Badge
+                  overlap="circle"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  badgeContent={
+                    <SmallAvatar alt="Remy Sharp" src={props.info.avatar} />
+                  }
+                >
+                  <Avatar
+                    src={props.info.avatar}
+                    aria-label="recipe"
+                    className={classes.avatar}
+                  ></Avatar>
+                </Badge>
+              )
             }
             action={
               <IconButton
@@ -257,54 +327,6 @@ const Tutor = (props) => {
         </CardActionArea>
       </Card>
     </SC.Pain>
-
-    // <SC.Pain>
-
-    //   <SC.Container>
-    //     <SC.InfoGroup>
-    //       <SC.Avatar background={props.info.avatar}>
-    //         {props.info.isOnline ? <SC.IsOnline /> : ""}
-    //       </SC.Avatar>
-    //       <SC.Info>
-    //         <SC.GroupName>
-    //           <SC.Name>{props.info.name}</SC.Name>
-    //           <SC.Love onClick={LikeTutor}>
-    //             <SC.Heart src={likeStatus ? likeTutorIcon : unLikeTutorIcon} />
-    //           </SC.Love>
-    //         </SC.GroupName>
-    //         <Icon  >favorite</Icon>
-    //         <SC.Feedback>
-    //           <SC.Star />
-    //           <SC.Star />
-    //           <SC.Star />
-    //           <SC.Star />
-    //           <SC.HaffStar />
-    //           <span>. 5.0</span>
-    //         </SC.Feedback>
-    //         <SC.EnsignGroup>
-    //           <SC.Ensign />
-    //           <SC.Nation>{props.nation}</SC.Nation>
-    //         </SC.EnsignGroup>
-    //       </SC.Info>
-    //     </SC.InfoGroup>
-    //     <SC.Introduce>
-    //       <span>{props.info.introduction}</span>
-    //     </SC.Introduce>
-    //     <SC.ButtonGroup>
-    //       <Ripples>
-    //         <SC.ProfileButton onClick={toggleProfileModal}>
-    //           Profile
-    //         </SC.ProfileButton>
-    //       </Ripples>
-    //       <SC.Painn />
-    //       <Ripples>
-    //         <SC.CallButton onClick={onRequestTheCall}>
-    //           {language.call}
-    //         </SC.CallButton>
-    //       </Ripples>
-    //     </SC.ButtonGroup>
-    //   </SC.Container>
-    // </SC.Pain>
   );
 };
 
