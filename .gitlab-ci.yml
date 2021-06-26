@@ -13,6 +13,8 @@ build-staging:
     stage: build
     only:
         - staging
+    tags:
+        - tingtong
     services:
         - docker:dind
     script:
@@ -25,6 +27,8 @@ deploy-staging:
     stage: deploy
     only:
         - staging
+    tags:
+        - tingtong
     services:
         - docker:dind
     before_script:
