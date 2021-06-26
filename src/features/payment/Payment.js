@@ -146,7 +146,6 @@ const Payment = (props) => {
       if (!discountSelected) {
         delete body.promotionId
       }
-      console.log(body);
       try {
         PaymentApi.CreateLinkVnPay(body).then(res => {
           console.log(res);
