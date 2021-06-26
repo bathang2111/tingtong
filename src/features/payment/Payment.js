@@ -93,7 +93,6 @@ const Payment = (props) => {
   }
 
   const onHandleSelectDiscount = discount => {
-    console.log("1");
     setDiscountSelected(discount ? discount : null);
     setOnCloseDiscountDialog(!openDiscountDialog);
   }
@@ -103,11 +102,11 @@ const Payment = (props) => {
   }
 
   const handleSelectDataSet = (data) => {
+    console.log(data);
     setBankCode(data);
   }
 
   const onHandleDelete = data => {
-    console.log("2");
     setDiscountSelected(null);
   }
 
@@ -140,7 +139,7 @@ const Payment = (props) => {
     } else {
       console.log(packageSelected);
       const body = {
-        bankCode: bankCode.value,
+        bankCode: bankCode.label,
         timePackageId: packageSelected.id,
         promotionId: discountSelected ? discountSelected.id : ""
       }
@@ -150,6 +149,7 @@ const Payment = (props) => {
       console.log(body);
       try {
         PaymentApi.CreateLinkVnPay(body).then(res => {
+          console.log(res);
           window.location.replace(res.payment_url)
         }).catch(err => {
           toast.error('Thanh toán thất bại', {
@@ -231,14 +231,14 @@ const Payment = (props) => {
                     option: classes.option,
                   }}
                   autoHighlight
-                  getOptionLabel={(option) => option.label}
+                  getOptionLabel={(option) => option.value}
                   value={bankCode}
                   onChange={(event, newValue) => {
                     handleSelectDataSet(newValue);
                   }}
                   renderOption={(option) => (
                     <React.Fragment>
-                      <Typography variant="body2" component="h2">{option.label}</Typography>
+                      <Typography variant="body2" component="h2">{option.value}</Typography>
                     </React.Fragment>
                   )}
                   renderInput={(params) => (
