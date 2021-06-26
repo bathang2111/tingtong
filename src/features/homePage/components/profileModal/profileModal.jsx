@@ -488,6 +488,25 @@ const Profile = (props) => {
               variant="h5"
               component="h2"
             >
+              Experience:
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{ fontSize: 15 }}
+            >
+              {Tutor.experience}
+            </Typography>
+          </CardActions>
+          <CardActions className={classes.action}>
+            <Typography
+              style={{ minWidth: "30%" }}
+              noWrap
+              gutterBottom
+              variant="h5"
+              component="h2"
+            >
               Interest:
             </Typography>
             <Typography
