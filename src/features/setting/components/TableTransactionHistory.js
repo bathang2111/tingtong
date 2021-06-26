@@ -48,29 +48,36 @@ const useStyles = makeStyles({
 
 export const renderStatusStyle = status => {
   switch (status) {
-    case 1:
+    case 0:
       return {
-        backgroundColor: '#27CB10',
+        backgroundColor: '#F7EC08',
         color: '#ffffff',
         padding: '5px',
       };
-    case 0:
+    case 1:
       return {
-        backgroundColor: '#F11414',
+        backgroundColor: '#F70D0D',
         color: '#ffffff',
         padding: '5px',
       };
     default:
       return {
-        backgroundColor: 'white',
-        color: 'black',
+        backgroundColor: '#19EA72',
+        color: '#ffffff',
         padding: '5px',
       };
   }
 };
 
 const getStatus = (status) => {
-  return status == 0 ? 'Thất bại' : 'Thành công';
+  switch (status) {
+    case 0:
+      return "Đang chờ thanh toán"
+    case 1:
+      return "Thanh toán thất bại"
+    default:
+      return "Thanh toán thành công"
+  }
 };
 
 export default function TableTransactionHistory() {
