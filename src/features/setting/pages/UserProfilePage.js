@@ -143,6 +143,12 @@ function UserProfilePage(props) {
   const closePopup = (value) => {
     setUpdate(value);
   };
+
+  const formatSecond = (s) => {
+    
+    return new Date(s).toISOString().substr(11, 8);
+    // return s
+  };
   return (
     <>
       <UpdateUser
@@ -159,7 +165,7 @@ function UserProfilePage(props) {
                 title={
                   <Typography
                     className={classes.title}
-                    variant="h3"
+                    variant="h2"
                     component="h2"
                   >
                     Trang cá nhân
@@ -167,6 +173,18 @@ function UserProfilePage(props) {
                 }
               />
               <CardContent>
+                <CardActions>
+                  <Typography
+                    className={classes.title}
+                    variant="h4"
+                    component="h2"
+                  >
+                    Thời gian còn lại:
+                  </Typography>
+                  <Button variant="contained" size="small" color="primary">
+                    {formatSecond(userInfo.totalTime)}
+                  </Button>
+                </CardActions>
                 <CardActions>
                   <Typography
                     className={classes.title}
@@ -199,7 +217,7 @@ function UserProfilePage(props) {
                     variant="h4"
                     component="h2"
                   >
-                    Email
+                    Email:
                   </Typography>
                   <Typography
                     className={classes.title}

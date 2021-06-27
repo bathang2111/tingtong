@@ -70,7 +70,7 @@ export default function CoursesSaved() {
         <CardHeader
           className={classes.title}
           title={
-            <Typography className={classes.title} variant="h3" component="h2">
+            <Typography className={classes.title} variant="h2" component="h2">
               Các khóa học đã lưu
             </Typography>
           }

@@ -23,6 +23,7 @@ export const CallVideo = (props) => {
   const { shareScreen } = useSelector((state) => state.jitsi);
   const [request_cancle, setRequest_cancle] = useState(false);
   const localAvatar = localStorage.getItem("avatar");
+  console.log(localAvatar);
   const check =
     props.match.params.receiverId == localStorage.getItem("idUser")
       ? true
