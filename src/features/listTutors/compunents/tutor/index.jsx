@@ -162,6 +162,10 @@ const Tutor = (props) => {
     // likeStatus == likeTutorIcon ? setStatusLikeTutor(unLikeTutorIcon) : setStatusLikeTutor(likeTutorIcon);
   };
 
+  const readRating = () => {
+    return Math.round(props.info.avgRating * 2) / 2;
+  };
+
   const onRequestTheCall = async (event) => {
     event.stopPropagation();
     event.preventDefault();
@@ -288,7 +292,13 @@ const Tutor = (props) => {
             subheader={
               <>
                 <Box className={classes.boxStar}>
-                  <Rating size="small" name="read-only" value={4} readOnly />
+                  <Rating
+                    name="half-rating-read"
+                    size="small"
+                    precision={0.5}
+                    defaultValue={readRating()}
+                    readOnly
+                  />
                 </Box>
                 <CardMedia
                   className={classes.media}

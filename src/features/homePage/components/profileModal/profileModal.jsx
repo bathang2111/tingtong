@@ -250,6 +250,10 @@ const Profile = (props) => {
     );
   };
 
+  const readRating = () => {
+    return Math.round(Tutor.avgRating * 2) / 2;
+  };
+
   return (
     <SC.Contaner
       isOpen={isOpen}
@@ -376,7 +380,13 @@ const Profile = (props) => {
           subheader={
             <>
               <Box className={classes.boxStar}>
-                <Rating size="small" name="read-only" value={4} readOnly />
+                <Rating
+                  name="half-rating-read"
+                  size="small"
+                  precision={0.5}
+                  value={readRating()}
+                  readOnly
+                />
               </Box>
               <CardMedia
                 className={classes.media}

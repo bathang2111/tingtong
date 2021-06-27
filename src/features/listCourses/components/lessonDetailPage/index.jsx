@@ -20,7 +20,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { ListItemAvatar } from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import { CardMedia } from "@material-ui/core";
@@ -83,9 +83,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LessonDetailPage = (props) => {
+  const match = useRouteMatch();
   const classes = useStyles();
-  const { idLesson } = props.match.params;
-  const { id } = props.match.params;
+  const { idLesson } = match.params;
+  const { id } = match.params;
   const [lesson, setLesson] = useState({});
   const [lessonSlide, setLessonSlide] = useState();
   const [lessonPreparSlide, setLessonPreparSlide] = useState();
@@ -109,18 +110,24 @@ const LessonDetailPage = (props) => {
     const params = { idLesson, courseId: id };
     const response = await CurriculumsApi.getLessonDetail(params);
     setLesson(response);
-  }, [props.match.url]);
+  }, [match.url]);
 
   useEffect(() => {
     if (!lesson.id) return;
     if (lesson.slides && lesson.slides.length > 0) {
       setLessonSlide(lesson.slides[0].imageLink);
+    } else {
+      setLessonSlide(null);
     }
     if (lesson.prepareSlides && lesson.prepareSlides.length > 0) {
       setLessonPreparSlide(lesson.prepareSlides[0].imageLink);
+    } else {
+      setLessonPreparSlide(null);
     }
     if (lesson.videos && lesson.videos.length > 0) {
       setLessonVideo(lesson.videos);
+    } else {
+      setLessonVideo([]);
     }
   }, [lesson]);
 
