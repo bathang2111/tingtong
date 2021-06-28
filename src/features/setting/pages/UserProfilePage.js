@@ -27,7 +27,7 @@ import {
 } from "../../../lang/translateSlide";
 import Avatar from "react-avatar-edit";
 import { useState } from "react";
-import { ChangeAvatar, SaveAvatar } from "../userProfileSlide";
+import { ChangeAvatar, getUserInfo, SaveAvatar } from "../userProfileSlide";
 import axios from "axios";
 import { FILE_URL } from "../../../constants/baseURl";
 import UpdateUser from "../components/updateUser";
@@ -63,6 +63,11 @@ function UserProfilePage(props) {
   const [ToggleUpdate, setUpdate] = useState(false);
   const [urlOfFile, setUrl] = useState();
   const [expand, setExpand] = useState(false);
+
+  useEffect(async () => {
+    if (userInfo.id) return;
+    await dispatch(getUserInfo());
+  }, []);
 
   useEffect(async () => {
     if (!urlOfFile) return;
@@ -145,10 +150,11 @@ function UserProfilePage(props) {
   };
 
   const formatSecond = (s) => {
-    
-    return new Date(s).toISOString().substr(11, 8);
+    if (!s) return;
+    return new Date(s * 1000).toISOString().substr(11, 8);
     // return s
   };
+  
   return (
     <>
       <UpdateUser

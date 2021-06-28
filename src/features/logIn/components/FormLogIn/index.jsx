@@ -264,7 +264,7 @@ function FormLogIn(props) {
           Quên mật khẩu ?
         </a>
 
-        <div role="button" style={{ width: '100%' }}>
+        {/* <div role="button" style={{ width: '100%' }}>
           <FacebookLogin
             appId="343460986666818"
             autoLoad={false}
@@ -279,7 +279,7 @@ function FormLogIn(props) {
             }}></img>}
             textButton="Đăng nhập với Facebook"
           />
-        </div>
+        </div> */}
 
         <Button
           onClick={signInWithGoogle}
