@@ -152,7 +152,7 @@ function SettingDrawer({ open, onClose }) {
           <ListItemIcon>
             <AccountCircleOutlinedIcon />
           </ListItemIcon>
-          <ListItemText primary={"Trang cá nhân"} />
+          <ListItemText primary={"Thông tin cá nhân"} />
         </ListItemLink>
         <ListItemLink onClick={() => history.push("/setting/courses-saved")}>
           <ListItemIcon>

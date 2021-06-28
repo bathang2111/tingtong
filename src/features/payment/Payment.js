@@ -22,6 +22,7 @@ import ItemDiscountSelected from "./components/discount/ItemDiscountSelected";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    height: "100vh"
   },
 
   paper: {
