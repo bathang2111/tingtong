@@ -358,7 +358,7 @@ const CourseDetailPage = () => {
                                   onKeyDown={handleListKeyDown}
                                 >
                                   <MenuItem onClick={handleSubcribe}>
-                                    Ghi danh
+                                    Lưu lại
                                   </MenuItem>
                                   <MenuItem onClick={handleReport}>
                                     Báo cáo
@@ -428,6 +428,26 @@ const CourseDetailPage = () => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                   <CardContent>
+                    <CardActions style={{ paddingLeft: 0 }}>
+                      <Typography
+                        noWrap
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                        style={{ margin: 0 }}
+                      >
+                        Tutor:
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                        style={{ fontSize: 15 }}
+                      >
+                        {courseDetail.tutor.name}
+                      </Typography>
+                    </CardActions>
+
                     <Typography noWrap gutterBottom variant="h5" component="h2">
                       Why take this course?
                     </Typography>
