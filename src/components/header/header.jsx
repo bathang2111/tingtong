@@ -66,6 +66,16 @@ const Header = (props) => {
     setOpen(false);
   };
 
+  const handleUserProfile = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+
+    history.push("/setting/user-profile");
+  };
+
   const handleSetting = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
@@ -188,6 +198,7 @@ const Header = (props) => {
                           id="menu-list-grow"
                           onKeyDown={handleListKeyDown}
                         >
+                          <MenuItem onClick={handleUserProfile}>Thông tin cá nhân</MenuItem>
                           <MenuItem onClick={handleSetting}>Cài đặt</MenuItem>
                           <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                         </MenuList>

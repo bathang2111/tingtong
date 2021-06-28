@@ -13,6 +13,10 @@ import CallVideoApi from '../../../api/callVideoApi';
 import moment from 'moment';
 import { get, pick, findIndex } from 'lodash';
 
+const formatSecond = (s) => {
+    return new Date(s).toISOString().substr(11, 8);
+};
+
 const columns = [
     { id: 'id', label: 'ID', minWidth: 170 },
     {
@@ -34,7 +38,7 @@ const columns = [
         label: 'Tổng thời gian',
         minWidth: 170,
         align: 'center',
-        format: (value) => Math.floor(moment.duration(value, 'milliseconds').asHours()) + ':' + moment.duration(value, 'milliseconds').minutes() + ':' + moment.duration(value, 'milliseconds').seconds()
+        format: (value) => formatSecond(value)
     },
     {
         id: 'users',
