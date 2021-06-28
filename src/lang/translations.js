@@ -1,11 +1,16 @@
 export default {
   en: {
     //banner
-    welcome: "Wellcome to TingTong",
+    welcome: "Welcome to TingTong",
     //header
     tutors: "TUTORS",
     courses: "COURSES",
     subcribe: "SUBCRIBE",
+    login:"LOGIN",
+    signup:"SIGNUP",
+    //DANG NHAP
+    name_login:"UserName",
+    password_login:"PassWord",
     //filter and search tutors
     searchTutor: "Search Online Tutors",
     onlineTutors: "AVAILABLE TUTORS",
