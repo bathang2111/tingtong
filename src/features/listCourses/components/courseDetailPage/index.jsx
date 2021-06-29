@@ -211,6 +211,7 @@ const CourseDetailPage = () => {
 
   useEffect(async () => {
     const response = await CurriculumsApi.getCourseDetail(id);
+    console.log(response);
     dispatch(setCourseDetail(response));
     setLessons({
       listLessons: response.lessons,
@@ -317,7 +318,11 @@ const CourseDetailPage = () => {
               <Card className={classes.card}>
                 <CardHeader
                   avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
+                    <Avatar
+                      src={courseDetail.tutor ? courseDetail.tutor.avatar : ""}
+                      aria-label="recipe"
+                      className={classes.avatar}
+                    >
                       <ImportContacts />
                     </Avatar>
                   }
@@ -444,7 +449,7 @@ const CourseDetailPage = () => {
                         component="p"
                         style={{ fontSize: 15 }}
                       >
-                        {courseDetail.tutor.name}
+                        {courseDetail.tutor ? courseDetail.tutor.name : ""}
                       </Typography>
                     </CardActions>
 

@@ -1,6 +1,7 @@
 import * as SC from "./style";
 import ChatItem from "./components/chatItem";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import {
   GetRoomHistories,
   setNotificationInList,
@@ -34,6 +35,16 @@ const ListChat = (props) => {
   // CẬP NHẬT ROOM HISTORIES
   useEffect(() => {
     socket.on("update-room-histories", async (data) => {
+      console.log(data);
+      toast("Bạn có tin nhắn mới", {
+        position: "bottom-left",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       dispatch(setNotificationInList());
       audio.currentTime = 0;
       audio.play();
@@ -53,20 +64,34 @@ const ListChat = (props) => {
   };
 
   return (
-    <SC.Container
-      isOpen={isOpen}
-      onRequestClose={() => dispatch(ToggleListChat())}
-      style={{
-        overlay: {
-          background: "none",
-          zIndex: 10,
-        },
-      }}
-    >
-      <SC.Title>Message</SC.Title>
-      <SearchMessage />
-      <SC.ListMessage>{showChatList()}</SC.ListMessage>
-    </SC.Container>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        limit={3}
+      />
+      <SC.Container
+        isOpen={isOpen}
+        onRequestClose={() => dispatch(ToggleListChat())}
+        style={{
+          overlay: {
+            background: "none",
+            zIndex: 10,
+          },
+        }}
+      >
+        <SC.Title>Message</SC.Title>
+        <SearchMessage />
+        <SC.ListMessage>{showChatList()}</SC.ListMessage>
+      </SC.Container>
+    </>
   );
 };
 

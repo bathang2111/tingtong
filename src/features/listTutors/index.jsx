@@ -42,9 +42,9 @@ const ListTutors = (props) => {
     if (!socket) return;
     socket.socketTutor.on("active", (data) => {
       console.log(data);
-      dispatch(checkTutorOnline("93752215470085131"));
+      dispatch(checkTutorOnline(data.tutor_id));
     });
-  }, []);
+  }, [socket]);
 
   const ShowListTutors = () => {
     if (SearchTutors.length > 0) {
