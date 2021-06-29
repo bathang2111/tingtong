@@ -4,6 +4,8 @@ services:
         image: registry.gitlab.com/online-learning-hcmus/client/tingtong:staging
         container_name: tingtong_web_student
         restart: always
+        env_file:
+            - ../.env.production
         ports:
             - "3000:80"
 
