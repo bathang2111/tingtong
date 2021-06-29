@@ -11,10 +11,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Chip from '@material-ui/core/Chip';
 import PaymentApi from '../../../api/paymentApi';
 import moment from 'moment';
+import { formatUnit } from '../../../utils/unitUtils';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170 },
   { id: 'timePackage', label: 'Gói', minWidth: 100 },
+  {
+    id: 'promotion',
+    label: 'Giảm giá',
+    minWidth: 170,
+    align: 'center',
+  },
   {
     id: 'status',
     label: 'Trạng thái',
@@ -26,14 +33,14 @@ const columns = [
     label: 'Ngày tạo',
     minWidth: 170,
     align: 'right',
-    format: (value) => moment(value).format("DD-MM-YYYY"),
+    format: (value) => moment(value).format("DD-MM-YYYY, h:mm:ss a"),
   },
   {
     id: 'updatedAt',
     label: 'Ngày cập nhật',
     minWidth: 170,
     align: 'right',
-    format: (value) => moment(value).format("DD-MM-YYYY"),
+    format: (value) => moment(value).format("DD-MM-YYYY, h:mm:ss a"),
   },
 ];
 
@@ -144,12 +151,18 @@ export default function TableTransactionHistory() {
                       )
                     } else if (column.id == "status") {
                       return (
-                        <TableCell align="center">
+                        <TableCell key={column.id} align="center">
                           <Chip
                             size="small"
                             label={getStatus(value)}
                             style={renderStatusStyle(value)}
                           />
+                        </TableCell>
+                      )
+                    } else if (column.id == "promotion") {
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {value ? value["discounts"] + " "  + formatUnit(value["unit"]) : ""}
                         </TableCell>
                       )
                     }
