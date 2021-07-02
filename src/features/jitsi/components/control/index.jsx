@@ -51,6 +51,8 @@ const ControlTheCall = (props) => {
   });
 
   const cancleTheCall = () => {
+    localStorage.removeItem("receiverId");
+    localStorage.removeItem("avatar");
     if (aboutMe == "caller") {
       socket.emit("caller", {
         event: "caller",
@@ -66,8 +68,13 @@ const ControlTheCall = (props) => {
         action: 2,
       });
     }
+
     window.close();
   };
+
+  useEffect(() => {
+    if (props.mangStatus) cancleTheCall();
+  }, [props.mangStatus]);
 
   return (
     <>

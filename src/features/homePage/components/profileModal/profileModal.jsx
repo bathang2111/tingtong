@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MessageApi from "../../../../api/messageApi";
 import { SocketContext } from "../../../../api/socketService";
 import TutorsApi from "../../../../api/tutorsApi";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import FlagIcon from "../../../../assets/images/flagVietNamIcon.png";
 import Chip from "@material-ui/core/Chip";
 import DoneIcon from "@material-ui/icons/Done";
@@ -27,6 +27,7 @@ import {
   Box,
   CardMedia,
   Button,
+  Badge,
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -114,6 +115,46 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
   },
 }));
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    width: 13.5,
+    height: 13.5,
+    borderRadius: "50%",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "$ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}))(Badge);
+
+const SmallAvatar = withStyles((theme) => ({
+  root: {
+    width: 22,
+    height: 22,
+    border: `2px solid ${theme.palette.background.paper}`,
+  },
+}))(Avatar);
 
 const Profile = (props) => {
   const isOpen = useSelector((state) => state.homepage.toggleModal);
@@ -365,11 +406,40 @@ const Profile = (props) => {
         <CardHeader
           className={classes.root}
           avatar={
-            <Avatar
-              src={Tutor.avatar}
-              aria-label="recipe"
-              className={classes.avatar}
-            ></Avatar>
+           Tutor.isOnline ? (
+              <StyledBadge
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                variant="dot"
+              >
+                <Avatar
+                  src={Tutor.avatar}
+                  aria-label="recipe"
+                  className={classes.avatar}
+                ></Avatar>
+              </StyledBadge>
+            ) : (
+              /////////////
+              <Badge
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                badgeContent={
+                  <SmallAvatar alt="Remy Sharp" src={Tutor.avatar} />
+                }
+              >
+                <Avatar
+                  src={Tutor.avatar}
+                  aria-label="recipe"
+                  className={classes.avatar}
+                ></Avatar>
+              </Badge>
+            )
           }
           action={<IconButton></IconButton>}
           title={

@@ -23,10 +23,14 @@ export const CallVideo = (props) => {
   const { shareScreen } = useSelector((state) => state.jitsi);
   const [request_cancle, setRequest_cancle] = useState(false);
   const localAvatar = localStorage.getItem("avatar");
-  const check =
-    props.match.params.receiverId == localStorage.getItem("idUser")
-      ? true
-      : false;
+  const [matMang, setMatMang] = useState(false);
+  let timeOut;
+  // const check =
+  //   props.match.params.receiverId == localStorage.getItem("idUser")
+  //     ? true
+  //     : false;
+
+  //     console.log(check);
 
   const startConference = () => {
     try {
@@ -99,6 +103,27 @@ export const CallVideo = (props) => {
     supAPI.executeCommand("toggleShareScreen");
   }, [shareScreen]);
 
+  //1 thằng mất mạng
+  useEffect(() => {
+    if (!api) return;
+
+    api.addListener("participantLeft", () => {
+      alert("mat mang r");
+      timeOut = setTimeout(() => {
+        setMatMang(true);
+      }, 10000);
+    });
+  }, [api]);
+
+  // thằng đó join lại
+  useEffect(() => {
+    if (!api) return;
+    const supAPI = api;
+    supAPI.addListener("participantJoined", () => {
+      clearTimeout(timeOut);
+    });
+  }, [api]);
+
   const CancleTheCall = (value) => {
     setRequest_cancle(value);
   };
@@ -118,6 +143,7 @@ export const CallVideo = (props) => {
           <>
             <LocalVideo />
             <ControlTheCall
+              mangStatus={matMang}
               socket={socket}
               roomId={props.match.params.roomId}
               callerId={props.match.params.callerId}
@@ -126,18 +152,14 @@ export const CallVideo = (props) => {
             <SC.JitSiContainer id="jitsi-container" />
           </>
         )}
-        {check ? (
-          ""
-        ) : (
-          //request page
-          <RequestCallLobby
-            socket={socket}
-            roomId={props.match.params.roomId}
-            receiverId={props.match.params.receiverId}
-            callerId={props.match.params.callerId}
-            CancleTheCall={(value) => CancleTheCall(value)}
-          />
-        )}
+
+        <RequestCallLobby
+          socket={socket}
+          roomId={props.match.params.roomId}
+          receiverId={props.match.params.receiverId}
+          callerId={props.match.params.callerId}
+          CancleTheCall={(value) => CancleTheCall(value)}
+        />
       </SC.Container>
     </>
   );

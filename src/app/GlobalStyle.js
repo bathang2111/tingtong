@@ -11,8 +11,8 @@ export const Globalstyled = createGlobalStyle`
         font-family: 'Helvetica Neue', Helvetica,"Open sans", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        ::-webkit-scrollbar {
-          display: none;
-        }
+        // ::-webkit-scrollbar {
+        //   display: none;
+        // }
     }
 `;

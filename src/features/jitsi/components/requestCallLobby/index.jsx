@@ -7,12 +7,12 @@ import {
   OpenFeedBackLobby,
   setInfoTutor,
 } from "../../../feedBack/feedBackSlide";
+import image from "../../../../assets/images/avatar4.png"
 
 const RequestCallLobby = (props) => {
   const dispatch = useDispatch();
-  const { feedBackStatus } = useSelector((state) => state.feedback);
   const [receiver, setReceiver] = useState();
-  const { image } = useSelector((state) => state.userprofile);
+  // const { image } = useSelector((state) => state.userprofile);
   const [accept, setAccept] = useState(false);
   const [cancle, setCancle] = useState(false);
   const [calling, setCalling] = useState(false);
@@ -106,8 +106,9 @@ const RequestCallLobby = (props) => {
               <SC.GroupBTN>
                 <SC.CloseWindow
                   onClick={() => {
-                    window.close();
                     localStorage.removeItem("receiverId");
+                    localStorage.removeItem("avatar");
+                    window.close();
                   }}
                 >
                   Đóng
