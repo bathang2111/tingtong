@@ -34,7 +34,7 @@ const columns = [
         label: 'Tổng thời gian',
         minWidth: 170,
         align: 'center',
-        format: (value) => Math.floor(moment.duration(value, 'milliseconds').asHours()) + ':' + moment.duration(value, 'milliseconds').minutes() + ':' + moment.duration(value, 'milliseconds').seconds()
+        format: (value) => moment.utc(value*1000).format('HH:mm:ss')
     },
     {
         id: 'users',

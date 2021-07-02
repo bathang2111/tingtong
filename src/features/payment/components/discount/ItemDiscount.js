@@ -36,8 +36,9 @@ const ItemDiscount = ({ item, onSelect, selected }) => {
     const classes = useStyles();
 
     const is_expire = moment(item.expire_date).toDate().getTime() < moment();
+    const status = item.status == 1 ? true : false;
     return (
-        <Card style={{ "border": `${selected ? "1px solid #2f8c92" : ""}`, "marginTop": "12px", "filter": "drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px)" }} className={is_expire ? classes.disable : classes.root}>
+        <Card style={{ "border": `${selected ? "1px solid #2f8c92" : ""}`, "marginTop": "12px", "filter": "drop-shadow(rgba(0, 0, 0, 0.15) 0px 1px 3px)" }} className={is_expire || status ? classes.disable : classes.root}>
             <CardActionArea style={{ "display": "flex", "flexDirection": "row", "justifyContent": "center" }} onClick={() => onSelect(item)}>
                 <Grid container>
                     <Grid item xs={3} style={{ "display": "flex", "alignItems": "center" }}>

@@ -11,10 +11,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Chip from '@material-ui/core/Chip';
 import PaymentApi from '../../../api/paymentApi';
 import moment from 'moment';
+import { formatUnit } from '../../../utils/unitUtils';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170 },
   { id: 'timePackage', label: 'Gói', minWidth: 100 },
+  {
+    id: 'promotion',
+    label: 'Giảm giá',
+    minWidth: 170,
+    align: 'center',
+  },
   {
     id: 'status',
     label: 'Trạng thái',
@@ -26,14 +33,14 @@ const columns = [
     label: 'Ngày tạo',
     minWidth: 170,
     align: 'right',
-    format: (value) => moment(value).format("DD-MM-YYYY"),
+    format: (value) => moment(value).format("DD-MM-YYYY, h:mm:ss a"),
   },
   {
     id: 'updatedAt',
     label: 'Ngày cập nhật',
     minWidth: 170,
     align: 'right',
-    format: (value) => moment(value).format("DD-MM-YYYY"),
+    format: (value) => moment(value).format("DD-MM-YYYY, h:mm:ss a"),
   },
 ];
 
@@ -48,29 +55,36 @@ const useStyles = makeStyles({
 
 export const renderStatusStyle = status => {
   switch (status) {
-    case 1:
+    case 0:
       return {
-        backgroundColor: '#27CB10',
+        backgroundColor: '#F7EC08',
         color: '#ffffff',
         padding: '5px',
       };
-    case 0:
+    case 1:
       return {
-        backgroundColor: '#F11414',
+        backgroundColor: '#F70D0D',
         color: '#ffffff',
         padding: '5px',
       };
     default:
       return {
-        backgroundColor: 'white',
-        color: 'black',
+        backgroundColor: '#19EA72',
+        color: '#ffffff',
         padding: '5px',
       };
   }
 };
 
 const getStatus = (status) => {
-  return status == 0 ? 'Thất bại' : 'Thành công';
+  switch (status) {
+    case 0:
+      return "Đang chờ thanh toán"
+    case 1:
+      return "Thanh toán thất bại"
+    default:
+      return "Thanh toán thành công"
+  }
 };
 
 export default function TableTransactionHistory() {
@@ -137,12 +151,18 @@ export default function TableTransactionHistory() {
                       )
                     } else if (column.id == "status") {
                       return (
-                        <TableCell align="center">
+                        <TableCell key={column.id} align="center">
                           <Chip
                             size="small"
                             label={getStatus(value)}
                             style={renderStatusStyle(value)}
                           />
+                        </TableCell>
+                      )
+                    } else if (column.id == "promotion") {
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {value ? value["discounts"] + " "  + formatUnit(value["unit"]) : ""}
                         </TableCell>
                       )
                     }
