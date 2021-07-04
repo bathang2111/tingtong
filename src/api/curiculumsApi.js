@@ -12,7 +12,8 @@ const CurriculumsApi = {
   getLessonDetail: (params) => {
     const url = `/courses/${params.courseId}/lessons/${params.idLesson}`;
     return axiosClien.get(url);
-  },KeyWord: (params) => {
+  },
+  KeyWord: (params) => {
     const url = `/courses/searches?q=${params}`;
     return axiosClien.get(url);
   },
@@ -35,9 +36,13 @@ const CurriculumsApi = {
     const url = `/students/courses/${params}`;
     return axiosClien.post(url);
   },
-  getCoursesEnroll:()=>{
+  getCoursesEnroll: () => {
     const url = `/students/courses`;
     return axiosClien.get(url);
-  }
+  },
+  getCoursesByKeyWord: (params) => {
+    const url = `/courses/searches?q=${params}`;
+    return axiosClien.get(url);
+  },
 };
 export default CurriculumsApi;

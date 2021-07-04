@@ -10,7 +10,7 @@ const TutorsApi = {
     return axiosClien.get(url);
   },
   getTutorsByKeyWord: (params) => {
-    const url = `tutors?keyword=${params}`;
+    const url = `/tutors/searches?q=${params}`;
     return axiosClien.get(url);
   },
   ReportTutor: (params, body) => {

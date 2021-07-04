@@ -2,7 +2,7 @@ import axiosClien from "./axiosClient";
 
 const FeedBackApi = {
   postFeedBack: (params, body) => {
-    const url = `/tutors/${params}/review`;
+    const url = `/tutors/${params}/reviews`;
     return axiosClien.post(url, body);
   },
   likeTutor:(params)=>{

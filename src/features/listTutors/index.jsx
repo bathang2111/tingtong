@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as SC from "./style";
-import { getTutors } from "./tutorSlide";
+import { getTutors, RemoveNoResult } from "./tutorSlide";
 import Tutor from "./compunents/tutor";
 import FilterTutors from "./compunents/filterTutors/FilterTutors";
 import Header from "../../components/header/header";
@@ -13,6 +13,7 @@ import { checkTutorOnline } from "./tutorSlide";
 import { SocketContext } from "../../api/socketService";
 import AuthApi from "../../api/authApi";
 import Typography from "@material-ui/core/Typography";
+import { Card, Button } from "@material-ui/core";
 
 const ListTutors = (props) => {
   const Tutors = useSelector((state) => state.tutors);
@@ -21,6 +22,7 @@ const ListTutors = (props) => {
   const SearchTutors = useSelector(
     (state) => state.tutors.listTutorsWhenSearch
   );
+  const { noResult } = useSelector((state) => state.tutors);
   const dispatch = useDispatch();
   const socket = useContext(SocketContext);
 
@@ -47,6 +49,31 @@ const ListTutors = (props) => {
   }, [socket]);
 
   const ShowListTutors = () => {
+    if (noResult) {
+      return (
+        <Card
+          style={{
+            width: "100%",
+            height: 150,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography gutterBottom variant="h3" component="h5">
+            Không tìm thấy kết quả!
+          </Typography>
+          <Button
+            onClick={() => dispatch(RemoveNoResult())}
+            variant="contained"
+            color="primary"
+          >
+            Đồng ý
+          </Button>
+        </Card>
+      );
+    }
     if (SearchTutors.length > 0) {
       const result = SearchTutors.map((tutor) => {
         return <Tutor key={tutor.id} info={tutor} />;
@@ -75,12 +102,12 @@ const ListTutors = (props) => {
       <SC.Container>
         <Profile />
         <Typography
-          style={{ marginLeft:80 , fontSize: "1.5rem", marginTop: "24px" }}
+          style={{ marginLeft: 80, fontSize: "1.5rem", marginTop: "24px" }}
           gutterBottom
           variant="h5"
           component="h5"
         >
-          {language.onlineTutors}
+          Gia sư của chúng tôi
         </Typography>
         {/* <SC.OnlineTutors>{language.onlineTutors}</SC.OnlineTutors> */}
         <SC.Pain>

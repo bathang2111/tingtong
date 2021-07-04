@@ -25,6 +25,7 @@ const Listcourses = createSlice({
     loading: false,
     error: false,
     isOpenSlide: false,
+    noResult: false,
   },
   reducers: {
     setCourseDetail: (state, action) => {
@@ -33,6 +34,11 @@ const Listcourses = createSlice({
     },
     TogglePopUpSlide: (state) => {
       state.isOpenSlide = !state.isOpenSlide;
+      return state;
+    },
+    RemoveNoResult: (state) => {
+      state.noResult = false;
+      state.listCoursesWhenSearch = [];
       return state;
     },
   },
@@ -53,15 +59,23 @@ const Listcourses = createSlice({
       return state;
     },
 
-    [getCoursesByKeyWord.pending]: (state) => {},
+    [getCoursesByKeyWord.pending]: (state) => {
+      state.loading = true;
+      return state;
+    },
     [getCoursesByKeyWord.rejected]: (state, action) => {},
     [getCoursesByKeyWord.fulfilled]: (state, action) => {
+      if (action.payload.length == 0) {
+        state.noResult = true;
+        return state;
+      }
       state.listCoursesWhenSearch = action.payload;
+      state.loading = false;
       return state;
     },
   },
 });
 
 const { reducer, actions } = Listcourses;
-export const { setCourseDetail, TogglePopUpSlide } = actions;
+export const { setCourseDetail, TogglePopUpSlide, RemoveNoResult } = actions;
 export default reducer;

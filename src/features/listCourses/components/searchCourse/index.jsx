@@ -1,6 +1,7 @@
+import { Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import PossFiltersForm from "../../../../assets/possFiltersForm/possFiltersForm";
-import { getCoursesByKeyWord } from "../../coursesSlide";
+import { getCoursesByKeyWord, RemoveNoResult } from "../../coursesSlide";
 import * as SC from "./style";
 
 const SearchCourse = (props) => {
@@ -8,8 +9,9 @@ const SearchCourse = (props) => {
   const { language } = useSelector((state) => state);
 
   const onHandleSubmit = async (value) => {
+    console.log("dsadsad");
     if (value.SearchTerm == "") {
-      await dispatch(getCoursesByKeyWord("hom nay em di chua huong"));
+      dispatch(RemoveNoResult());
       return;
     }
     await dispatch(getCoursesByKeyWord(value.SearchTerm));
@@ -17,7 +19,13 @@ const SearchCourse = (props) => {
 
   return (
     <SC.Container>
-      <SC.Title>{language.searchCourses}</SC.Title>
+      <Typography
+        variant="h3"
+        component="h5"
+        style={{ padding: "20px 0", color: "#fff" }}
+      >
+        Tìm kiếm khóa học
+      </Typography>
       <SC.SubTitleGroup>
         <SC.BookImage />
         <SC.SubTitle>

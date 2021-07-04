@@ -25,6 +25,7 @@ const ListTutors = createSlice({
     loading: false,
     error: false,
     status: false,
+    noResult: false,
   },
   reducers: {
     checkTutorOnline: (state, action) => {
@@ -40,6 +41,11 @@ const ListTutors = createSlice({
     },
     SendStatusLike: (state, action) => {
       state.status = action.payload;
+      return state;
+    },
+    RemoveNoResult: (state) => {
+      state.listTutorsWhenSearch = [];
+      state.noResult = false;
       return state;
     },
   },
@@ -63,9 +69,18 @@ const ListTutors = createSlice({
       return state;
     },
 
-    [getTutorsByKeyWord.pending]: (state) => {},
+    [getTutorsByKeyWord.pending]: (state) => {
+      state.loading = true;
+      return state;
+    },
     [getTutorsByKeyWord.rejected]: (state, action) => {},
     [getTutorsByKeyWord.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.error = false;
+      if (action.payload.length == 0) {
+        state.noResult = true;
+        return state;
+      }
       state.listTutorsWhenSearch = action.payload;
       return state;
     },
@@ -73,5 +88,5 @@ const ListTutors = createSlice({
 });
 
 const { reducer, actions } = ListTutors;
-export const { checkTutorOnline, SendStatusLike } = actions;
+export const { checkTutorOnline, SendStatusLike, RemoveNoResult } = actions;
 export default reducer;

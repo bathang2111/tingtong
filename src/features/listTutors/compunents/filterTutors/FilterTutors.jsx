@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import PossFiltersForm from "../../../../assets/possFiltersForm/possFiltersForm";
-import { getTutorsByKeyWord } from "../../tutorSlide";
+import { getTutorsByKeyWord, RemoveNoResult } from "../../tutorSlide";
 import * as SC from "./style";
 
 const FilterTutors = (props) => {
@@ -9,21 +9,17 @@ const FilterTutors = (props) => {
   const dispatch = useDispatch();
 
   const onHandleSubmit = async (value) => {
+    if (value.SearchTerm == "") {
+      dispatch(RemoveNoResult());
+      return;
+    }
     // const res = await CurriculumsApi.getCoursesByKeyWord(value);
-    console.log(value.SearchTerm);
     await dispatch(getTutorsByKeyWord(value.SearchTerm));
   };
 
   return (
     <SC.Container>
-      <SC.Title>{language.searchTutor}</SC.Title>
-      {/* <SC.ButtonGroup>
-        <SC.Button>{language.btnLessonlevel}</SC.Button>
-        <SC.Button>{language.btnTutorAccent}</SC.Button>
-        <SC.Button>{language.btnTutorPersonality}</SC.Button>
-        <SC.Button>{language.btnAvallability}</SC.Button>
-      </SC.ButtonGroup> */}
-      {/* form tim kiem */}
+      <SC.Title>Tìm kiếm gia sư</SC.Title>
       <SC.SearchTutorsGroup>
         <PossFiltersForm
           onSubmit={onHandleSubmit}
