@@ -9,17 +9,21 @@ const FeedBack = (props) => {
   const { feedBackStatus } = useSelector((state) => state.feedback);
   const { Tutor } = useSelector((state) => state.feedback);
   const [star, setStar] = useState(0);
+  const [comment, setComment] = useState("");
   const dispatch = useDispatch();
 
   const ChangeStar = (value) => {
-    console.log(value);
     setStar(value);
+  };
+
+  const handleChange = (e) => {
+    setComment(e.target.value);
   };
 
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     dispatch(CloseFeedBackLobby());
-    const body = { rating: star, feedback: "" };
+    const body = { rating: star, feedback: comment };
     try {
       const res = await FeedBackApi.postFeedBack(Tutor.id, body);
       console.log(res);
@@ -52,8 +56,8 @@ const FeedBack = (props) => {
         />
       </SC.FeedBackGroup>
       <SC.Form onSubmit={onHandleSubmit}>
-        <SC.Note placeholder="FeedBack..." />
-          <SC.Submit>Đánh giá</SC.Submit>
+        <SC.Note placeholder="FeedBack..." required onChange={handleChange} />
+        <SC.Submit>Đánh giá</SC.Submit>
       </SC.Form>
     </SC.Container>
   );

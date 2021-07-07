@@ -12,8 +12,24 @@ import { useContext, useEffect, useState } from "react";
 import SearchMessage from "./components/search";
 import RingMessage from "../../../assets/audio/ringChat.mp3";
 import { SocketContext } from "../../../api/socketService";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    height: "100%",
+  },
+  title: {
+    width: "100%",
+    fontSize: 24,
+    margin: 0,
+    padding: "10px 10px 0",
+  },
+}));
 
 const ListChat = (props) => {
+  const classes = useStyles();
   const { roomHistories } = useSelector((state) => state.message);
   const { isOpen } = useSelector((state) => state.message);
   const audio = new Audio(RingMessage);
@@ -87,7 +103,9 @@ const ListChat = (props) => {
           },
         }}
       >
-        <SC.Title>Message</SC.Title>
+        <Typography variant="h3" className={classes.title}>
+          Tin nhắn
+        </Typography>
         <SearchMessage />
         <SC.ListMessage>{showChatList()}</SC.ListMessage>
       </SC.Container>

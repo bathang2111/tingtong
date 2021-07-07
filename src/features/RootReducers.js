@@ -11,6 +11,7 @@ import language from "../lang/translateSlide";
 import userprofile from "./setting/userProfileSlide";
 import message from "./messenger/messageSlide";
 import calender from "../components/calender/calenderSlide";
+import notification from "./notification/notificationSlide";
 
 const RootReducers = combineReducers({
   controlapp,
@@ -25,6 +26,7 @@ const RootReducers = combineReducers({
   userprofile,
   message,
   calender,
+  notification,
 });
 
 export default RootReducers;

@@ -17,11 +17,11 @@ import {
   socketVideoCall,
   socketTutor,
 } from "../api/socketService";
-
 import AuthRouter from "./AuthRouter";
 import AuthApi from "../api/authApi";
 import { getUserInfo } from "../features/setting/userProfileSlide";
 import ScrollToTop from "./ScrollToTop";
+import Notification from "../features/notification";
 
 function App() {
   const isLogin = useSelector((state) => state.login.checkLogin);
@@ -88,6 +88,7 @@ function App() {
           <FeedBack />
           <ChatWindow />
           <ListChatTing />
+          <Notification/>
           <ListChat />
           <Calender />
           <SmallScreenMenu />

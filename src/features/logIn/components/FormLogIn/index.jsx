@@ -4,29 +4,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuthLogin, isLoginOn } from "../../../../app/authSlide/loginSlide";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
-import { Grid, InputAdornment, IconButton, Button, TextField, Typography } from "@material-ui/core";
+import Swal from "sweetalert2";
+import {
+  Grid,
+  InputAdornment,
+  IconButton,
+  Button,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { makeStyles } from '@material-ui/core/styles';
-import { get, pick } from 'lodash';
-import FacebookLogin from 'react-facebook-login';
+import { makeStyles } from "@material-ui/core/styles";
+import { get, pick } from "lodash";
+import FacebookLogin from "react-facebook-login";
 import { useEffect } from "react";
-import { signInWithGoogle, auth } from '../../../../app/firebaseConfig';
-import fbIcon from '../../../../assets/images/facebookIcon.svg';
-import ggIcon from '../../../../assets/images/googleIcon.svg';
+import { signInWithGoogle, auth } from "../../../../app/firebaseConfig";
+import fbIcon from "../../../../assets/images/facebookIcon.svg";
+import ggIcon from "../../../../assets/images/googleIcon.svg";
 import { useHistory } from "react-router-dom";
-FormLogIn.propTypes = {
+FormLogIn.propTypes = {};
 
-};
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#f3f8ff',
-    height: '100vh'
+    backgroundColor: "#f3f8ff",
+    height: "100vh",
   },
 
   form: {
-    width: '100%', // Fix IE 11 issue.
-    backgroundColor: '#ffffff',
+    width: "100%", // Fix IE 11 issue.
+    backgroundColor: "#ffffff",
     padding: theme.spacing(2),
   },
 
@@ -34,100 +40,103 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     height: 38,
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
   },
 
   submit_fb: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     marginTop: theme.spacing(2),
     height: 38,
-    width: '100%', // Fix IE 11 issue.
-    border: '1px solid',
+    width: "100%", // Fix IE 11 issue.
+    border: "1px solid",
     fontSize: 14,
     fontWeight: 500,
     lineHeight: 1.75,
     borderRadius: 3,
     boxShadow: theme.boxShadow,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
 
   submit_gg: {
-    width: '100%',
+    width: "100%",
     height: 38,
     fontSize: 14,
     fontWeight: 500,
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
     marginTop: theme.spacing(2),
-    backgroundColor: '#ffffff',
-    textTransform: 'inherit',
-    '&:hover': {
-      backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
+    textTransform: "inherit",
+    "&:hover": {
+      backgroundColor: "#ffffff",
     },
-    border: '1px solid',
+    border: "1px solid",
   },
 
   txt_not_acc: {
     fontSize: 16,
     fontWeight: 500,
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
-    color: 'rgba(0, 0, 0, 0.85)'
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
+    color: "rgba(0, 0, 0, 0.85)",
   },
 
   txt_register: {
     fontSize: 16,
     fontWeight: 500,
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
     marginLeft: theme.spacing(1),
-    color: '#2f8c92',
+    color: "#2f8c92",
   },
 
   not_acc: {
     marginTop: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center'
+    display: "flex",
+    justifyContent: "center",
   },
 
   txt_forgot: {
     fontSize: 12,
     fontWeight: 500,
-    fontStretch: 'normal',
-    fontStyle: 'normal',
-    lineHeight: 'normal',
-    letterSpacing: 'normal',
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "normal",
     marginLeft: theme.spacing(1),
-    color: '#2f8c92',
+    color: "#2f8c92",
   },
 
   title: {
     fontSize: 18,
-    display: 'flex',
+    display: "flex",
     fontWeight: 500,
-    justifyContent: 'center'
-  }
-
+    justifyContent: "center",
+  },
 }));
 
 function FormLogIn(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
-  const responseFacebook = response => {
+  const responseFacebook = (response) => {
     const data = {
-      email: '',
-      phone: '',
-      password: '',
+      email: "",
+      phone: "",
+      password: "",
       social_req: {
-        login_type: 'FACEBOOK',
+        login_type: "FACEBOOK",
         access_token: response.accessToken,
       },
     };
@@ -136,14 +145,14 @@ function FormLogIn(props) {
   };
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       if (user !== null) {
         const data = {
-          email: '',
-          phone: '',
-          password: '',
+          email: "",
+          phone: "",
+          password: "",
           social_req: {
-            login_type: 'GOOGLE',
+            login_type: "GOOGLE",
             access_token: user.refreshToken,
           },
         };
@@ -155,24 +164,20 @@ function FormLogIn(props) {
     return () => {
       if (unsubscribeFromAuth) {
         unsubscribeFromAuth();
-        auth.signOut()
+        auth.signOut();
       }
-    }
+    };
   }, []);
 
-  const onSubmit = data => {
-    const user_info = pick(data, [
-      'username',
-      'password',
-    ]);
+  const onSubmit = (data) => {
+    const user_info = pick(data, ["username", "password"]);
 
     const body = {
       username: user_info.username,
-      password: user_info.password
-    }
+      password: user_info.password,
+    };
 
     fetchLogin(body);
-
   };
 
   const fetchLogin = useCallback(async (data) => {
@@ -180,23 +185,39 @@ function FormLogIn(props) {
       .then((res) => {
         const result = unwrapResult(res);
         if (result.user.id && result.user.role == 0) {
+          Swal.fire({
+            icon: "success",
+            title: "Đăng nhập thành công",
+            showConfirmButton: false,
+            timer: 2000,
+          });
           localStorage.setItem("idUser", result.user.id);
           localStorage.setItem("token", result.accessToken);
           // connectSocket();
           dispatch(isLoginOn());
-          history.push('/');
+          history.push("/");
         } else {
-          
+          Swal.fire({
+            icon: "error",
+            title: "Đăng nhập thất bai",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       })
       .catch((e) => {
-        
+        Swal.fire({
+          icon: "error",
+          title: "Đăng nhập thất bai",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       });
   });
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -204,16 +225,19 @@ function FormLogIn(props) {
 
   return (
     <div className={classes.root}>
-      <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
-
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={classes.form}
+        noValidate
+      >
         <Typography className={classes.title}>Đăng nhập</Typography>
 
         <TextField
           {...register("username", {
-            required: 'Vui lòng nhập tên đăng nhập !',
+            required: "Vui lòng nhập tên đăng nhập !",
           })}
           error={!!errors.username}
-          helperText={get(errors, 'username.message', '')}
+          helperText={get(errors, "username.message", "")}
           size="small"
           variant="outlined"
           margin="normal"
@@ -226,10 +250,10 @@ function FormLogIn(props) {
 
         <TextField
           {...register("password", {
-            required: 'Vui lòng nhập mật khẩu !',
+            required: "Vui lòng nhập mật khẩu !",
           })}
           error={!!errors.password}
-          helperText={get(errors, 'password.message', '')}
+          helperText={get(errors, "password.message", "")}
           size="small"
           variant="outlined"
           margin="normal"
@@ -238,25 +262,29 @@ function FormLogIn(props) {
           id="password"
           label="Mật khẩu"
           name="password"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           InputProps={{
-            endAdornment: <InputAdornment position="end">
-              <IconButton
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end">
-                {showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
-            </InputAdornment>
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
         />
 
         <Button
-          type='submit'
+          type="submit"
           fullWidth
           variant="contained"
           color="primary"
-          className={classes.submit}>
+          className={classes.submit}
+        >
           Đăng nhập
         </Button>
 
@@ -285,15 +313,21 @@ function FormLogIn(props) {
           onClick={signInWithGoogle}
           fullWidth
           className={classes.submit_gg}
-          startIcon={<img src={ggIcon} style={{
-            width: '20px',
-            height: '20px',
-            objectFit: 'contain'
-          }}></img>}>
+          startIcon={
+            <img
+              src={ggIcon}
+              style={{
+                width: "20px",
+                height: "20px",
+                objectFit: "contain",
+              }}
+            ></img>
+          }
+        >
           Đăng nhập với Google
         </Button>
 
-        <Grid container direction='row' className={classes.not_acc}>
+        <Grid container direction="row" className={classes.not_acc}>
           <Typography className={classes.txt_not_acc}>
             Bạn chưa có tài khoản?
           </Typography>

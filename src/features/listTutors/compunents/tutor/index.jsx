@@ -35,6 +35,7 @@ import { SendStatusLike } from "../../tutorSlide";
 import { BASE_URL_WINDOW_CALL } from "../../../../constants/baseURl";
 import { useHistory } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
+import { PushNotification } from "../../../notification/notificationSlide";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -173,6 +174,16 @@ const Tutor = (props) => {
       setOpenNoti(true);
       return;
     }
+
+    //save nti
+    const time = new Date();
+    const a = time.toLocaleTimeString();
+    const data = {
+      avatar: props.info.avatar,
+      name: props.info.name,
+      time: a,
+    };
+    dispatch(PushNotification(data));
     // click event call video
     localStorage.setItem("avatar", avatar);
     localStorage.setItem("receiverId", props.info.id);

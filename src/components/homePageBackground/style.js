@@ -81,7 +81,8 @@ export const Logo = styled.div`
   border-radius: 50%;
   background: #ffc712;
   animation: ${logo} 15s ease-in-out infinite;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 7px 8px -4px rgb(0 0 0 / 20%),
+    0px 12px 17px 2px rgb(0 0 0 / 14%), 0px 5px 22px 4px rgb(0 0 0 / 12%);
   top: 10%;
   right: 20%;
   z-index: 2;

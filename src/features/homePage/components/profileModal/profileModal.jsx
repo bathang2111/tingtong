@@ -28,6 +28,10 @@ import {
   CardMedia,
   Button,
   Badge,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -50,6 +54,8 @@ import { SendStatusLike } from "../../../listTutors/tutorSlide";
 import TextField from "@material-ui/core/TextField";
 import CallVideoApi from "../../../../api/callVideoApi";
 import { useHistory } from "react-router-dom";
+import { PushNotification } from "../../../notification/notificationSlide";
+import { Divider } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -114,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
   action: {
     alignItems: "flex-start",
   },
+  listItem: {},
 }));
 
 const StyledBadge = withStyles((theme) => ({
@@ -171,6 +178,7 @@ const Profile = (props) => {
   const [isOpenNoti, setOpenNoti] = useState(false);
   const { totalTime } = useSelector((state) => state.userprofile.userInfo);
   const history = useHistory();
+  const [listFeedBack, setListFeedBack] = useState([]);
 
   const handleChange = (e) => {
     setReason(e.target.value);
@@ -187,8 +195,12 @@ const Profile = (props) => {
   };
 
   useEffect(async () => {
+    if (idTutorDetail == "") return;
     const response = await TutorsApi.getTutorDetail(idTutorDetail);
     setTutor(response);
+    const feedBack = await FeedBackApi.GetTutorReview(idTutorDetail);
+    console.log(feedBack);
+    setListFeedBack(feedBack);
   }, [idTutorDetail]);
 
   const onHandleClick = async () => {
@@ -277,6 +289,15 @@ const Profile = (props) => {
       setOpenNoti(true);
       return;
     }
+    //save nti
+    const time = new Date();
+    const a = time.toLocaleTimeString();
+    const data = {
+      avatar: Tutor.avatar,
+      name: Tutor.name,
+      time: a,
+    };
+    dispatch(PushNotification(data));
     // click event call video
     localStorage.setItem("receiverId", Tutor.id);
     const room = await CallVideoApi.RequestCallVideo({
@@ -289,6 +310,73 @@ const Profile = (props) => {
       "Data",
       `height=380,width=700,left=${left},top=${top}`
     );
+  };
+
+  const timer = (time) => {
+    const dateObj = new Date(time);
+    const month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    const hour = dateObj.getUTCHours();
+    const min = dateObj.getUTCMinutes();
+    const sec = dateObj.getUTCSeconds();
+    return day + "-" + month + "-" + year + " " + hour + ":" + min;
+  };
+
+  const showListFeedBack = () => {
+    if (listFeedBack.length == 0)
+      return (
+        <ListItem>
+          <Typography
+            variant="body2"
+            style={{ fontSize: 13 }}
+            color="textPrimary"
+            component="p"
+          >
+            Không có nhận xét nào
+          </Typography>
+        </ListItem>
+      );
+    const result = listFeedBack.map((item) => {
+      return (
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Cindy Baker" src={item.student.avatar} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={item.student.fullName}
+            secondary={
+              <>
+                <Rating
+                  readOnly
+                  name="size-small"
+                  defaultValue={item.rating}
+                  size="small"
+                />
+                <br />
+                <Typography
+                  variant="body2"
+                  style={{ fontSize: 13 }}
+                  color="textSecondary"
+                  component="p"
+                >
+                  {item.feedback}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  style={{ fontSize: 11 }}
+                  color="textSecondary"
+                  component="p"
+                >
+                  {timer(item.updatedAt)}
+                </Typography>
+              </>
+            }
+          />
+        </ListItem>
+      );
+    });
+    return result;
   };
 
   const readRating = () => {
@@ -406,7 +494,7 @@ const Profile = (props) => {
         <CardHeader
           className={classes.root}
           avatar={
-           Tutor.isOnline ? (
+            Tutor.isOnline ? (
               <StyledBadge
                 overlap="circle"
                 anchorOrigin={{
@@ -617,6 +705,17 @@ const Profile = (props) => {
               {Tutor.interest}
             </Typography>
           </CardActions>
+          <Divider style={{ margin: "10px 0", height: 3 }} />
+          <Typography
+            style={{ minWidth: "30%" }}
+            noWrap
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
+            Nhận xét
+          </Typography>
+          <List>{showListFeedBack()}</List>
         </CardContent>
       </Card>
     </SC.Contaner>

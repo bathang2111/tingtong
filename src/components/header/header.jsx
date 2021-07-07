@@ -25,6 +25,7 @@ import { useHistory } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 import { Message, NotificationsActive } from "@material-ui/icons";
 import Badge from "@material-ui/core/Badge";
+import { ToggleLobby } from "../../features/notification/notificationSlide";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -151,7 +152,7 @@ const Header = (props) => {
                 variant="contained"
                 color="primary"
               >
-                {language.subcribe}
+                Mua gói
               </Button>
 
               <IconButton onClick={toggleMessage}>
@@ -163,8 +164,12 @@ const Header = (props) => {
                   <Message className={classes.message} />
                 </Badge>
               </IconButton>
-
-              <IconButton>
+              {/* notification */}
+              <IconButton
+                onClick={() => {
+                  dispatch(ToggleLobby());
+                }}
+              >
                 <NotificationsActive className={classes.message} />
               </IconButton>
 
@@ -198,7 +203,9 @@ const Header = (props) => {
                           id="menu-list-grow"
                           onKeyDown={handleListKeyDown}
                         >
-                          <MenuItem onClick={handleUserProfile}>Thông tin cá nhân</MenuItem>
+                          <MenuItem onClick={handleUserProfile}>
+                            Thông tin cá nhân
+                          </MenuItem>
                           <MenuItem onClick={handleSetting}>Cài đặt</MenuItem>
                           <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                         </MenuList>
