@@ -150,11 +150,12 @@ function UserProfilePage(props) {
   };
 
   const formatSecond = (s) => {
+    if (s == 0) return "Hết thời gian";
     if (!s) return;
     return new Date(s * 1000).toISOString().substr(11, 8);
     // return s
   };
-  
+
   return (
     <>
       <UpdateUser

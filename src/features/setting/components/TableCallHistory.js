@@ -42,12 +42,6 @@ const columns = [
         minWidth: 170,
         align: 'center',
     },
-    {
-        id: 'recordingVideoUrl',
-        label: 'Ghi hình',
-        minWidth: 170,
-        align: 'center',
-    },
 ];
 
 const useStyles = makeStyles({

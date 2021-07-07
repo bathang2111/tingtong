@@ -5,6 +5,10 @@ const AuthApi = {
     const url = "/auth/login";
     return postAPI(url, params);
   },
+  LoginWithGoogle: (params) => {
+    const url = "/auth/google";
+    return postAPI(url, params);
+  },
   SignUp: (params) => {
     const url = "/auth/register";
     return axiosClien.post(url, params);

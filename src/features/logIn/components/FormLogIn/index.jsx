@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuthLogin, isLoginOn } from "../../../../app/authSlide/loginSlide";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
+import { CLIENT_ID } from "../../../../constants/baseURl";
+import { GoogleLogin } from "react-google-login";
 import Swal from "sweetalert2";
 import {
   Grid,
@@ -22,6 +24,7 @@ import { signInWithGoogle, auth } from "../../../../app/firebaseConfig";
 import fbIcon from "../../../../assets/images/facebookIcon.svg";
 import ggIcon from "../../../../assets/images/googleIcon.svg";
 import { useHistory } from "react-router-dom";
+import AuthApi from "../../../../api/authApi";
 FormLogIn.propTypes = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -130,19 +133,18 @@ function FormLogIn(props) {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
-  const responseFacebook = (response) => {
-    const data = {
-      email: "",
-      phone: "",
-      password: "",
-      social_req: {
-        login_type: "FACEBOOK",
-        access_token: response.accessToken,
-      },
-    };
+  // const responseFacebook = (response) => {
+  //   const data = {
+  //     email: "",
+  //     phone: "",
+  //     password: "",
+  //     social_req: {
+  //       login_type: "FACEBOOK",
+  //       access_token: response.accessToken,
+  //     },
+  //   };
 
-    console.log(data);
-  };
+  // };
 
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
@@ -189,7 +191,7 @@ function FormLogIn(props) {
             icon: "success",
             title: "Đăng nhập thành công",
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1500,
           });
           localStorage.setItem("idUser", result.user.id);
           localStorage.setItem("token", result.accessToken);
@@ -201,7 +203,7 @@ function FormLogIn(props) {
             icon: "error",
             title: "Đăng nhập thất bai",
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1500,
           });
         }
       })
@@ -210,7 +212,7 @@ function FormLogIn(props) {
           icon: "error",
           title: "Đăng nhập thất bai",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1500,
         });
       });
   });
@@ -221,6 +223,50 @@ function FormLogIn(props) {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const loginWithGoogle = async (res) => {
+    console.log(res);
+    if (res.tokenId) {
+      const body = { id_token: res.tokenId };
+      try {
+        const resp = await AuthApi.LoginWithGoogle(body);
+        if (resp.user.id && resp.user.role == 0) {
+          Swal.fire({
+            icon: "success",
+            title: "Đăng nhập thành công",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          localStorage.setItem("idUser", resp.user.id);
+          localStorage.setItem("token", resp.accessToken);
+          // connectSocket();
+          dispatch(isLoginOn());
+          history.push("/");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Đăng nhập thất bai",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Đăng nhập Google thất bai",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Đăng nhập Google thất bai",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (
@@ -309,23 +355,33 @@ function FormLogIn(props) {
           />
         </div> */}
 
-        <Button
-          onClick={signInWithGoogle}
-          fullWidth
+        <GoogleLogin
+          clientId={CLIENT_ID}
+          onSuccess={loginWithGoogle}
+          onFailure={loginWithGoogle}
+          cookiePolicy={"single_host_origin"}
+          isSignedIn={false}
           className={classes.submit_gg}
-          startIcon={
-            <img
-              src={ggIcon}
-              style={{
-                width: "20px",
-                height: "20px",
-                objectFit: "contain",
-              }}
-            ></img>
-          }
-        >
-          Đăng nhập với Google
-        </Button>
+          render={(renderProps) => (
+            <Button
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              className={classes.submit_gg}
+              startIcon={
+                <img
+                  src={ggIcon}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    objectFit: "contain",
+                  }}
+                ></img>
+              }
+            >
+              Đăng nhập với Google
+            </Button>
+          )}
+        ></GoogleLogin>
 
         <Grid container direction="row" className={classes.not_acc}>
           <Typography className={classes.txt_not_acc}>
