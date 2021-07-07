@@ -5,7 +5,7 @@ import { getAuthLogin, isLoginOn } from "../../../../app/authSlide/loginSlide";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useForm } from "react-hook-form";
 import { CLIENT_ID } from "../../../../constants/baseURl";
-import { GoogleLogin } from "react-google-login";
+import { GoogleLogin, useGoogleLogout } from "react-google-login";
 import Swal from "sweetalert2";
 import {
   Grid,
@@ -133,43 +133,6 @@ function FormLogIn(props) {
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
-  // const responseFacebook = (response) => {
-  //   const data = {
-  //     email: "",
-  //     phone: "",
-  //     password: "",
-  //     social_req: {
-  //       login_type: "FACEBOOK",
-  //       access_token: response.accessToken,
-  //     },
-  //   };
-
-  // };
-
-  useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      if (user !== null) {
-        const data = {
-          email: "",
-          phone: "",
-          password: "",
-          social_req: {
-            login_type: "GOOGLE",
-            access_token: user.refreshToken,
-          },
-        };
-
-        console.log(data);
-      }
-    });
-
-    return () => {
-      if (unsubscribeFromAuth) {
-        unsubscribeFromAuth();
-        auth.signOut();
-      }
-    };
-  }, []);
 
   const onSubmit = (data) => {
     const user_info = pick(data, ["username", "password"]);
@@ -251,14 +214,7 @@ function FormLogIn(props) {
             timer: 1500,
           });
         }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Đăng nhập Google thất bai",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
+      } catch (error) {}
     } else {
       Swal.fire({
         icon: "error",
@@ -360,7 +316,6 @@ function FormLogIn(props) {
           onSuccess={loginWithGoogle}
           onFailure={loginWithGoogle}
           cookiePolicy={"single_host_origin"}
-          isSignedIn={false}
           className={classes.submit_gg}
           render={(renderProps) => (
             <Button
