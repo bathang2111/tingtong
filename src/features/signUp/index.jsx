@@ -225,6 +225,8 @@ function SignUp(props) {
       email: user_info.email,
       username: user_info.username,
       password: user_info.password,
+      lastName: user_info.username,
+      firstName: "",
     };
 
     fetchSignUp(body);
