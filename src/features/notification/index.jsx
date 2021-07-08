@@ -56,6 +56,13 @@ const Notification = (props) => {
     return output;
   };
 
+  const formatSecond = (s) => {
+    if (s == 0) return "Hết thời gian";
+    if (!s) return;
+    return new Date(s * 1000).toISOString().substr(11, 8);
+    // return s
+  };
+
   const showNoti = () => {
     const result = listNoti.map((item) => {
       return (
@@ -93,7 +100,7 @@ const Notification = (props) => {
             <Avatar src={userInfo.avatar}></Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={"Thời gian còn lại: " + userInfo.totalTime}
+            primary={"Thời gian còn lại: " + formatSecond(userInfo.totalTime)}
             secondary={getDate()}
           />
         </ListItem>

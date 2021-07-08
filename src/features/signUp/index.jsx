@@ -184,7 +184,6 @@ function SignUp(props) {
         const result = unwrapResult(res);
         console.log(result);
         if (result.user.id && result.user.role == 0) {
-          dispatch(isLoginOn())
           localStorage.setItem("idUser", result.user.id);
           localStorage.setItem("token", result.accessToken);
           Swal.fire({
@@ -193,9 +192,8 @@ function SignUp(props) {
             showConfirmButton: false,
             timer: 1500,
           });
-        
+          dispatch(isLoginOn());
           history.push("/");
-          console.log("push");
         } else {
           Swal.fire({
             icon: "error",
