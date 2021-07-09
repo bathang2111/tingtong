@@ -152,7 +152,7 @@ const Header = (props) => {
                 variant="contained"
                 color="primary"
               >
-                Mua gói
+                Mua thời gian
               </Button>
 
               <IconButton onClick={toggleMessage}>
