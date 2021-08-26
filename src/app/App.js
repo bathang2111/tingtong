@@ -24,6 +24,7 @@ import ScrollToTop from "./ScrollToTop";
 import Notification from "../features/notification";
 
 function App() {
+  localStorage.setItem("idUser", 123);
   const isLogin = useSelector((state) => state.login.checkLogin);
   const token = localStorage.getItem("token");
   const [tokenn, setToken] = useState();
@@ -88,7 +89,7 @@ function App() {
           <FeedBack />
           <ChatWindow />
           <ListChatTing />
-          <Notification/>
+          <Notification />
           <ListChat />
           <Calender />
           <SmallScreenMenu />

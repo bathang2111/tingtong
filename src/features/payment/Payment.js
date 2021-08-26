@@ -185,7 +185,7 @@ const Payment = (props) => {
             <Grid item xs={12} md={8}>
               <Paper className={classes.paper}>
                 <Typography variant="h4" component="h2">
-                  Chọn gói đăng ký
+                  Thanh toán
                 </Typography>
                 <Box className={classes.containerPackage}>
                   <ContainerPackage packageSelected={packageSelected} packages={packageTime} onSelect={onHandleSelectPackage}></ContainerPackage>
